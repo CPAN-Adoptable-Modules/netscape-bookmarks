@@ -1,5 +1,5 @@
 package Netscape::Bookmarks::Link;
-# $Id: Link.pm,v 1.5 2002/09/24 01:29:32 comdog Exp $
+# $Id: Link.pm,v 1.6 2002/10/03 23:03:33 comdog Exp $
 
 =head1 NAME
 
@@ -7,7 +7,7 @@ Netscape::Bookmarks::Link	- manipulate, or create Netscape Bookmarks links
 
 =head1 SYNOPSIS
 
-  use Netscape::Bookmarks::Bookmarks;
+  use Netscape::Bookmarks::Link;
 
   my $category = new Netscape::Bookmarks::Category { ... };
   my $link = new Netscape::Bookmarks::Link {
@@ -81,7 +81,7 @@ use Exporter;
 
 use URI::URL;
 
-($VERSION)   = q$Revision: 1.5 $ =~ m/(\d+\.\d+)\s*$/;
+($VERSION)   = q$Revision: 1.6 $ =~ m/(\d+\.\d+)\s*$/;
 
 @EXPORT    = qw();
 @EXPORT_OK = qw();
@@ -457,8 +457,8 @@ sub as_string
 	$ping_status      = $ping_status      ? qq|PING_STATUS="$ping_status"|           : '';
 
 	my $attr = join " ", grep( $_ ne '', ($aliasid, $aliasof, $add_date, $last_visit,
-		$last_modified, $schedule, $last_ping, $shortcuturl, $icon, $last_charset,
-		$ping_content_len, $ping_status) ); 
+		$last_modified, $icon, $schedule, $last_ping, $shortcuturl, 
+		$ping_content_len, $ping_status,  $last_charset, ) ); 
 	
 	$attr = " " . $attr if $attr;
 	
