@@ -3,6 +3,7 @@ MANIFEST
 Makefile.PL
 Bookmarks.html
 Bookmarks.pm
+test.pl
 Category/Category.pm
 Category/Makefile.PL
 Category/test.pl
