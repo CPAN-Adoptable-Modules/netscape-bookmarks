@@ -1,6 +1,6 @@
 package Netscape::Bookmarks::Category;
-# $Revision: 1.2 $
-# $Id: Category.pm,v 1.2 2001/12/10 06:14:07 comdog Exp $
+# $Revision: 1.3 $
+# $Id: Category.pm,v 1.3 2001/12/19 06:26:05 comdog Exp $
 
 =head1 NAME
 
@@ -67,7 +67,7 @@ use constant TAB             => '    ';
 use constant FOLDED_TRUE     => 1;
 use constant FOLDED_FALSE    => 0;
 	
-($VERSION) = q$Revision: 1.2 $ =~ m/(\d+\.\d+)\d*$/;
+($VERSION) = q$Revision: 1.3 $ =~ m/(\d+\.\d+)\d*$/;
 %IDS     = ();
 $LAST_ID = -1;
 
@@ -301,12 +301,15 @@ sub as_headline
 	my $folded = $self->folded ? "FOLDED" : "";
 	my $add_date = $self->add_date;
 	my $title = $self->title;
+	my $desc     = $self->description;
 	
+	$desc = "\n<DD>$desc" if $desc ne '';
+
 	$add_date = $add_date ? qq|ADD_DATE="$add_date"| : '';
 	
 	my $sp = ($folded and $add_date) ? ' ' : '';
 	
-	return qq|<H3 $folded$sp$add_date>$title</H3>|
+	return qq|<H3 $folded$sp$add_date>$title</H3>$desc|
 	}
 
 =item $category-E<gt>as_string()

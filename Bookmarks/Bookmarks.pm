@@ -1,5 +1,5 @@
 package Netscape::Bookmarks;
-# $Id: Bookmarks.pm,v 1.5 2001/12/10 06:16:14 comdog Exp $
+# $Id: Bookmarks.pm,v 1.6 2001/12/19 06:26:05 comdog Exp $
 
 =head1 NAME
 
@@ -93,10 +93,11 @@ use Netscape::Bookmarks::Category;
 use Netscape::Bookmarks::Link;
 use Netscape::Bookmarks::Separator;
 
-($VERSION) = q$Revision: 1.5 $ =~ m/(\d+\.\d+)\s*$/;
+($VERSION) = q$Revision: 1.6 $ =~ m/(\d+\.\d+)\s*$/;
 @ISA=qw(HTML::Parser);
 
 $ID = 0;
+$DEBUG = $ENV{NS_DEBUG} || 0;
 
 =item new( [filename] )
 
@@ -200,6 +201,16 @@ sub text
 			}
 		elsif( $flag eq 'dd' )
 			{
+			print STDERR "Grabbing DD text - state is $state\n" if $DEBUG;
+            if( $state eq 'category' )
+                {
+                ${$category_stack[-1]}->append_description( $text );
+                }
+            elsif( $state eq 'anchor' )
+                {
+                ${$$current_link}{'DESCRIPTION'} .= $text;
+                }
+
 			${$category_stack[-1]}->append_description($text);
 			}
 
@@ -273,6 +284,8 @@ sub text
 			}
 		elsif( $flag eq 'dd' )
 			{
+			print STDERR "Grabbing DD text and adding - state is $state\n"
+				if $DEBUG;
 			if( $state eq 'category' )
 				{
 				${$category_stack[-1]}->add_desc($text);

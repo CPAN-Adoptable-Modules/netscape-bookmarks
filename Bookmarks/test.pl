@@ -30,4 +30,4 @@ print STDERR $@ if $@;
 
 print $@ ? 'not ' : '', 'ok 2', "\n";
 
-END { unlink "bookmark_files/Bookmarks_tmp.html" }
+# END { unlink "bookmark_files/Bookmarks_tmp.html" }
