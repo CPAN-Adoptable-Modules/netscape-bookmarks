@@ -1,6 +1,6 @@
 package Netscape::Bookmarks::Category;
-# $Revision: 1.1 $
-# $Id: Category.pm,v 1.1 2001/08/08 18:03:32 comdog Exp $
+# $Revision: 1.2 $
+# $Id: Category.pm,v 1.2 2001/12/10 06:14:07 comdog Exp $
 
 =head1 NAME
 
@@ -67,7 +67,7 @@ use constant TAB             => '    ';
 use constant FOLDED_TRUE     => 1;
 use constant FOLDED_FALSE    => 0;
 	
-($VERSION) = q$Revision: 1.1 $ =~ m/(\d+\.\d+)\d*$/;
+($VERSION) = q$Revision: 1.2 $ =~ m/(\d+\.\d+)\d*$/;
 %IDS     = ();
 $LAST_ID = -1;
 
@@ -178,9 +178,9 @@ sub add_desc
 	$self->{'description'} = $text;
 	}
 
-=item $category-E<gt>title( $object )
+=item $category-E<gt>title()
 
-Adds a title to the category.
+Returns title to the category.
 
 =cut
 
@@ -191,9 +191,9 @@ sub title
 	$self->{'title'};
 	}
 
-=item $category-E<gt>title( $object )
+=item $category-E<gt>id()
 
-Returns the title of the category.
+Returns the ID of the category. This is an arbitrary, unique number.
 
 =cut
 
@@ -202,6 +202,19 @@ sub id
 	my $self = shift;
 	
 	$self->{'id'};
+	}
+
+=item $category-E<gt>description
+
+Returns the description of the category
+
+=cut
+
+sub description
+	{
+	my $self = shift;
+
+	$self->{description};
 	}
 
 =item $category-E<gt>folded( $object )
@@ -218,7 +231,7 @@ sub folded
 	return $self->{'folded'} ? 1 : 0;
 	}
 
-=item $category-E<gt>add_date( $object )
+=item $category-E<gt>add_date()
 
 Returns the ADD_DATE attribute of the category.
 
@@ -231,7 +244,7 @@ sub add_date
 	return $self->{'add_date'};
 	}
 	
-=item $category-E<gt>elements( $object )
+=item $category-E<gt>elements()
 
 Returns an array reference to the elements in the category.
 
@@ -244,7 +257,7 @@ sub elements
 	return \@{ $self->{'thingys'} };
 	}
 	
-=item $category-E<gt>categories( $object )
+=item $category-E<gt>categories()
 
 Returns a list of the Category objects in the category.
 
@@ -259,7 +272,7 @@ sub categories
 	return @list;
 	}
 
-=item $category-E<gt>links( $object )
+=item $category-E<gt>links()
 
 Returns a list of the Link objects in the category.
 
@@ -274,7 +287,7 @@ sub links
 	return @list;
 	}
 
-=item $category-E<gt>as_headline( $object )
+=item $category-E<gt>as_headline()
 
 Returns an HTML string representation of the category, but not
 the elements of the category.
@@ -296,7 +309,7 @@ sub as_headline
 	return qq|<H3 $folded$sp$add_date>$title</H3>|
 	}
 
-=item $category-E<gt>as_string( $object )
+=item $category-E<gt>as_string()
 
 Returns an HTML string representation of the category as the
 top level category, along with all of the elements of the 
@@ -385,7 +398,7 @@ __END__
 
 =head1 AUTHOR
 
-brian d foy E<lt>comdog@panix.comE<gt>
+brian d foy E<lt>bdfoy@cpan.orgE<gt>
 
 =head1 COPYRIGHT
 
@@ -393,7 +406,9 @@ This program is free software; you can redistribute it
 and/or modify it under the same terms as Perl itself.
 
 If you send me modifications or new features, I will do
-my best to incorporate them into future versions.
+my best to incorporate them into future versions. You can
+interact with the Sourceforge porject for this module at
+http://sourceforge.net/projects/nsbookmarks/.
 
 =head1 SEE ALSO
 
