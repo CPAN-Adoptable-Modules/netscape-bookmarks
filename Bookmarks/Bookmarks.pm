@@ -1,5 +1,5 @@
 package Netscape::Bookmarks;
-# $Id: Bookmarks.pm,v 1.4 2001/09/14 00:29:45 comdog Exp $
+# $Id: Bookmarks.pm,v 1.5 2001/12/10 06:16:14 comdog Exp $
 
 =head1 NAME
 
@@ -93,7 +93,7 @@ use Netscape::Bookmarks::Category;
 use Netscape::Bookmarks::Link;
 use Netscape::Bookmarks::Separator;
 
-($VERSION) = q$Revision: 1.4 $ =~ m/(\d+\.\d+)\s*$/;
+($VERSION) = q$Revision: 1.5 $ =~ m/(\d+\.\d+)\s*$/;
 @ISA=qw(HTML::Parser);
 
 $ID = 0;
@@ -315,7 +315,9 @@ This program is free software; you can redistribute it
 and/or modify it under the same terms as Perl itself.
 
 If you send me modifications or new features, I will do
-my best to incorporate them into future versions.
+my best to incorporate them into future versions. You
+can interact with the SourceForge project at
+http://sourceforge.net/projects/nsbookmarks/.
 
 =head1 SEE ALSO
 
