@@ -1,6 +1,6 @@
 package Netscape::Bookmarks::Alias;
-# $Revision: 1.2 $
-# $Id: Alias.pm,v 1.2 2004/09/16 01:26:31 comdog Exp $
+# $Revision: 1.3 $
+# $Id: Alias.pm,v 1.3 2004/09/16 01:33:21 comdog Exp $
 
 =head1 NAME
 
@@ -25,6 +25,8 @@ Bookmarks file. An alias is simply a reference to another link in the
 Bookmarks file, henceforth called the target. If you change the alias,
 the target link also changes.
 
+=head2 Methods
+
 =over 4
 
 =cut
@@ -38,7 +40,7 @@ use Exporter;
 
 use Netscape::Bookmarks::Link;
 
-($VERSION) = q$Revision: 1.2 $ =~ m/(\d+\.\d+)\s*$/;
+($VERSION) = q$Revision: 1.3 $ =~ m/(\d+\.\d+)\s*$/;
 
 @EXPORT    = qw();
 @EXPORT_OK = qw();

@@ -1,5 +1,5 @@
 package Netscape::Bookmarks;
-# $Id: Bookmarks.pm,v 1.2 2004/09/16 01:26:31 comdog Exp $
+# $Id: Bookmarks.pm,v 1.3 2004/09/16 01:33:21 comdog Exp $
 
 =head1 NAME
 
@@ -93,7 +93,7 @@ use Netscape::Bookmarks::Category;
 use Netscape::Bookmarks::Link;
 use Netscape::Bookmarks::Separator;
 
-($VERSION) = q$Revision: 1.2 $ =~ m/(\d+\.\d+)\s*$/;
+($VERSION) = q$Revision: 1.3 $ =~ m/(\d+\.\d+)\s*$/;
 @ISA=qw(HTML::Parser);
 
 $ID = 0;
@@ -317,6 +317,8 @@ sub end
 sub my_init {}
 
 "Seeing is believing";
+
+=back
 
 =head1 SOURCE AVAILABILITY
 

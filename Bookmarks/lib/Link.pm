@@ -1,6 +1,6 @@
 package Netscape::Bookmarks::Link;
-# $Revision: 1.2 $
-# $Id: Link.pm,v 1.2 2004/09/16 01:26:31 comdog Exp $
+# $Revision: 1.3 $
+# $Id: Link.pm,v 1.3 2004/09/16 01:33:21 comdog Exp $
 
 =head1 NAME
 
@@ -55,7 +55,7 @@ file.  A link has these attributes, only some of which may be present:
 
 These are explained below.
 
-=head1 METHODS
+=head2 Methods
 
 =over 4
 
@@ -70,7 +70,7 @@ use Exporter;
 
 use URI::URL;
 
-($VERSION)   = q$Revision: 1.2 $ =~ m/(\d+\.\d+)\s*$/;
+($VERSION)   = q$Revision: 1.3 $ =~ m/(\d+\.\d+)\s*$/;
 
 @EXPORT    = qw();
 @EXPORT_OK = qw();
@@ -131,7 +131,8 @@ sub new
 	}
 
 
-=head2 $obj->href
+
+=item $obj->href
 
 Returns the URL of the link.  The URL appears in the HREF attribute of
 the anchor tag.
@@ -145,7 +146,7 @@ sub href
 	($self->{'HREF'})->as_string
 	}
 
-=head2 $obj->add_date
+=item $obj->add_date
 
 Returns the date when the link was added, in Unix epoch time.
 
@@ -158,7 +159,7 @@ sub add_date
 	$self->{'ADD_DATE'}
 	}
 
-=head2 $obj->last_modified
+=item $obj->last_modified
 
 Returns the date when the link was last modified, in Unix epoch time.  Returns
 zero if no information is available.
@@ -172,7 +173,7 @@ sub last_modified
 	$self->{'LAST_MODIFIED'}
 	}
 
-=head2 $obj->last_visit
+=item $obj->last_visit
 
 Returns the date when the link was last vistied, in Unix epoch time. Returns
 zero if no information is available.
@@ -186,7 +187,7 @@ sub last_visit
 	$self->{'LAST_VISIT'}
 	}
 
-=head2 $obj->title
+=item $obj->title
 
 Returns the link title.
 
@@ -199,7 +200,7 @@ sub title
 	$self->{'TITLE'}
 	}
 
-=head2 $obj->description
+=item $obj->description
 
 Returns the link description.
 
@@ -212,7 +213,7 @@ sub description
 	$self->{'DESCRIPTION'}
 	}
 
-=head2 $obj->alias_id
+=item $obj->alias_id
 
 Returns the alias id of a link. Links with aliases are assigned an ALIAS_ID which
 associates them with the alias.  The alias contains the same value in it's ALIAS_OF
@@ -231,7 +232,7 @@ sub aliasid
 	$self->{'ALIASID'}
 	}
 
-# =head2 $obj->alias_of
+# =item $obj->alias_of
 #
 # Returns the target id of a link. Links with aliases are assigned an ALIAS_ID which
 # associates them with the alias.  The alias contains the same value in it's ALIAS_OF
@@ -247,7 +248,7 @@ sub aliasof
 	$self->{'ALIASOF'}
 	}
 
-# =head2 $obj->append_title
+# =item $obj->append_title
 #
 # Adds to the title - used mostly for the HTML parser, although it can
 # be used to add a title if none exists (which is an error, though).
@@ -262,7 +263,7 @@ sub append_title
 	$self->{'TITLE'} .= $text;
 	}
 
-# =head2 $obj->append_description
+# =item $obj->append_description
 #
 # Adds to the description - used mostly for the HTML parser, although
 # it can be used to add a description if none exists.
@@ -296,7 +297,7 @@ HERE
 
 	}
 
-=head2 $obj->as_string
+=item $obj->as_string
 
 Returns a Netscape compatible bookmarks file based on the Bookmarks object.
 

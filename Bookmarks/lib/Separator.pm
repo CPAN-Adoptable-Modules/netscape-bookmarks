@@ -1,6 +1,6 @@
 package Netscape::Bookmarks::Separator;
-# $Revision: 1.2 $
-# $Id: Separator.pm,v 1.2 2004/09/16 01:26:31 comdog Exp $
+# $Revision: 1.3 $
+# $Id: Separator.pm,v 1.3 2004/09/16 01:33:21 comdog Exp $
 
 =head1 NAME
 
@@ -24,7 +24,7 @@ Netscape::Bookmarks::Separator	- manipulate, or create Netscape Bookmarks files
 
 Store a Netscape bookmark separator object.
 
-=head1 METHODS
+=head2 Methods
 
 =over 4
 
@@ -39,13 +39,13 @@ use Exporter;
 
 use URI::URL;
 
-($VERSION) = q$Revision: 1.2 $ =~ m/(\d+\.\d+)\s*$/;
+($VERSION) = q$Revision: 1.3 $ =~ m/(\d+\.\d+)\s*$/;
 
 @EXPORT    = qw();
 @EXPORT_OK = qw();
 @ISA       = qw();
 
-=head2 Netscape::Bookmarks::Separator->new
+=item Netscape::Bookmarks::Separator->new
 
 Creates a new Separator object.  This method takes no arguments.
 
@@ -63,7 +63,7 @@ sub new
 	$self;
 	}
 
-=head2 $obj->as_string
+=item $obj->as_string
 
 Prints the separator object in the Netscape bookmark format.  One should
 not have to do this as Netscape::Bookmarks::Category will take care of it.
@@ -80,6 +80,16 @@ sub as_string
 __END__
 
 =back
+
+=head1 SOURCE AVAILABILITY
+
+This source is part of a SourceForge project which always has the
+latest sources in CVS, as well as all of the previous releases.
+
+	http://sourceforge.net/projects/nsbookmarks/
+
+If, for some reason, I disappear from the world, one of the other
+members of the project can shepherd this module appropriately.
 
 =head1 AUTHOR
 

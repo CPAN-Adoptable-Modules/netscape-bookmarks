@@ -1,6 +1,6 @@
 package Netscape::Bookmarks::Category;
-# $Revision: 1.2 $
-# $Id: Category.pm,v 1.2 2004/09/16 01:26:31 comdog Exp $
+# $Revision: 1.3 $
+# $Id: Category.pm,v 1.3 2004/09/16 01:33:54 comdog Exp $
 
 =head1 NAME
 
@@ -46,7 +46,7 @@ simply a collection of categories that contain any of the components listed
 above.  The top level (i.e. root) category is treated specially and defines the
 title of the bookmarks file.
 
-=head1 METHODS
+=head2 Methods
 
 =over 4
 
@@ -67,7 +67,7 @@ use constant TAB             => '    ';
 use constant FOLDED_TRUE     => 1;
 use constant FOLDED_FALSE    => 0;
 
-($VERSION) = q$Revision: 1.2 $ =~ m/(\d+\.\d+)\d*$/;
+($VERSION) = q$Revision: 1.3 $ =~ m/(\d+\.\d+)\d*$/;
 %IDS     = ();
 $LAST_ID = -1;
 
