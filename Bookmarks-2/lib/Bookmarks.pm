@@ -1,5 +1,5 @@
 package Netscape::Bookmarks;
-# $Id: Bookmarks.pm,v 1.2 2002/04/04 20:18:29 comdog Exp $
+# $Id: Bookmarks.pm,v 1.3 2002/05/27 00:25:22 comdog Exp $
 
 =head1 NAME
 
@@ -70,6 +70,7 @@ their appropriate modules.
 =cut
 
 use strict;
+use base qw(HTML::Parser);
 
 use subs qw();
 use vars qw(@ISA
@@ -94,10 +95,8 @@ use Netscape::Bookmarks::Category;
 use Netscape::Bookmarks::Link;
 use Netscape::Bookmarks::Separator;
 
-($VERSION) = sprintf "%d.%02d", q$Revision: 1.2 $ =~ m/(\d+) \. (\d+)\s*$/;
+($VERSION) = sprintf "%d.%02d", q$Revision: 1.3 $ =~ m/(\d+) \. (\d+)\s*$/;
 $VERSION = "2.0_01"; #this is a beta release
-
-@ISA=qw(HTML::Parser);
 
 $ID = 0;
 $DEBUG = $ENV{NS_DEBUG} || 0;
@@ -132,6 +131,7 @@ sub new
 	return unless ( -e $file or ref $file );
 	
 	my $self = HTML::Parser->new();
+	$self->unbroken_text(1);
 	
 	bless $self, $class;
 	
@@ -204,21 +204,21 @@ sub text
 			}
 		elsif( $flag eq 'h1' or $flag eq 'h3' )
 			{
-			$category_stack[-1]->append_title( $text );
+			$category_stack[-1]->title( $text );
 			}
 		elsif( $flag eq 'a' and not exists $link_data{'aliasof'} )
 			{
-			$current_link->append_title( $text );
+			$current_link->title( $text );
 			}
 		elsif( $flag eq 'dd' )
 			{
             if( $state eq 'category' )
                 {
-                $category_stack[-1]->append_description( $text );
+                $category_stack[-1]->description( $text );
                 }
             elsif( $state eq 'anchor' )
                 {
-                $current_link->append_description( $text );
+                $current_link->description( $text );
                 }
 			}
 
@@ -298,7 +298,7 @@ sub text
 			{
 			if( $state eq 'category' )
 				{
-				$category_stack[-1]->add_desc( $text );
+				$category_stack[-1]->description( $text );
 				}
 			elsif( $state eq 'anchor' )
 				{                

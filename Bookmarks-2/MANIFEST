@@ -18,6 +18,7 @@ lib/Bookmarks.pm
 lib/Category.pm
 lib/Link.pm
 lib/Separator.pm
+lib/AcceptVisitor.pm
 t/alias.t
 t/bookmarks.t
 t/category.t

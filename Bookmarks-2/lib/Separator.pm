@@ -1,6 +1,6 @@
 package Netscape::Bookmarks::Separator;
-# $Revision: 1.1 $
-# $Id: Separator.pm,v 1.1 2002/01/08 16:43:25 comdog Exp $
+# $Revision: 1.2 $
+# $Id: Separator.pm,v 1.2 2002/05/27 00:25:22 comdog Exp $
 
 =head1 NAME
 
@@ -41,11 +41,11 @@ use Exporter;
 
 use URI::URL;
 
-($VERSION) = q$Revision: 1.1 $ =~ m/(\d+\.\d+)\s*$/;
+($VERSION) = q$Revision: 1.2 $ =~ m/(\d+\.\d+)\s*$/;
 
 @EXPORT    = qw();
 @EXPORT_OK = qw();
-@ISA       = qw();
+@ISA       = qw(Netscape::Bookmarks::AcceptVisitor);
 
 =head2 Netscape::Bookmarks::Separator->new
 
@@ -100,7 +100,7 @@ sub remove
 	}
 	
 "if you want to believe everything you read, so be it.";
-
+	
 __END__
 
 =back

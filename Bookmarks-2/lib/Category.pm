@@ -1,6 +1,6 @@
 package Netscape::Bookmarks::Category;
-# $Revision: 1.1 $
-# $Id: Category.pm,v 1.1 2002/01/08 16:43:24 comdog Exp $
+# $Revision: 1.2 $
+# $Id: Category.pm,v 1.2 2002/05/27 00:25:22 comdog Exp $
 
 =head1 NAME
 
@@ -69,7 +69,7 @@ use constant TAB             => '    ';
 use constant FOLDED_TRUE     => 1;
 use constant FOLDED_FALSE    => 0;
 	
-($VERSION) = q$Revision: 1.1 $ =~ m/(\d+\.\d+)\d*$/;
+($VERSION) = q$Revision: 1.2 $ =~ m/(\d+\.\d+)\d*$/;
 %IDS     = ();
 $LAST_ID = -1;
 
@@ -173,54 +173,23 @@ objects which it contains, it probably should.
 =cut
 
 sub remove { 1; }
-
-# append_title is used by the parser routines to add to a 
-# title as the HTML stream is parsed.  the title may fall
-# across a chunk boundary so the first part is saved and
-# the second part is added.
-sub append_title
-	{
-	my $self = shift;
-	my $text = shift;
 	
-	$self->{'title'} .= $text;
-	}
+=item $category-E<gt>title( [ TITLE ] )
 
-# append_description is used by the parser routines to add to a 
-# title as the HTML stream is parsed.  the title may fall
-# across a chunk boundary so the first part is saved and
-# the second part is added.
-sub append_description
-	{
-	my $self = shift;
-	my $text = shift;
-	
-	$self->{'description'} .= $text;
-	}
-	
-=item $category-E<gt>add_desc( $object )
-
-Adds a description to the category.
-
-=cut
-
-sub add_desc
-	{
-	my $self = shift;
-	my $text = shift;
-			
-	$self->{'description'} = $text;
-	}
-
-=item $category-E<gt>title()
-
-Returns title to the category.
+Returns title to the category. With a 
+defined argument TITLE, it replaces the current
+title.
 
 =cut
 
 sub title
 	{
 	my $self = shift;
+
+	if( defined $_[0] )
+		{
+		$self->{'title'} = shift;
+		}
 	
 	$self->{'title'};
 	}
@@ -238,17 +207,24 @@ sub id
 	$self->{'id'};
 	}
 
-=item $category-E<gt>description
+=item $category-E<gt>description( [ DESCRIPTION ] )
 
-Returns the description of the category
+Returns the description of the category.  With a 
+defined argument DESCRIPTION, it replaces the current
+description.
 
 =cut
 
 sub description
 	{
 	my $self = shift;
-
-	$self->{description};
+	
+	if( defined $_[0] )
+		{
+		$self->{'description'} = shift;
+		}
+		
+	$self->{'description'};
 	}
 
 =item $category-E<gt>folded( $object )
@@ -359,7 +335,7 @@ sub as_headline
 	return qq|<H3 $folded$sp$add_date>$title</H3>$desc|
 	}
 
-=head2 $category-E<gt>recurse( CODE, [ LEVEL ] )
+=item $category-E<gt>recurse( CODE, [ LEVEL ] )
 
 This method performs a depth-first traversal of the Bookmarks
 tree and executes the CODE reference at each node.  
@@ -394,6 +370,51 @@ sub recurse
 			{
 			$sub->( $element, $level );
 			}
+		}
+	--$level;
+
+	}	
+
+=item $category-E<gt>introduce( VISITOR, [ LEVEL ] )
+
+This method performs a depth-first traversal of the Bookmarks
+tree and introduces the visitor object to each object.  
+
+This is different from recurse() which only calls its
+CODEREF on nodes.  The VISITOR operates on nodes and
+vertices.  The VISITOR must have a visit() method 
+recognizable by can().  This method does not trap
+errors in the VISITOR.
+
+See L<Netscape::Bookmarks::AcceptVisitor> for details on
+Visitors.
+
+=cut
+
+sub introduce
+	{
+	my $self      = shift;
+	my $visitor   = shift;
+	my $level     = shift || 0;
+	
+	unless( $visitor->can('visit') )
+		{
+		warn "Argument to introduce cannot visit()!";
+		return;
+		}
+
+	$sub->( $self, $level );
+		
+	++$level;
+	foreach my $element ( $self->elements )
+		{
+		$element->visitor( $element );
+		
+		if( $element->isa( __PACKAGE__ ) )
+			{
+			$element->introduce( $visitor, $level );
+			}
+
 		}
 	--$level;
 

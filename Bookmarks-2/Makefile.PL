@@ -1,23 +1,24 @@
 use ExtUtils::MakeMaker;
 # See lib/ExtUtils/MakeMaker.pm for details of how to influence
 # the contents of the Makefile that is written.
-# $Revision: 1.1 $
-# $Id: Makefile.PL,v 1.1 2002/01/08 16:43:24 comdog Exp $
+# $Revision: 1.2 $
+# $Id: Makefile.PL,v 1.2 2002/05/27 00:25:22 comdog Exp $
 
 WriteMakefile(
-    'NAME'	       => 'Netscape::Bookmarks',
-    'VERSION_FROM' => 'lib/Bookmarks.pm', # finds $VERSION
+    'NAME'	  => 'Netscape::Bookmarks',
+    'VERSION' => '1.5', # finds $VERSION
     
     'PM'     => {
-    	'lib/Bookmarks.pm' => '$(INST_LIBDIR)/Bookmarks.pm',
-    	'lib/Category.pm'  => '$(INST_LIBDIR)/Bookmarks/Category.pm',
-    	'lib/Alias.pm'     => '$(INST_LIBDIR)/Bookmarks/Alias.pm',
-    	'lib/Separator.pm' => '$(INST_LIBDIR)/Bookmarks/Separator.pm',
-    	'lib/Link.pm'      => '$(INST_LIBDIR)/Bookmarks/Link.pm',
+    	'lib/Bookmarks.pm'     => '$(INST_LIBDIR)/Bookmarks.pm',
+    	'lib/Category.pm'      => '$(INST_LIBDIR)/Bookmarks/Category.pm',
+    	'lib/Alias.pm'         => '$(INST_LIBDIR)/Bookmarks/Alias.pm',
+    	'lib/Separator.pm'     => '$(INST_LIBDIR)/Bookmarks/Separator.pm',
+    	'lib/Link.pm'          => '$(INST_LIBDIR)/Bookmarks/Link.pm',
+		'lib/AcceptVisitor.pm' => '$(INST_LIBDIR)/Bookmarks/AcceptVisitor.pm',
     	},
     	
     'PREREQ_PM'    => { 	
-		'HTML::Parser'   => undef,
+		'HTML::Parser'   => 3.26,
 		'HTML::Entities' => undef,
 		'URI::URL'       => undef,
 	 },
