@@ -18,11 +18,13 @@ lib/AcceptVisitor.pm
 lib/Alias.pm
 lib/Bookmarks.pm
 lib/Category.pm
+lib/Isa.pm
 lib/Link.pm
 lib/Separator.pm
 t/alias.t
 t/bookmarks.t
 t/category.t
+t/isa.t
 t/link.t
 t/load.t
 t/mozilla.t
