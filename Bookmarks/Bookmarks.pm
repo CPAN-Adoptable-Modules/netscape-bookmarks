@@ -1,5 +1,5 @@
 package Netscape::Bookmarks;
-# $Id: Bookmarks.pm,v 1.1 2001/08/08 18:03:31 comdog Exp $
+# $Id: Bookmarks.pm,v 1.3 2001/08/12 22:54:58 comdog Exp $
 
 =head1 NAME
 
@@ -93,7 +93,7 @@ use Netscape::Bookmarks::Category;
 use Netscape::Bookmarks::Link;
 use Netscape::Bookmarks::Separator;
 
-($VERSION) = q$Revision: 1.1 $ =~ m/(\d+\.\d+)\s*$/;
+($VERSION) = q$Revision: 1.3 $ =~ m/(\d+\.\d+)\s*$/;
 @ISA=qw(HTML::Parser);
 
 $ID = 0;
