@@ -1,4 +1,4 @@
-# $Id: bookmarks.t,v 1.4 2002/09/24 01:29:32 comdog Exp $
+# $Id: bookmarks.t,v 1.5 2004/09/02 05:23:25 comdog Exp $
 use strict;
 
 use Test::More tests => 3;
@@ -24,7 +24,7 @@ close $fh;
 my $diff = diff $File, $Tmp, { CONTEXT => 0 };
 my $ok   = not $diff;
 
-ok( $ok );
+ok( $ok, 'Files are the same' );
 
 =pod
 
