@@ -1,6 +1,5 @@
-# $Id: prereq.t,v 1.2 2002/09/23 21:33:34 comdog Exp $
-
-use Test::More tests => 1;
-use Test::Prereq;
-
-prereq_ok( undef, undef, [ qw(examples/Visitor.pm) ] );
+#$Id: prereq.t,v 1.3 2004/09/02 05:15:41 comdog Exp $
+use Test::More;
+eval "use Test::Prereq";
+plan skip_all => "Test::Prereq required to test dependencies" if $@;
+prereq_ok();
