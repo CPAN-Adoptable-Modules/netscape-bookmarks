@@ -1,5 +1,5 @@
 package Netscape::Bookmarks;
-# $Id: Bookmarks.pm,v 1.4 2004/09/16 01:45:57 comdog Exp $
+# $Id: Bookmarks.pm,v 1.5 2004/09/16 01:50:54 comdog Exp $
 
 =head1 NAME
 
@@ -30,19 +30,18 @@ The Netscape bookmarks file has several basic components:
 	aliases
 	separators
 
-On disk, Netscape browsers store this information in HTML.
-In the browser, it is displayed under the "Bookmarks" menu.
-The data can be manipulated through the browser interface.
+On disk, Netscape browsers store this information in HTML. In the
+browser, it is displayed under the "Bookmarks" menu. The data can be
+manipulated through the browser interface.
 
 This module allows one to manipulate the bookmarks file
-programmatically.  One can parse an existing bookmarks file,
-manipulate the information, and write it as a bookmarks file
-again.  Furthermore, one can skip the parsing step to create
-a new bookmarks file and write it in the proper format to be
-used by a Netscape browser.
+programmatically.  One can parse an existing bookmarks file, manipulate
+the information, and write it as a bookmarks file again.  Furthermore,
+one can skip the parsing step to create a new bookmarks file and write
+it in the proper format to be used by a Netscape browser.
 
-The Bookmarks module simply parses the bookmarks file passed
-to it as the only argument to the constructor:
+The Bookmarks module simply parses the bookmarks file passed to it as
+the only argument to the constructor:
 
 	my $bookmarks = Netscape::Bookmarks->new( $bookmarks_file );
 
@@ -52,12 +51,13 @@ contain any of the components listed above.  The top level
 (i.e. root) category is treated specially and defines the
 title of the bookmarks file.
 
-C<HTML::Parser> is used behind the scenes to build the data
-structure (a simple list of lists (of lists ...)).
-C<Netscape::Bookmarks::Category>, C<Netscape::Bookmarks::Link>, C<Netscape::Bookmarks::Alias>, or
-C<Netscape::Bookmarks::Separator> objects can be stored in a C<Netscape::Bookmarks::Category> object.  C<Netscape::Bookmarks::Alias> objects are treated as
-references to C<Netscape::Bookmarks::Link> objects, so changes to one affect
-the other.
+C<HTML::Parser> is used behind the scenes to build the data structure (a
+simple list of lists (of lists ...)). C<Netscape::Bookmarks::Category>,
+C<Netscape::Bookmarks::Link>, C<Netscape::Bookmarks::Alias>, or
+C<Netscape::Bookmarks::Separator> objects can be stored in a
+C<Netscape::Bookmarks::Category> object.  C<Netscape::Bookmarks::Alias>
+objects are treated as references to C<Netscape::Bookmarks::Link>
+objects, so changes to one affect the other.
 
 Methods for manipulating this object are in the
 C<Netscape::Bookmarks::Category> module.  Methods for dealing with the
@@ -93,7 +93,7 @@ use Netscape::Bookmarks::Category;
 use Netscape::Bookmarks::Link;
 use Netscape::Bookmarks::Separator;
 
-($VERSION) = q$Revision: 1.4 $ =~ m/(\d+\.\d+)\s*$/;
+($VERSION) = q$Revision: 1.5 $ =~ m/(\d+\.\d+)\s*$/;
 @ISA=qw(HTML::Parser);
 
 $ID = 0;
@@ -340,11 +340,6 @@ brian d foy, C<< <bdfoy@cpan.org> >>
 
 This program is free software; you can redistribute it
 and/or modify it under the same terms as Perl itself.
-
-If you send me modifications or new features, I will do
-my best to incorporate them into future versions. You
-can interact with the SourceForge project at
-http://sourceforge.net/projects/nsbookmarks/.
 
 =head1 SEE ALSO
 
