@@ -1,6 +1,6 @@
 package Netscape::Bookmarks::Link;
-# $Revision: 1.3 $
-# $Id: Link.pm,v 1.3 2004/09/16 01:33:21 comdog Exp $
+# $Revision: 1.4 $
+# $Id: Link.pm,v 1.4 2004/09/16 01:40:41 comdog Exp $
 
 =head1 NAME
 
@@ -70,7 +70,7 @@ use Exporter;
 
 use URI::URL;
 
-($VERSION)   = q$Revision: 1.3 $ =~ m/(\d+\.\d+)\s*$/;
+($VERSION)   = q$Revision: 1.4 $ =~ m/(\d+\.\d+)\s*$/;
 
 @EXPORT    = qw();
 @EXPORT_OK = qw();
@@ -316,13 +316,15 @@ sub as_string
 	my $aliasid       = $self->aliasid;
 	my $aliasof       = $self->aliasof;
 
-	$aliasid = defined $aliasid ? qq|ALIASID="$aliasid" | : '';
-	$aliasof = defined $aliasof ? qq|ALIASOF="$aliasof" | : '';
-	$add_date = $add_date ? qq|ADD_DATE="$add_date" | : qq|ADD_DATE="0" |;
-	$last_visit = $last_visit ? qq|LAST_VISIT="$last_visit" | : qq|LAST_VISIT="0" |;
-	$last_modified = $last_modified ? qq|LAST_MODIFIED="$last_modified"| : qq|LAST_MODIFIED="0"|;
+	$aliasid       = defined $aliasid ? qq|ALIASID="$aliasid" |            : '';
+	$aliasof       = defined $aliasof ? qq|ALIASOF="$aliasof" |            : '';
+	$add_date      = $add_date        ? qq|ADD_DATE="$add_date" |          : qq|ADD_DATE="0" |;
+	$last_visit    = $last_visit      ? qq|LAST_VISIT="$last_visit" |      : qq|LAST_VISIT="0" |;
+	$last_modified = $last_modified   ? qq|LAST_MODIFIED="$last_modified"| : qq|LAST_MODIFIED="0"|;
 
 	my $desc = "\n\t<DD>" . $self->description if $self->description;
+	$desc ||= '';
+	
 	return qq|<A HREF="$link" $aliasof$aliasid$add_date$last_visit$last_modified>$title</A>$desc|;
 	}
 
