@@ -2,3 +2,6 @@
 .DS_Store
 bookmark_files/.DS_Store
 t/.DS_Store
+blib
+Makefile
+pm_to_blib
