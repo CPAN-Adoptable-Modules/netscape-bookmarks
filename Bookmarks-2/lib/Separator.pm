@@ -1,5 +1,5 @@
 package Netscape::Bookmarks::Separator;
-# $Id: Separator.pm,v 1.5 2002/09/23 21:33:34 comdog Exp $
+# $Id: Separator.pm,v 1.6 2004/09/02 05:28:00 comdog Exp $
 
 =head1 NAME
 
@@ -31,21 +31,13 @@ Store a Netscape bookmark separator object.
 
 use strict;
 
+use base qw( Netscape::Bookmarks::AcceptVisitor Netscape::Bookmarks::Isa );
 use subs qw();
-use vars qw($VERSION $ERROR @EXPORT @EXPORT_OK @ISA);
-
-use Netscape::Bookmarks;
-use Netscape::Bookmarks::AcceptVisitor;
+use vars qw( $VERSION );
 
 use Exporter;
 
-use URI::URL;
-
-($VERSION) = q$Revision: 1.5 $ =~ m/(\d+\.\d+)\s*$/;
-
-@EXPORT    = qw();
-@EXPORT_OK = qw();
-@ISA       = qw(Netscape::Bookmarks::AcceptVisitor);
+$VERSION = sprintf "%d.%02d", q$Revision: 1.6 $ =~ m/(\d+) \. (\d+)/xg;
 
 my $singleton = undef;
 

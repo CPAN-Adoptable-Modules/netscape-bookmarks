@@ -1,5 +1,5 @@
 package Netscape::Bookmarks::Link;
-# $Id: Link.pm,v 1.6 2002/10/03 23:03:33 comdog Exp $
+# $Id: Link.pm,v 1.7 2004/09/02 05:28:00 comdog Exp $
 
 =head1 NAME
 
@@ -71,21 +71,15 @@ attributes:
 
 use strict;
 
+use base qw( Netscape::Bookmarks::AcceptVisitor Netscape::Bookmarks::Isa );
 use subs qw();
-use vars qw($DEBUG $VERSION $ERROR @EXPORT @EXPORT_OK @ISA);
-
-use Netscape::Bookmarks;
-use Netscape::Bookmarks::AcceptVisitor;
+use vars qw( $DEBUG $VERSION $ERROR );
 
 use Exporter;
 
-use URI::URL;
+use URI;
 
-($VERSION)   = q$Revision: 1.6 $ =~ m/(\d+\.\d+)\s*$/;
-
-@EXPORT    = qw();
-@EXPORT_OK = qw();
-@ISA       = qw(Netscape::Bookmarks::AcceptVisitor);
+$VERSION = sprintf "%d.%02d", q$Revision: 1.7 $ =~ m/(\d+) \. (\d+)/xg;
 
 =item Netscape::Bookmarks::Link-E<gt>new( \%hash )
 
@@ -114,7 +108,7 @@ sub new
 	my $self = {};
 	bless $self, $class;
 
-	my $url = new URI::URL $param->{HREF};
+	my $url = URI->new( $param->{HREF} );
 	unless( ref $url )
 		{
 		$ERROR = "[$$param{HREF}] is not a valid URL";
@@ -457,8 +451,8 @@ sub as_string
 	$ping_status      = $ping_status      ? qq|PING_STATUS="$ping_status"|           : '';
 
 	my $attr = join " ", grep( $_ ne '', ($aliasid, $aliasof, $add_date, $last_visit,
-		$last_modified, $icon, $schedule, $last_ping, $shortcuturl, 
-		$ping_content_len, $ping_status,  $last_charset, ) ); 
+		$last_modified, $icon, $schedule, $last_ping, $shortcuturl, $last_charset,
+		$ping_content_len, $ping_status,   ) ); 
 	
 	$attr = " " . $attr if $attr;
 	

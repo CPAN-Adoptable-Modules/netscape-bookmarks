@@ -1,6 +1,6 @@
 package Netscape::Bookmarks::AcceptVisitor;
-# $Revision: 1.3 $
-# $Id: AcceptVisitor.pm,v 1.3 2002/09/23 21:33:34 comdog Exp $
+# $Revision: 1.4 $
+# $Id: AcceptVisitor.pm,v 1.4 2004/09/02 05:28:00 comdog Exp $
 
 use strict;
 use subs qw();
@@ -8,7 +8,7 @@ use vars qw($VERSION);
 
 use Exporter;
 
-($VERSION) = q$Revision: 1.3 $ =~ m/(\d+\.\d+)\d*$/;
+$VERSION = sprintf "%d.%02d", q$Revision: 1.4 $ =~ m/(\d+) \. (\d+)/xg;
 
 sub visitor
 	{

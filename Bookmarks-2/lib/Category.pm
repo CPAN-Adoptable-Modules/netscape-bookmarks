@@ -1,5 +1,5 @@
 package Netscape::Bookmarks::Category;
-# $Id: Category.pm,v 1.5 2002/09/24 01:29:32 comdog Exp $
+# $Id: Category.pm,v 1.6 2004/09/02 05:28:00 comdog Exp $
 
 =head1 NAME
 
@@ -52,15 +52,12 @@ title of the bookmarks file.
 =cut
 
 use strict;
-use subs qw();
-use vars qw($VERSION $ERROR @EXPORT @EXPORT_OK @ISA $LAST_ID %IDS);
 
-use Netscape::Bookmarks;
-use Netscape::Bookmarks::AcceptVisitor;
+use base qw( Netscape::Bookmarks::AcceptVisitor Netscape::Bookmarks::Isa );
+use subs qw();
+use vars qw( $VERSION $ERROR $LAST_ID %IDS );
 
 use Exporter;
-
-use URI::URL;
 
 use constant START_LIST      => '<DL><p>';
 use constant END_LIST        => '</DL><p>';
@@ -70,13 +67,9 @@ use constant FOLDED_TRUE     => 1;
 use constant FOLDED_FALSE    => 0;
 use constant TRUE            => 'true';
 
-($VERSION) = q$Revision: 1.5 $ =~ m/(\d+\.\d+)\d*$/;
+$VERSION = sprintf "%d.%02d", q$Revision: 1.6 $ =~ m/(\d+) \. (\d+)/xg;
 %IDS     = ();
 $LAST_ID = -1;
-
-@EXPORT    = qw();
-@EXPORT_OK = qw();
-@ISA       = qw(Netscape::Bookmarks::AcceptVisitor);
 
 =item Netscape::Bookmarks::Category-E<gt>new( \%hash )
 
