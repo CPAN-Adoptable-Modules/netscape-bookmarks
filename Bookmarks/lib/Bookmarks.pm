@@ -1,5 +1,5 @@
 package Netscape::Bookmarks;
-# $Id: Bookmarks.pm,v 1.5 2004/09/16 01:50:54 comdog Exp $
+# $Id: Bookmarks.pm,v 1.6 2004/09/16 01:53:11 comdog Exp $
 
 =head1 NAME
 
@@ -21,6 +21,11 @@ Netscape::Bookmarks	- parse, manipulate, or create Netscape Bookmarks files
 
 
 =head1 DESCRIPTION
+
+[ Note: I wrote this a long time ago.  Although this should still
+work with "Netscape" browsers, Mozilla browsers do the same
+thing.  When the docs say "Netscape", I mean either branch
+of browsers. ]
 
 The Netscape bookmarks file has several basic components:
 
@@ -93,7 +98,7 @@ use Netscape::Bookmarks::Category;
 use Netscape::Bookmarks::Link;
 use Netscape::Bookmarks::Separator;
 
-($VERSION) = q$Revision: 1.5 $ =~ m/(\d+\.\d+)\s*$/;
+($VERSION) = q$Revision: 1.6 $ =~ m/(\d+\.\d+)\s*$/;
 @ISA=qw(HTML::Parser);
 
 $ID = 0;
