@@ -1,4 +1,4 @@
-# $Id: Makefile.PL,v 1.6 2002/09/24 01:29:31 comdog Exp $
+# $Id: Makefile.PL,v 1.7 2002/09/24 01:34:09 comdog Exp $
 use ExtUtils::MakeMaker;
 
 my $tests = do {
@@ -8,7 +8,7 @@ my $tests = do {
 
 WriteMakefile(
     'NAME'	  => 'Netscape::Bookmarks',
-    'VERSION' => '2.1_03',
+    'VERSION' => '2.2_01',
     
     'PM'     => {
     	'lib/Bookmarks.pm'     => '$(INST_LIBDIR)/Bookmarks.pm',
