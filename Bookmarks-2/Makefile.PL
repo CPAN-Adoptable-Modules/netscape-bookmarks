@@ -1,4 +1,4 @@
-# $Id: Makefile.PL,v 1.5 2002/09/23 21:33:34 comdog Exp $
+# $Id: Makefile.PL,v 1.6 2002/09/24 01:29:31 comdog Exp $
 use ExtUtils::MakeMaker;
 
 my $tests = do {
@@ -27,7 +27,8 @@ WriteMakefile(
 		'Test::Pod'        => '0',
 		'Test::Prereq'     => '0.05',
 		'File::Find::Rule' => '0',
-		'Test::File'       => '0'
+		'Test::File'       => '0',
+		'Text::Diff'       => '0',
 		
 	 },
 

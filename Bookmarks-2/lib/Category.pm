@@ -1,5 +1,5 @@
 package Netscape::Bookmarks::Category;
-# $Id: Category.pm,v 1.4 2002/09/23 21:33:34 comdog Exp $
+# $Id: Category.pm,v 1.5 2002/09/24 01:29:32 comdog Exp $
 
 =head1 NAME
 
@@ -68,8 +68,9 @@ use constant START_LIST_ITEM => '<DT>';
 use constant TAB             => '    ';
 use constant FOLDED_TRUE     => 1;
 use constant FOLDED_FALSE    => 0;
+use constant TRUE            => 'true';
 
-($VERSION) = q$Revision: 1.4 $ =~ m/(\d+\.\d+)\d*$/;
+($VERSION) = q$Revision: 1.5 $ =~ m/(\d+\.\d+)\d*$/;
 %IDS     = ();
 $LAST_ID = -1;
 
@@ -98,8 +99,9 @@ sub new
 	my $self = {};
 	bless $self, $class;
 
-	$param->{'folded'} = FOLDED_TRUE unless $param->{'folded'} == FOLDED_FALSE;
-
+	$self->{'folded'} = FOLDED_TRUE unless $param->{'folded'} == FOLDED_FALSE;
+	$self->{'personal_toolbar_folder'} = TRUE if $param->{'personal_toolbar_folder'};
+	
 	unless( exists $IDS{$param->{'id'}} or $param->{'id'} =~ /\D/)
 		{
 		$param->{'id'} = ++$LAST_ID;
@@ -111,14 +113,25 @@ sub new
 		$param->{'add_date'} = 0;
 		}
 
-	$self->{'title'}       = $param->{'title'};
-	$self->{'folded'}      = $param->{'folded'};
-	$self->{'add_date'}    = $param->{'add_date'};
-	$self->{'id'}          = $param->{'id'};
-	$self->{'description'} = $param->{'description'};
-	$self->{'thingys'}     = [];
+	$self->{'mozilla'}                 = $param->{'mozilla'};
+	$self->{'title'}                   = $param->{'title'};
+	$self->{'add_date'}                = $param->{'add_date'};
+	$self->{'last_modified'}           = $param->{'last_modified'};
+	$self->{'id'}                      = $param->{'id'};
+	$self->{'description'}             = $param->{'description'};
+	$self->{'thingys'}                 = [];
 
 	$self;
+	}
+
+sub mozilla
+	{
+	my $self  = shift;
+	my $value = shift;
+	
+	$self->{'mozilla'} = $value if defined $value;
+	
+	$self->{'mozilla'};
 	}
 
 =item $category-E<gt>add( $object )
@@ -254,6 +267,32 @@ sub add_date
 	return $self->{'add_date'};
 	}
 
+=item $category-E<gt>last_modified()
+
+Returns the LAST_MODIFIED attribute of the category.
+
+=cut
+
+sub last_modified
+	{
+	my $self = shift;
+
+	return $self->{'last_modified'};
+	}
+
+=item $category-E<gt>personal_toolbar_folder()
+
+Returns the PERSONAL_TOOLBAR_FOLDER attribute of the category.
+
+=cut
+
+sub personal_toolbar_folder
+	{
+	my $self = shift;
+
+	return $self->{'personal_toolbar_folder'};
+	}
+
 =item $category-E<gt>elements()
 
 In scalar context returns an array reference to the elements in
@@ -321,18 +360,30 @@ sub as_headline
 	{
 	my $self = shift;
 
-	my $folded   = $self->folded ? "FOLDED" : "";
-	my $title    = $self->title;
-	my $desc     = $self->description;
-	my $add_date = $self->add_date;
+	my $folded        = $self->folded ? "FOLDED" : "";
+	my $title         = $self->title;
+	my $desc          = $self->description;
+	my $add_date      = $self->add_date;
+	my $last_modified = $self->last_modified;
+	my $id            = $self->id;
+	my $personal_toolbar_folder = $self->personal_toolbar_folder;
+	
+	$desc = defined $desc && $desc ne '' ? "\n<DD>$desc" : "\n";
 
-	$desc = defined $desc && $desc ne '' ? "\n<DD>$desc" : '';
-
+	$folded   = $folded ? qq|FOLDED| : '';
 	$add_date = $add_date ? qq|ADD_DATE="$add_date"| : '';
+	$last_modified = $last_modified ? qq|LAST_MODIFIED="$last_modified"| : '';
+	$personal_toolbar_folder = $personal_toolbar_folder 
+		? qq|PERSONAL_TOOLBAR_FOLDER="true"| : '';
+	$id = $id =~ m/\D/ ? qq|ID="$id"| : '';
+		
+	my $attr = join " ", grep $_, ($folded, $add_date, $last_modified, 
+		$personal_toolbar_folder, $id ); 
+	
+	$attr = " " . $attr if $attr;
+	$attr =~ s/\s+$//; # XXX: ugh
 
-	my $sp = ($folded and $add_date) ? ' ' : '';
-
-	return qq|<H3 $folded$sp$add_date>$title</H3>$desc|
+	return qq|<H3$attr>$title</H3>$desc|
 	}
 
 =item $category-E<gt>recurse( CODE, [ LEVEL ] )
@@ -487,19 +538,23 @@ sub as_string
 	my $self   = shift;
 
 	my $title = $self->title;
-	my $desc  = $self->description || '';
+	my $desc  = $self->description || "\n";
 
+	my $meta = $self->mozilla ?
+		qq|\n<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">| :
+		'';
+		
 	my $str = <<"HTML";
 <!DOCTYPE NETSCAPE-Bookmark-file-1>
 <!-- This is an automatically generated file.
 It will be read and overwritten.
-Do Not Edit! -->
+Do Not Edit! -->$meta
 <TITLE>$title</TITLE>
 <H1>$title</H1>
 
 HTML
 
-	$str .= "<DD>" . $desc;
+	$str .= "<DD>" . $desc unless( $self->mozilla and $desc eq "\n" );
 
 	$str .= START_LIST . "\n";
 
@@ -525,8 +580,16 @@ sub _as_string
 	if( ref $obj eq 'Netscape::Bookmarks::Category' )
 		{
 		$str .= TAB x ($level) . START_LIST_ITEM . $obj->as_headline;
-		$str .= TAB x ($level-1) . START_LIST . "\n";
 
+		unless( $self->mozilla )
+			{
+			$str .= TAB x ($level-1) . START_LIST . "\n";
+			}
+		else
+			{
+			$str .= TAB x ($level) . START_LIST . "\n";
+			}
+			
 		++$level;
 		foreach my $ref ( $obj->elements )
 			{
@@ -551,6 +614,20 @@ sub _as_string
 
 	}
 
+=item $obj->write_file( FILENAME )
+
+UNIMPLEMENTED!
+
+=cut
+
+sub write_file
+	{
+	my $self     = shift;
+	my $filename = shift;
+	
+	return;
+	}
+	
 "if you want to beleive everything you read, so be it.";
 
 __END__

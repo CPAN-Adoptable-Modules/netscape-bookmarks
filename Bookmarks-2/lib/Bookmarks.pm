@@ -1,5 +1,5 @@
 package Netscape::Bookmarks;
-# $Id: Bookmarks.pm,v 1.4 2002/09/23 21:33:34 comdog Exp $
+# $Id: Bookmarks.pm,v 1.5 2002/09/24 01:29:32 comdog Exp $
 
 =head1 NAME
 
@@ -95,7 +95,7 @@ use Netscape::Bookmarks::Category;
 use Netscape::Bookmarks::Link;
 use Netscape::Bookmarks::Separator;
 
-($VERSION) = sprintf "%d.%02d", q$Revision: 1.4 $ =~ m/(\d+) \. (\d+)\s*$/;
+($VERSION) = sprintf "%d.%02d", q$Revision: 1.5 $ =~ m/(\d+) \. (\d+)\s*$/;
 $VERSION = "2.0_01"; #this is a beta release
 
 $ID = 0;
@@ -140,6 +140,16 @@ sub new
 	return $netscape;
 	}
 
+sub mozilla
+	{
+	my $self = shift;
+	my $value = shift;
+	
+	$self->{'mozilla'} = $value if defined $value;
+	
+	$self->{'mozilla'};
+	}
+	
 sub parse_string
 	{
 	my $data_ref = shift;
@@ -185,7 +195,11 @@ sub start
     	my $item = Netscape::Bookmarks::Separator->new();
     	$category_stack[-1]->add( $item );
     	}
-
+	elsif( $tag eq 'meta' )
+		{
+		$self->mozilla(1);
+		}
+		
     $flag = $tag
 	}
 
@@ -239,6 +253,8 @@ sub text
 				title    => $text,
 				folded   => 0,
 				add_date => $category_data{'add_date'},
+				last_modified => $category_data{'last_modified'},
+				mozilla       => $self->mozilla,
 				id       => $ID++,
 				} );
 
@@ -246,12 +262,15 @@ sub text
 			}
 		elsif( $flag eq 'h3' )
 			{
+			#print STDERR "Personal Toolbar is [$category_data{'personal_toolbar_folder'}] for [$text]\n";
 			my $cat = Netscape::Bookmarks::Category->new(
 				{
-				title    => $text,
-				folded   => exists $category_data{'folded'},
-				add_date => $category_data{'add_date'},
-				id       => $ID++,
+				title         => $text,
+				folded        => exists $category_data{'folded'},
+				add_date      => $category_data{'add_date'},
+				last_modified => $category_data{'last_modified'},
+				personal_toolbar_folder => $category_data{'personal_toolbar_folder'},
+				id            => $category_data{'id'} || $ID++,
 				});
 
 			$category_stack[-1]->add( $cat );
@@ -260,12 +279,19 @@ sub text
 		elsif( $flag eq 'a' and not exists $link_data{'aliasof'} )
 			{
 			my $item = Netscape::Bookmarks::Link->new( {
-	    		HREF			=> $link_data{'href'},
-	    		ADD_DATE 		=> $link_data{'add_date'},
-	    		LAST_MODIFIED 	=> $link_data{'last_modified'},
-	    		LAST_VISIT    	=> $link_data{'last_visit'},
-	    		ALIASID         => $link_data{'aliasid'},
-	    		TITLE           => $text,
+	    		HREF			 => $link_data{'href'},
+	    		ADD_DATE 		 => $link_data{'add_date'},
+	    		LAST_MODIFIED 	 => $link_data{'last_modified'},
+	    		LAST_VISIT    	 => $link_data{'last_visit'},
+	    		ALIASID          => $link_data{'aliasid'},
+	    		SHORTCUTURL      => $link_data{'shortculurl'},
+	    		ICON             => $link_data{'icon'},
+	    		LAST_CHARSET     => $link_data{'last_charset'},
+	    		SCHEDULE         => $link_data{'schedule'},
+	    		LAST_PING        => $link_data{'last_ping'},
+	    		PING_CONTENT_LEN => $link_data{'ping_content_len'},
+	    		PING_STATUS      => $link_data{'ping_status'},
+	    		TITLE            => $text,
 	    		});
 
 	    	unless( ref $item )

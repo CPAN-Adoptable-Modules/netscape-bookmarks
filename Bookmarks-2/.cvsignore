@@ -1,1 +1,4 @@
 *.tar.gz
+.DS_Store
+bookmark_files/.DS_Store
+t/.DS_Store

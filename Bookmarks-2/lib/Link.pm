@@ -1,5 +1,5 @@
 package Netscape::Bookmarks::Link;
-# $Id: Link.pm,v 1.4 2002/09/23 21:33:34 comdog Exp $
+# $Id: Link.pm,v 1.5 2002/09/24 01:29:32 comdog Exp $
 
 =head1 NAME
 
@@ -52,8 +52,17 @@ file.  A link has these attributes, only some of which may be present:
 	ALIAS_OF
 	ALIAS_ID
 
-These are explained below.
+Additionally, Mozilla (the open source version of Navigator) uses these
+attributes:
 
+	SHORTCUTURL
+	ICON
+	SCHEDULE
+	LAST_PING
+	LAST_CHARSET
+	PING_CONTENT_LEN
+	PING_STATUS
+	
 =head1 METHODS
 
 =over 4
@@ -72,7 +81,7 @@ use Exporter;
 
 use URI::URL;
 
-($VERSION)   = q$Revision: 1.4 $ =~ m/(\d+\.\d+)\s*$/;
+($VERSION)   = q$Revision: 1.5 $ =~ m/(\d+\.\d+)\s*$/;
 
 @EXPORT    = qw();
 @EXPORT_OK = qw();
@@ -90,6 +99,10 @@ link:
 	LAST_VISIT
 	ALIASID
 	ALIASOF
+	
+	SHORTCUTURL
+	ICON
+	LAST_CHARSET
 
 =cut
 
@@ -109,7 +122,13 @@ sub new
 		}
 	$self->{HREF} = $url;
 
-	foreach my $k ( qw(ADD_DATE LAST_MODIFIED LAST_VISIT ALIASID ALIASOF) )
+	foreach my $k ( qw(SHORTCUTURL ICON LAST_CHARSET SCHEDULE PING_STATUS) )
+		{
+		$self->{$k} = $param->{$k};
+		}
+		
+	foreach my $k ( qw(ADD_DATE LAST_MODIFIED LAST_VISIT ALIASID ALIASOF
+		LAST_PING PING_CONTENT_LEN) )
 		{
 		if( defined $param->{$k} and $param->{$k} =~ /\D/ )
 			{
@@ -241,6 +260,97 @@ sub aliasid
 	$self->{'ALIASID'}
 	}
 
+=item $obj->shortcuturl
+
+=cut
+
+sub shortcuturl
+	{
+	my( $self, $shortcuturl ) = @_;
+
+	$self->{'SHORTCUTURL'} = $shortcuturl if defined $shortcuturl;
+
+	$self->{'SHORTCUTURL'}
+	}
+	
+=item $obj->icon
+
+=cut
+
+sub icon
+	{
+	my( $self, $icon ) = @_;
+	
+	$self->{'ICON'} = $icon if defined $icon;
+
+	$self->{'ICON'}
+	}
+
+=item $obj->schedule
+
+=cut
+
+sub schedule
+	{
+	my( $self, $schedule ) = @_;
+
+	$self->{'SCHEDULE'} = $schedule if defined $schedule;
+
+	$self->{'SCHEDULE'}
+	}
+
+=item $obj->last_ping
+
+=cut
+
+sub last_ping
+	{
+	my( $self, $last_ping ) = @_;
+
+	$self->{'LAST_PING'} = $last_ping if defined $last_ping;
+
+	$self->{'LAST_PING'}
+	}
+	
+=item $obj->ping_content_len
+
+=cut
+
+sub ping_content_len
+	{
+	my( $self, $ping_content_len ) = @_;
+
+	$self->{'PING_CONTENT_LEN'} = $ping_content_len if defined $ping_content_len;
+
+	$self->{'PING_CONTENT_LEN'}
+	}
+
+=item $obj->ping_status
+
+=cut
+
+sub ping_status
+	{
+	my( $self, $ping_status ) = @_;
+
+	$self->{'PING_STATUS'} = $ping_status if defined $ping_status;
+
+	$self->{'PING_STATUS'}
+	}
+	
+=item $obj->last_charset
+
+=cut
+
+sub last_charset
+	{
+	my( $self, $charset ) = @_;
+
+	$self->{'LAST_CHARSET'} = $charset if defined $charset;
+
+	$self->{'LAST_CHARSET'}
+	}
+	
 # =item $obj->alias_of
 #
 # Returns the target id of a link. Links with aliases are assigned an ALIAS_ID which
@@ -316,23 +426,42 @@ sub as_string
 	{
 	my $self = shift;
 
-	my $link          = $self->href;
-	my $title         = $self->title;
-	my $aliasid       = $self->aliasid;
-	my $aliasof       = $self->aliasof;
-	my $add_date      = $self->add_date;
-	my $last_visit    = $self->last_visit;
-	my $last_modified = $self->last_modified;
+	my $link              = $self->href;
+	my $title             = $self->title;
+	my $aliasid           = $self->aliasid;
+	my $aliasof           = $self->aliasof;
+	my $add_date          = $self->add_date;
+	my $last_visit        = $self->last_visit;
+	my $last_modified     = $self->last_modified;
+	my $shortcuturl       = $self->shortcuturl;
+	my $icon              = $self->icon;
+	my $last_charset      = $self->last_charset;
+	my $schedule          = $self->schedule;
+	my $last_ping         = $self->last_ping;
+	my $ping_content_len  = $self->ping_content_len;
+	my $ping_status       = $self->ping_status;
+	
+	$aliasid       = defined $aliasid ? qq|ALIASID="$aliasid"|        : '';
+	$aliasof       = defined $aliasof ? qq|ALIASOF="$aliasof"|        : '';
+	$add_date      = $add_date        ? qq|ADD_DATE="$add_date"|      : '';
+	$last_visit    = $last_visit      ? qq|LAST_VISIT="$last_visit"|  : '';
+	$last_modified = $last_modified   ? qq|LAST_MODIFIED="$last_modified"| : '';
 
-	$aliasid       = defined $aliasid ? qq|ALIASID="$aliasid" | : '';
-	$aliasof       = defined $aliasof ? qq|ALIASOF="$aliasof" | : '';
-	$add_date      = $add_date        ? qq|ADD_DATE="$add_date" |
-		: qq|ADD_DATE="0" |;
-	$last_visit    = $last_visit      ?
-		qq|LAST_VISIT="$last_visit" | : qq|LAST_VISIT="0" |;
-	$last_modified = $last_modified   ?
-		qq|LAST_MODIFIED="$last_modified"| : qq|LAST_MODIFIED="0"|;
+	$shortcuturl   = $shortcuturl  ? qq|SHORTCUTURL="$shortcuturl"|   : '';
+	$icon          = $icon         ? qq|ICON="$icon"|                 : '';
+	$last_charset  = $last_charset ? qq|LAST_CHARSET="$last_charset"| : '';
 
+	$schedule         = $schedule         ? qq|SCHEDULE="$schedule"|                 : '';
+	$last_ping        = $last_ping        ? qq|LAST_PING="$last_ping"|               : '';
+	$ping_content_len = $ping_content_len ? qq|PING_CONTENT_LEN="$ping_content_len"| : '';
+	$ping_status      = $ping_status      ? qq|PING_STATUS="$ping_status"|           : '';
+
+	my $attr = join " ", grep( $_ ne '', ($aliasid, $aliasof, $add_date, $last_visit,
+		$last_modified, $schedule, $last_ping, $shortcuturl, $icon, $last_charset,
+		$ping_content_len, $ping_status) ); 
+	
+	$attr = " " . $attr if $attr;
+	
 	my $desc = '';
 	$desc  = "\n\t<DD>" . $self->description if $self->description;
 
@@ -347,8 +476,7 @@ sub as_string
 	#we don't know when to strip whitespace.
 	$desc =~ s/\s+$//;
 
-	return qq|<A HREF="$link" $aliasof$aliasid$add_date$last_visit| .
-		qq|$last_modified>$title</A>$desc|;
+	return qq|<A HREF="$link"$attr>$title</A>$desc|;
 	}
 
 =item $obj->remove

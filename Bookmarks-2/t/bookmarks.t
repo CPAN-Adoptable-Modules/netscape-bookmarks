@@ -1,21 +1,30 @@
-# $Id: bookmarks.t,v 1.3 2002/09/23 21:33:34 comdog Exp $
+# $Id: bookmarks.t,v 1.4 2002/09/24 01:29:32 comdog Exp $
 use strict;
 
-use Test::More tests => 2;
+use Test::More tests => 3;
 use Test::File;
+use Text::Diff qw(diff);
 
 use Netscape::Bookmarks;
 
-file_exists_ok( "bookmark_files/Bookmarks.html" );
-my $netscape = Netscape::Bookmarks->new( "bookmark_files/Bookmarks.html" );
+my $File = 'bookmark_files/Bookmarks.html';
+my $Tmp  = $File . '.tmp';
+
+file_exists_ok( $File );
+my $netscape = Netscape::Bookmarks->new( $File );
 isa_ok( $netscape, 'Netscape::Bookmarks::Category' );
 
 {
-open FILE, "> bookmark_files/Bookmarks_tmp.html" 
+open my $fh, "> $Tmp" 
 	or print "bail out! Could not open tmp file: $!";
-print FILE $netscape->as_string;
-close FILE;
+print $fh $netscape->as_string;
+close $fh;
 };
+
+my $diff = diff $File, $Tmp, { CONTEXT => 0 };
+my $ok   = not $diff;
+
+ok( $ok );
 
 =pod
 
@@ -27,5 +36,7 @@ isa_ok( $netscape, 'Netscape::Bookmarks::Category' );
 
 =cut
 
-END { unlink "bookmark_files/Bookmarks_tmp.html" }
+print STDERR "----- bookmarks.t diff is\n$diff" if $diff;
+
+END { unlink $Tmp }
 
