@@ -1,5 +1,10 @@
-$Id: Changes,v 1.1 2002/01/08 16:43:24 comdog Exp $
+$Id: Changes,v 1.2 2002/05/27 01:24:39 comdog Exp $
 Revision history for Perl extension Netscape::Bookmarks.
+
+2.1_02 Sun May 26 20:21:54 CDT 2002
+	---> still a beta release <---
+	- added a Visitor mechanism, and an introduce() function to 
+	Category.pm.
 
 2.0_01 Sat Jan  5 06:25:20 EST 2002
 	---> this is a beta release <---
