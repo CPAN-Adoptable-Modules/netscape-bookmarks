@@ -1,5 +1,5 @@
 package Netscape::Bookmarks;
-# $Id: Bookmarks.pm,v 1.3 2002/05/27 00:25:22 comdog Exp $
+# $Id: Bookmarks.pm,v 1.4 2002/09/23 21:33:34 comdog Exp $
 
 =head1 NAME
 
@@ -8,17 +8,17 @@ Netscape::Bookmarks	- parse, manipulate, or create Netscape Bookmarks files
 =head1 SYNOPSIS
 
   use Netscape::Bookmarks;
-  
+
   # parse an existing file
   my $bookmarks = Netscape::Bookmarks->new( $bookmarks_file );
-  
+
   # -- OR --
   # start a new Bookmarks structure
   my $bookmarks = Netscape::Bookmarks->new;
-  		
+
   # print a Netscape compatible file
   print $bookmarks->as_string;
-  
+
 
 =head1 DESCRIPTION
 
@@ -29,9 +29,9 @@ The Netscape bookmarks file has several basic components:
 	links
 	aliases
 	separators
-	
+
 On disk, Netscape browsers store this information in HTML.
-In the browser, it is displayed under the "Bookmarks" menu. 
+In the browser, it is displayed under the "Bookmarks" menu.
 The data can be manipulated through the browser interface.
 
 This module allows one to manipulate the bookmarks file
@@ -95,7 +95,7 @@ use Netscape::Bookmarks::Category;
 use Netscape::Bookmarks::Link;
 use Netscape::Bookmarks::Separator;
 
-($VERSION) = sprintf "%d.%02d", q$Revision: 1.3 $ =~ m/(\d+) \. (\d+)\s*$/;
+($VERSION) = sprintf "%d.%02d", q$Revision: 1.4 $ =~ m/(\d+) \. (\d+)\s*$/;
 $VERSION = "2.0_01"; #this is a beta release
 
 $ID = 0;
@@ -106,8 +106,8 @@ sub XML { 'XML' };
 =item new( [filename] )
 
 The constructor takes a filename as its single (optional) argument.
-If you do not give C<new> an argument, an empty 
-C<Netscape::Bookmarks::Category> object is returned so that 
+If you do not give C<new> an argument, an empty
+C<Netscape::Bookmarks::Category> object is returned so that
 you can start to build up your new Bookmarks file.  If the file
 that you name does not exist, C<undef> is returned in scalar
 context and an empty list is returned in list context. If the
@@ -121,35 +121,35 @@ object is returned.
 sub new
 	{
 	my($class, $file) = @_;
-	
+
 	unless( $file )
 		{
 		my $cat = Netscape::Bookmarks::Category->new();
 		return $cat;
 		}
-		
+
 	return unless ( -e $file or ref $file );
-	
+
 	my $self = HTML::Parser->new();
 	$self->unbroken_text(1);
-	
+
 	bless $self, $class;
-	
+
 	$self->parse_file( $file );
-	
+
 	return $netscape;
 	}
 
 sub parse_string
 	{
 	my $data_ref = shift;
-	
+
 	my $self = HTML::Parser->new();
 	bless $self, __PACKAGE__;
-	
+
 	my $length = length $$data_ref;
 	my $pos    = 0;
-	
+
 	while( $pos < $length )
 		{
 		#512 bytes seems to be the magic number
@@ -158,22 +158,22 @@ sub parse_string
 		$self->parse( substr( $$data_ref, $pos, 512 ) );
 		$pos += 512;
 		}
-		
+
 	$self->eof;
-			
+
 	return $netscape; # a global variable
 	}
-	
+
 sub start
 	{
     my($self, $tag, $attr) = @_;
-    
+
     $text_flag = 0;
-    
+
     if( $tag eq 'a' )
     	{
 		$state = 'anchor';
-    	%link_data = %$attr;	
+    	%link_data = %$attr;
      	}
     elsif( $tag eq 'h3' or $tag eq 'h1' )
     	{
@@ -185,14 +185,14 @@ sub start
     	my $item = Netscape::Bookmarks::Separator->new();
     	$category_stack[-1]->add( $item );
     	}
-    	
+
     $flag = $tag
 	}
 
 sub text
 	{
-	my($self, $text) = @_;	
-	
+	my($self, $text) = @_;
+
 	if($text_flag)
 		{
 		if( not defined $flag )
@@ -241,7 +241,7 @@ sub text
 				add_date => $category_data{'add_date'},
 				id       => $ID++,
 				} );
-						
+
 			push @category_stack, $netscape;
 			}
 		elsif( $flag eq 'h3' )
@@ -253,12 +253,12 @@ sub text
 				add_date => $category_data{'add_date'},
 				id       => $ID++,
 				});
-			
+
 			$category_stack[-1]->add( $cat );
-			push @category_stack, $cat;	
+			push @category_stack, $cat;
 			}
 		elsif( $flag eq 'a' and not exists $link_data{'aliasof'} )
-			{    	
+			{
 			my $item = Netscape::Bookmarks::Link->new( {
 	    		HREF			=> $link_data{'href'},
 	    		ADD_DATE 		=> $link_data{'add_date'},
@@ -267,30 +267,30 @@ sub text
 	    		ALIASID         => $link_data{'aliasid'},
 	    		TITLE           => $text,
 	    		});
-	    		
+
 	    	unless( ref $item )
 	    		{
 	    		print "ERROR: $Netscape::Bookmarks::Link::ERROR\n" if $DEBUG;
 	    		return;
 	    		}
-	
+
 			if( defined $link_data{'aliasid'} )
 				{
 				&Netscape::Bookmarks::Alias::add_target(
 					$item, $link_data{'aliasid'} )
 				}
-							
+
 			$category_stack[-1]->add( $item );
 			$current_link = $item;
 			}
 		elsif( $flag eq 'a' and defined $link_data{'aliasof'} )
-			{    	
+			{
 			my $item = Netscape::Bookmarks::Alias->new( $link_data{'aliasof'} );
 	    	unless( ref $item )
 	    		{
 	    		return;
 	    		}
-				
+
 			$category_stack[-1]->add( $item );
 			$current_link = $item;
 			}
@@ -301,32 +301,34 @@ sub text
 				$category_stack[-1]->description( $text );
 				}
 			elsif( $state eq 'anchor' )
-				{                
+				{
 	     		$current_link->description( $text );
 				}
 			}
 		}
-		
+
 	$text_flag = 1;
 	}
 
 sub end
     {
     my($self, $tag, $attr) = @_;
-        
+
     $text_flag = 0;
     pop @category_stack   if $tag eq 'dl';
 	# what does the next line do and why?
 	# if it is there then the <dd> part of a link is discarded
 	# not having this line doesn't seem to break things.
 	# bug identified by Daniel Hottinger <TheHotti@gnx.net>
-    #$current_link = undef if $tag eq 'a';	
+    #$current_link = undef if $tag eq 'a';
     $flag = undef;
     }
-    
+
 sub my_init {}
 
 "Seeing is believing";
+
+=back
 
 =head1 AUTHOR
 
@@ -344,10 +346,10 @@ http://sourceforge.net/projects/nsbookmarks/.
 
 =head1 SEE ALSO
 
-L<HTML::Parser>, 
-L<Netscape::Bookmarks::Category>, 
-L<Netscape::Bookmarks::Link>, 
-L<Netscape::Bookmarks::Alias>, 
+L<HTML::Parser>,
+L<Netscape::Bookmarks::Category>,
+L<Netscape::Bookmarks::Link>,
+L<Netscape::Bookmarks::Alias>,
 L<Netscape::Bookmarks::Separator>.
 
 =cut

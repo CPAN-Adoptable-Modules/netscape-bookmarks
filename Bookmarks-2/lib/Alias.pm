@@ -1,6 +1,5 @@
 package Netscape::Bookmarks::Alias;
-# $Revision: 1.3 $
-# $Id: Alias.pm,v 1.3 2002/05/27 01:19:09 comdog Exp $
+# $Id: Alias.pm,v 1.4 2002/09/23 21:33:34 comdog Exp $
 
 =head1 NAME
 
@@ -22,7 +21,7 @@ Netscape::Bookmarks::Alias - object for an Alias in a Netscape Bookmarks file
 
 This module provides an abstraction for an Alias object in a Netscape
 Bookmarks file. An alias is simply a reference to another link in the
-Bookmarks file, henceforth called the target. If you change the alias, 
+Bookmarks file, henceforth called the target. If you change the alias,
 the target link also changes.
 
 =over 4
@@ -39,7 +38,7 @@ use Exporter;
 use Netscape::Bookmarks::Link;
 use Netscape::Bookmarks::AcceptVisitor;
 
-($VERSION) = q$Revision: 1.3 $ =~ m/(\d+\.\d+)\s*$/;
+($VERSION) = q$Revision: 1.4 $ =~ m/(\d+\.\d+)\s*$/;
 
 @EXPORT    = qw();
 @EXPORT_OK = qw();
@@ -59,13 +58,13 @@ sub new
 	{
 	my $class  = shift;
 	my $param  = shift;
-	
+
 	my $self = {};
-			
+
 	bless $self, $class;
-	
+
 	$self->{'alias_of'} = $param;
-			
+
 	$self;
 	}
 
@@ -78,7 +77,7 @@ Returns the alias key for this C<Netscape::Bookmarks::Alias> object.
 sub alias_of
 	{
 	my $self = shift;
-	
+
 	return $self->{'alias_of'};
 	}
 
@@ -86,8 +85,8 @@ sub alias_of
 
 Returns the target Link of the given alias key.  The return value
 is a C<Netscape::Bookmarks::Link> object if the target exists, or
-C<undef> in scalar context or the empty list in list context if the 
-target does not exist. If you want to simply check to see if a 
+C<undef> in scalar context or the empty list in list context if the
+target does not exist. If you want to simply check to see if a
 target exists, use C<target_exists>.
 
 =cut
@@ -95,7 +94,7 @@ target exists, use C<target_exists>.
 sub target
 	{
 	my $self     = shift;
-	
+
 	return $aliases{$self->{'alias_of'}};
 	}
 
@@ -106,12 +105,12 @@ links before the Alias is created.
 
 =cut
 
-# this should really be in Link.pm right?	
+# this should really be in Link.pm right?
 sub add_target
 	{
 	my $target   = shift; #link reference
 	my $alias_id = shift;
-	
+
 	$target->aliasid($alias_id);
 	$aliases{$alias_id} = $target;
 	}
@@ -126,9 +125,9 @@ exists.
 sub target_exists
 	{
 	my $target = shift;
-	
+
 	exists $aliases{$target} ? 1 : 0;
-	}	
+	}
 
 =item $obj->as_string()
 
@@ -142,15 +141,15 @@ to the ALIASOF attribute.
 sub as_string
 	{
 	my $self = shift;
-	
+
 	my $string = $self->target->as_string;
-	
+
 	$string =~ s/ALIASID/ALIASOF/;
-	
+
 	return $string;
 	}
 
-=head2 $obj->title()	
+=item $obj->title()
 
 Returns the tile of the Alias.
 
@@ -159,22 +158,22 @@ Returns the tile of the Alias.
 sub title
 	{
 	my $self = shift;
-	
+
 	return "Alias: " . $self->target->title;
 	}
 
-=head2 $obj->remove()
+=item $obj->remove()
 
 Performs any clean up necessary to remove this object from the
 Bookmarks tree. Although this method does not affect the Link object
-which is its target, it probably should.  
+which is its target, it probably should.
 
 =cut
 
 sub remove
 	{
 	my $self = shift;
-	
+
 	return 1;
 	}
 

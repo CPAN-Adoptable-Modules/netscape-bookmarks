@@ -1,5 +1,12 @@
-$Id: Changes,v 1.2 2002/05/27 01:24:39 comdog Exp $
+$Id: Changes,v 1.3 2002/09/23 21:33:34 comdog Exp $
 Revision history for Perl extension Netscape::Bookmarks.
+
+2.1_03 Mon Sep 23 16:31:42 CDT 2002
+	---> still a beta release <---
+	- converted tests to Test::Builder
+	- check a few values for definedness before using
+	them ( thanks to Shayne )
+    - start adding Mozilla support
 
 2.1_02 Sun May 26 20:21:54 CDT 2002
 	---> still a beta release <---

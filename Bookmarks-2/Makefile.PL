@@ -1,12 +1,14 @@
+# $Id: Makefile.PL,v 1.5 2002/09/23 21:33:34 comdog Exp $
 use ExtUtils::MakeMaker;
-# See lib/ExtUtils/MakeMaker.pm for details of how to influence
-# the contents of the Makefile that is written.
-# $Revision: 1.4 $
-# $Id: Makefile.PL,v 1.4 2002/05/27 01:25:28 comdog Exp $
+
+my $tests = do {
+	local @ARGV = qw(t/test_manifest);
+	my $data = join " ", map {chomp; "t/$_" } <>;
+	};
 
 WriteMakefile(
     'NAME'	  => 'Netscape::Bookmarks',
-    'VERSION' => '2.1_01', # finds $VERSION
+    'VERSION' => '2.1_03',
     
     'PM'     => {
     	'lib/Bookmarks.pm'     => '$(INST_LIBDIR)/Bookmarks.pm',
@@ -18,15 +20,24 @@ WriteMakefile(
     	},
     	
     'PREREQ_PM'    => { 	
-		'HTML::Parser'   => 3.26,
-		'HTML::Entities' => undef,
-		'URI::URL'       => undef,
+		'HTML::Parser'     => '3.26',
+		'HTML::Entities'   => '0',
+		'URI::URL'         => '0',
+		'Test::More'       => '0',
+		'Test::Pod'        => '0',
+		'Test::Prereq'     => '0.05',
+		'File::Find::Rule' => '0',
+		'Test::File'       => '0'
+		
 	 },
 
     'dist'          => {
                        'COMPRESS'        => 'gzip -9f',
                        'SUFFIX'          => 'gz',
                         },
+
+	test   => { TESTS      => $tests },
+	depend => { 'Makefile' => 't/test_manifest' },
 
 	MYEXTLIB		=> undef,
 

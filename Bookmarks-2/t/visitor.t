@@ -1,35 +1,18 @@
-# Before `make install' is performed this script should be runnable with
-# `make test'. After `make install' it should work as `perl test.pl'
+# $Id: visitor.t,v 1.2 2002/09/23 21:33:34 comdog Exp $
+use strict;
 
-######################### We start with some black magic to print on failure.
+use Test::More tests => 3;
 
-# Change 1..1 below to 1..last_test_to_print .
-# (It may become useful if the test is moved to ./t subdirectory.)
-
-BEGIN { $| = 1; print "1..2\n"; }
-END {print "not ok 1\n" unless $loaded;}
 use Netscape::Bookmarks;
-$loaded = 1;
-print "ok 1\n";
-
-######################### End of black magic.
-
-# Insert your test code below (better if it prints "ok 13"
-# (correspondingly "not ok 13") depending on the success of chunk 13
-# of the test code):
 
 require "examples/Visitor.pm";
 
 my $visitor = Visitor->new();
+isa_ok( $visitor, 'Visitor' );
 
-eval {
 my $netscape = Netscape::Bookmarks->new( "bookmark_files/Bookmarks.html" );
-die "Could not create object!" unless ref $netscape;
+isa_ok( $netscape, 'Netscape::Bookmarks::Category' );
 
-print STDERR "\n";
 $netscape->introduce( $visitor );
 
-};
-print STDERR $@ if $@;
-
-print $@ ? 'not ' : '', 'ok 2', "\n";
+pass();

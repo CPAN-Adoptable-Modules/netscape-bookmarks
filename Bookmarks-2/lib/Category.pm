@@ -1,6 +1,5 @@
 package Netscape::Bookmarks::Category;
-# $Revision: 1.3 $
-# $Id: Category.pm,v 1.3 2002/05/27 01:19:09 comdog Exp $
+# $Id: Category.pm,v 1.4 2002/09/23 21:33:34 comdog Exp $
 
 =head1 NAME
 
@@ -9,13 +8,13 @@ Netscape::Bookmarks::Category	- manipulate, or create Netscape Bookmarks files
 =head1 SYNOPSIS
 
   use Netscape::Bookmarks;
-  
+
   #parse an existing file
   my $bookmarks = new Netscape::Bookmarks $bookmarks_file;
-  
+
   #print a Netscape compatible file
   print $bookmarks->as_string;
-  
+
 =head1 DESCRIPTION
 
 The Netscape bookmarks file has several basic components:
@@ -25,7 +24,7 @@ The Netscape bookmarks file has several basic components:
 	links
 	aliases
 	separators
-	
+
 On disk, Netscape browsers store this information in HTML. In the browser,
 it is displayed under the "Bookmarks" menu.  The data can be manipulated
 through the browser interface.
@@ -42,7 +41,7 @@ only argument to the constructor:
 	my $bookmarks = new Netscape::Bookmarks $bookmarks_file;
 
 The returned object is a Netscape::Bookmarks::Category object, since the bookmark file is
-simply a collection of categories that contain any of the components listed 
+simply a collection of categories that contain any of the components listed
 above.  The top level (i.e. root) category is treated specially and defines the
 title of the bookmarks file.
 
@@ -69,8 +68,8 @@ use constant START_LIST_ITEM => '<DT>';
 use constant TAB             => '    ';
 use constant FOLDED_TRUE     => 1;
 use constant FOLDED_FALSE    => 0;
-	
-($VERSION) = q$Revision: 1.3 $ =~ m/(\d+\.\d+)\d*$/;
+
+($VERSION) = q$Revision: 1.4 $ =~ m/(\d+\.\d+)\d*$/;
 %IDS     = ();
 $LAST_ID = -1;
 
@@ -95,10 +94,10 @@ sub new
 	{
 	my $class  = shift;
 	my $param  = shift;
-	
+
 	my $self = {};
 	bless $self, $class;
-	
+
 	$param->{'folded'} = FOLDED_TRUE unless $param->{'folded'} == FOLDED_FALSE;
 
 	unless( exists $IDS{$param->{'id'}} or $param->{'id'} =~ /\D/)
@@ -111,17 +110,17 @@ sub new
 		{
 		$param->{'add_date'} = 0;
 		}
-	
+
 	$self->{'title'}       = $param->{'title'};
 	$self->{'folded'}      = $param->{'folded'};
 	$self->{'add_date'}    = $param->{'add_date'};
 	$self->{'id'}          = $param->{'id'};
 	$self->{'description'} = $param->{'description'};
 	$self->{'thingys'}     = [];
-	
+
 	$self;
 	}
-	
+
 =item $category-E<gt>add( $object )
 
 The add() function adds an element to a category.  The element must be a Alias,
@@ -133,13 +132,13 @@ sub add
 	{
 	my $self   = shift;
 	my $thingy = shift;
-	
-	return unless 
-		ref $thingy eq 'Netscape::Bookmarks::Link' or 
+
+	return unless
+		ref $thingy eq 'Netscape::Bookmarks::Link' or
 		ref $thingy eq 'Netscape::Bookmarks::Category' or
 		ref $thingy eq 'Netscape::Bookmarks::Separator' or
 		ref $thingy eq 'Netscape::Bookmarks::Alias';
-		
+
 	push @{ $self->{'thingys'} }, $thingy;
 	}
 
@@ -156,15 +155,15 @@ sub remove_element
 	{
 	my $self   = shift;
 	my $thingy = shift;
-	
+
 	my $old_count = $self->count;
-	 
-	$self->{'thingys'} = 
+
+	$self->{'thingys'} =
 		[ grep { $_ ne $thingy and $_->remove } $self->elements ];
-		
+
 	return $old_count - $self->count;
 	}
-		
+
 =item $category-E<gt>remove()
 
 Performs any clean up necessary to remove this object from the
@@ -174,10 +173,10 @@ objects which it contains, it probably should.
 =cut
 
 sub remove { 1; }
-	
+
 =item $category-E<gt>title( [ TITLE ] )
 
-Returns title to the category. With a 
+Returns title to the category. With a
 defined argument TITLE, it replaces the current
 title.
 
@@ -191,7 +190,7 @@ sub title
 		{
 		$self->{'title'} = shift;
 		}
-	
+
 	$self->{'title'};
 	}
 
@@ -204,13 +203,13 @@ Returns the ID of the category. This is an arbitrary, unique number.
 sub id
 	{
 	my $self = shift;
-	
+
 	$self->{'id'};
 	}
 
 =item $category-E<gt>description( [ DESCRIPTION ] )
 
-Returns the description of the category.  With a 
+Returns the description of the category.  With a
 defined argument DESCRIPTION, it replaces the current
 description.
 
@@ -219,12 +218,12 @@ description.
 sub description
 	{
 	my $self = shift;
-	
+
 	if( defined $_[0] )
 		{
 		$self->{'description'} = shift;
 		}
-		
+
 	$self->{'description'};
 	}
 
@@ -238,7 +237,7 @@ Returns the folded state of the category (TRUE or FALSE).  If the category is
 sub folded
 	{
 	my $self = shift;
-	
+
 	return $self->{'folded'} ? 1 : 0;
 	}
 
@@ -251,13 +250,13 @@ Returns the ADD_DATE attribute of the category.
 sub add_date
 	{
 	my $self = shift;
-	
+
 	return $self->{'add_date'};
 	}
-	
+
 =item $category-E<gt>elements()
 
-In scalar context returns an array reference to the elements in 
+In scalar context returns an array reference to the elements in
 the category.  In list context returns a list of the elements in
 the category.
 
@@ -266,7 +265,7 @@ the category.
 sub elements
 	{
 	my $self = shift;
-	
+
 	if( wantarray ) { @{ $self->{'thingys'} } }
 	else            {    $self->{'thingys'}   }
 	}
@@ -278,7 +277,7 @@ Returns a count of the number of objects in the Category.
 =cut
 
 sub count { scalar @{ $_[0]->{'thingys'} } }
-	
+
 =item $category-E<gt>categories()
 
 Returns a list of the Category objects in the category.
@@ -288,10 +287,10 @@ Returns a list of the Category objects in the category.
 sub categories
 	{
 	my $self = shift;
-	
-	my @list = grep ref $_ eq 'Netscape::Bookmarks::Category', 
+
+	my @list = grep ref $_ eq 'Netscape::Bookmarks::Category',
 		$self->elements;
-	
+
 	return @list;
 	}
 
@@ -304,10 +303,10 @@ Returns a list of the Link objects in the category.
 sub links
 	{
 	my $self = shift;
-	
+
 	my @list = grep ref $_ eq 'Netscape::Bookmarks::Link',
 		 $self->elements;
-	
+
 	return @list;
 	}
 
@@ -321,25 +320,25 @@ the elements of the category.
 sub as_headline
 	{
 	my $self = shift;
-	
+
 	my $folded   = $self->folded ? "FOLDED" : "";
 	my $title    = $self->title;
 	my $desc     = $self->description;
 	my $add_date = $self->add_date;
-		
-	$desc = $desc ne '' ? "\n<DD>$desc" : '';
+
+	$desc = defined $desc && $desc ne '' ? "\n<DD>$desc" : '';
 
 	$add_date = $add_date ? qq|ADD_DATE="$add_date"| : '';
-	
+
 	my $sp = ($folded and $add_date) ? ' ' : '';
-	
+
 	return qq|<H3 $folded$sp$add_date>$title</H3>$desc|
 	}
 
 =item $category-E<gt>recurse( CODE, [ LEVEL ] )
 
 This method performs a depth-first traversal of the Bookmarks
-tree and executes the CODE reference at each node.  
+tree and executes the CODE reference at each node.
 
 The CODE reference receives two arguments - the object on which
 it should operate and its level in the tree.
@@ -351,7 +350,7 @@ sub recurse
 	my $self  = shift;
 	my $sub   = shift;
 	my $level = shift || 0;
-	
+
 	unless( ref $sub eq 'CODE' )
 		{
 		warn "Argument to recurse is not a code reference";
@@ -359,7 +358,7 @@ sub recurse
 		}
 
 	$sub->( $self, $level );
-		
+
 	++$level;
 	foreach my $element ( $self->elements )
 		{
@@ -374,16 +373,16 @@ sub recurse
 		}
 	--$level;
 
-	}	
+	}
 
 =item $category-E<gt>introduce( VISITOR, [ LEVEL ] )
 
 This method performs a depth-first traversal of the Bookmarks
-tree and introduces the visitor object to each object.  
+tree and introduces the visitor object to each object.
 
 This is different from recurse() which only calls its
 CODEREF on nodes.  The VISITOR operates on nodes and
-vertices.  The VISITOR must have a visit() method 
+vertices.  The VISITOR must have a visit() method
 recognizable by can().  This method does not trap
 errors in the VISITOR.
 
@@ -397,7 +396,7 @@ sub introduce
 	my $self      = shift;
 	my $visitor   = shift;
 	my $level     = shift || 0;
-	
+
 	unless( $visitor->can('visit') )
 		{
 		warn "Argument to introduce cannot visit()!";
@@ -405,11 +404,11 @@ sub introduce
 		}
 
 	$self->visitor( $visitor );
-		
+
 	++$level;
 	foreach my $element ( $self->elements )
 		{
-		
+
 		if( $element->isa( __PACKAGE__ ) )
 			{
 			$element->introduce( $visitor, $level );
@@ -422,13 +421,13 @@ sub introduce
 		}
 	--$level;
 
-	}	
-	
+	}
+
 =item $category-E<gt>sort_elements( [ CODE ] )
 
 Sorts the elements in the category using the provided CODE
 reference.  If you do not specify a CODE reference, the
-elements are sorted by title (with the side effect of 
+elements are sorted by title (with the side effect of
 removing Separators from the Category).
 
 This function does not recurse, although you can use
@@ -436,19 +435,19 @@ the recurse() method to do that.
 
 Since the built-in sort() uses the package variables
 C<$a> and C<$b>, your sort subroutine has to make sure
-that it is accessing the right C<$a> and C<$b>, which 
+that it is accessing the right C<$a> and C<$b>, which
 are the ones in the package C<Netscape::Bookmarks::Category>.
 You can start your CODE reference with a package
 declaration to ensure the right thing happens:
 
 	my $sub = sub {
 		package Netscape::Bookmarks::Category;
-		
+
 		$b->title cmp $a->title;
 		};
-		
+
 	$category->sort_elements( $sub );
-	
+
 If you know a better way to do this, please let me know. :)
 
 =cut
@@ -457,7 +456,7 @@ sub sort_elements
 	{
 	my $self = shift;
 	my $sub  = shift;
-		
+
 	if( defined $sub and not ref $sub eq 'CODE' )
 		{
 		warn "Second argument to sort_elements is not a CODE reference.";
@@ -469,16 +468,16 @@ sub sort_elements
 		}
 
 	local *my_sorter = $sub;
-		
+
 	$self->{'thingys'} = [ sort my_sorter
 		grep { not $_->isa( 'Netscape::Bookmarks::Separator' ) }
 			@{ $self->{'thingys'} } ];
 	}
-	
+
 =item $category-E<gt>as_string()
 
 Returns an HTML string representation of the category as the
-top level category, along with all of the elements of the 
+top level category, along with all of the elements of the
 category and the Categories that it contains, recursively.
 
 =cut
@@ -486,10 +485,10 @@ category and the Categories that it contains, recursively.
 sub as_string
 	{
 	my $self   = shift;
-		
+
 	my $title = $self->title;
-	my $desc  = $self->description;
-	
+	my $desc  = $self->description || '';
+
 	my $str = <<"HTML";
 <!DOCTYPE NETSCAPE-Bookmark-file-1>
 <!-- This is an automatically generated file.
@@ -500,10 +499,10 @@ Do Not Edit! -->
 
 HTML
 
-	$str .= "<DD>" . $self->description;
-	
+	$str .= "<DD>" . $desc;
+
 	$str .= START_LIST . "\n";
-	
+
 	foreach my $element ( $self->elements )
 		{
 		$str .= $self->_as_string( $element, 1 );
@@ -521,37 +520,37 @@ sub _as_string
 	my $self   = shift;
 	my $obj    = shift;
 	my $level  = shift;
-	
-	my $str; 
+
+	my $str;
 	if( ref $obj eq 'Netscape::Bookmarks::Category' )
 		{
 		$str .= TAB x ($level) . START_LIST_ITEM . $obj->as_headline;
 		$str .= TAB x ($level-1) . START_LIST . "\n";
-		
+
 		++$level;
 		foreach my $ref ( $obj->elements )
 			{
 			$str .= $self->_as_string( $ref, $level );
 			}
 		--$level;
-	
+
 		$str .= TAB x ($level) . END_LIST . "\n";
 		}
 	elsif( ref $obj eq 'Netscape::Bookmarks::Link' or
 		   ref $obj eq 'Netscape::Bookmarks::Alias' )
 		{
-		$str .= TAB x ($level) . START_LIST_ITEM 
+		$str .= TAB x ($level) . START_LIST_ITEM
 			. $obj->as_string . "\n"
 		}
 	elsif( ref $obj eq 'Netscape::Bookmarks::Separator' )
 		{
 		$str .= TAB x ($level) . $obj->as_string . "\n"
 		}
-		
+
 	return $str;
-		
-	}	
-	
+
+	}
+
 "if you want to beleive everything you read, so be it.";
 
 __END__
