@@ -6,7 +6,7 @@
 # Change 1..1 below to 1..last_test_to_print .
 # (It may become useful if the test is moved to ./t subdirectory.)
 
-BEGIN { $| = 1; print "1..1\n"; }
+BEGIN { $| = 1; print "1..2\n"; }
 END {print "not ok 1\n" unless $loaded;}
 use Netscape::Bookmarks;
 $loaded = 1;
@@ -28,5 +28,6 @@ close FILE;
 
 print STDERR $@ if $@;
 
-END { unlink "bookmark_files/Bookmarks_tmp.html" }
 print $@ ? 'not ' : '', 'ok 2', "\n";
+
+END { unlink "bookmark_files/Bookmarks_tmp.html" }
