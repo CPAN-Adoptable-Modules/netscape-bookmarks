@@ -1,6 +1,6 @@
 package Netscape::Bookmarks::Alias;
-# $Revision: 1.2 $
-# $Id: Alias.pm,v 1.2 2002/05/27 00:25:22 comdog Exp $
+# $Revision: 1.3 $
+# $Id: Alias.pm,v 1.3 2002/05/27 01:19:09 comdog Exp $
 
 =head1 NAME
 
@@ -37,8 +37,9 @@ use vars qw($VERSION $ERROR @EXPORT @EXPORT_OK @ISA %aliases);
 use Exporter;
 
 use Netscape::Bookmarks::Link;
+use Netscape::Bookmarks::AcceptVisitor;
 
-($VERSION) = q$Revision: 1.2 $ =~ m/(\d+\.\d+)\s*$/;
+($VERSION) = q$Revision: 1.3 $ =~ m/(\d+\.\d+)\s*$/;
 
 @EXPORT    = qw();
 @EXPORT_OK = qw();

@@ -1,6 +1,6 @@
 package Netscape::Bookmarks::Separator;
-# $Revision: 1.2 $
-# $Id: Separator.pm,v 1.2 2002/05/27 00:25:22 comdog Exp $
+# $Revision: 1.3 $
+# $Id: Separator.pm,v 1.3 2002/05/27 01:19:09 comdog Exp $
 
 =head1 NAME
 
@@ -36,12 +36,13 @@ use subs qw();
 use vars qw($VERSION $ERROR @EXPORT @EXPORT_OK @ISA);
 
 use Netscape::Bookmarks;
+use Netscape::Bookmarks::AcceptVisitor;
 
 use Exporter;
 
 use URI::URL;
 
-($VERSION) = q$Revision: 1.2 $ =~ m/(\d+\.\d+)\s*$/;
+($VERSION) = q$Revision: 1.3 $ =~ m/(\d+\.\d+)\s*$/;
 
 @EXPORT    = qw();
 @EXPORT_OK = qw();
