@@ -1,9 +1,9 @@
 Changes
 MANIFEST
 Makefile.PL
-Bookmarks.html
 Bookmarks.pm
 test.pl
+bookmark_files/Bookmarks.html
 Category/Category.pm
 Category/Makefile.PL
 Category/test.pl
