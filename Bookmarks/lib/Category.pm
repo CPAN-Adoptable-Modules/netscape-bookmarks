@@ -1,6 +1,6 @@
 package Netscape::Bookmarks::Category;
-# $Revision: 1.3 $
-# $Id: Category.pm,v 1.3 2004/09/16 01:33:54 comdog Exp $
+# $Revision: 1.4 $
+# $Id: Category.pm,v 1.4 2004/09/16 01:48:30 comdog Exp $
 
 =head1 NAME
 
@@ -67,7 +67,7 @@ use constant TAB             => '    ';
 use constant FOLDED_TRUE     => 1;
 use constant FOLDED_FALSE    => 0;
 
-($VERSION) = q$Revision: 1.3 $ =~ m/(\d+\.\d+)\d*$/;
+($VERSION) = q$Revision: 1.4 $ =~ m/(\d+\.\d+)\d*$/;
 %IDS     = ();
 $LAST_ID = -1;
 
@@ -104,6 +104,8 @@ sub new
 		$IDS{$LAST_ID}++;
 		}
 
+	$param->{'add_date'} ||= 0; # get rid of uninit warnings
+	
 	if( $param->{'add_date'} =~ /\D/ or not $param->{'add_date'} =~ /^\d+$/ )
 		{
 		$param->{'add_date'} = 0;

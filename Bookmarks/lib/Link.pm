@@ -1,6 +1,6 @@
 package Netscape::Bookmarks::Link;
-# $Revision: 1.4 $
-# $Id: Link.pm,v 1.4 2004/09/16 01:40:41 comdog Exp $
+# $Revision: 1.5 $
+# $Id: Link.pm,v 1.5 2004/09/16 01:48:30 comdog Exp $
 
 =head1 NAME
 
@@ -70,7 +70,7 @@ use Exporter;
 
 use URI::URL;
 
-($VERSION)   = q$Revision: 1.4 $ =~ m/(\d+\.\d+)\s*$/;
+($VERSION)   = q$Revision: 1.5 $ =~ m/(\d+\.\d+)\s*$/;
 
 @EXPORT    = qw();
 @EXPORT_OK = qw();
@@ -109,7 +109,7 @@ sub new
 
 	foreach my $k ( qw(ADD_DATE LAST_MODIFIED LAST_VISIT ALIASID ALIASOF) )
 		{
-		if( $param->{$k} =~ /\D/ )
+		if( defined $param->{$k} and $param->{$k} =~ /\D/ )
 			{
 			$ERROR = "[$$param{$k}] is not a valid $k";
 			return -2;
