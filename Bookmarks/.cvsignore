@@ -1,0 +1,6 @@
+Makefile
+*.old
+*.bak
+Netscape-*
+.DS_Store
+.lwpcookies
