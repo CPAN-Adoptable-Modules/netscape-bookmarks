@@ -1,6 +1,6 @@
 package Netscape::Bookmarks::Separator;
-# $Revision: 1.3 $
-# $Id: Separator.pm,v 1.3 2002/05/27 01:19:09 comdog Exp $
+# $Revision: 1.4 $
+# $Id: Separator.pm,v 1.4 2002/07/10 04:01:07 comdog Exp $
 
 =head1 NAME
 
@@ -42,28 +42,36 @@ use Exporter;
 
 use URI::URL;
 
-($VERSION) = q$Revision: 1.3 $ =~ m/(\d+\.\d+)\s*$/;
+($VERSION) = q$Revision: 1.4 $ =~ m/(\d+\.\d+)\s*$/;
 
 @EXPORT    = qw();
 @EXPORT_OK = qw();
 @ISA       = qw(Netscape::Bookmarks::AcceptVisitor);
 
+my $singleton = undef;
+
 =head2 Netscape::Bookmarks::Separator->new
 
 Creates a new Separator object.  This method takes no arguments.
+This object represents a Singleton object.  The module only
+makes on instance which everybody else shares.
 
 =cut
 
 sub new
 	{
+	return $singleton if defined $singleton;
+	
 	my $class  = shift;
 	
 	my $n = '';
 	my $self = \$n;
 	
 	bless $self, $class;
-				
-	$self;
+	
+	$singleton = $self;
+		
+	$singleton;
 	}
 	
 =head2 $obj->as_string
