@@ -1,6 +1,6 @@
 package Netscape::Bookmarks::Alias;
-# $Revision: 1.1 $
-# $Id: Alias.pm,v 1.1 2004/09/16 01:25:08 comdog Exp $
+# $Revision: 1.2 $
+# $Id: Alias.pm,v 1.2 2004/09/16 01:26:31 comdog Exp $
 
 =head1 NAME
 
@@ -22,7 +22,7 @@ Netscape::Bookmarks::Alias - object for an Alias in a Netscape Bookmarks file
 
 This module provides an abstraction for an Alias object in a Netscape
 Bookmarks file. An alias is simply a reference to another link in the
-Bookmarks file, henceforth called the target. If you change the alias, 
+Bookmarks file, henceforth called the target. If you change the alias,
 the target link also changes.
 
 =over 4
@@ -38,7 +38,7 @@ use Exporter;
 
 use Netscape::Bookmarks::Link;
 
-($VERSION) = q$Revision: 1.1 $ =~ m/(\d+\.\d+)\s*$/;
+($VERSION) = q$Revision: 1.2 $ =~ m/(\d+\.\d+)\s*$/;
 
 @EXPORT    = qw();
 @EXPORT_OK = qw();
@@ -52,13 +52,13 @@ sub new
 	{
 	my $class  = shift;
 	my $param  = shift;
-	
+
 	my $self = {};
-			
+
 	bless $self, $class;
-	
+
 	$self->{'alias_of'} = $param;
-			
+
 	$self;
 	}
 
@@ -71,7 +71,7 @@ Returns the alias key for this alias
 sub alias_of
 	{
 	my $self = shift;
-	
+
 	return $self->{'alias_of'};
 	}
 
@@ -79,8 +79,8 @@ sub alias_of
 
 Returns the target Link of the given alias key.  The return value
 is a C<Netscape::Bookmarks::Link> object if the target exists, or
-undef in scalar context or the empty list in list context if the 
-target does not exist. If you want to simply check to see if a 
+undef in scalar context or the empty list in list context if the
+target does not exist. If you want to simply check to see if a
 target exists, use C<target_exists>.
 
 =cut
@@ -88,7 +88,7 @@ target exists, use C<target_exists>.
 sub target
 	{
 	my $self     = shift;
-	
+
 	return $aliases{$self->{'alias_of'}};
 	}
 
@@ -99,12 +99,12 @@ links before the Alias is created.
 
 =cut
 
-# this should really be in Link.pm right?	
+# this should really be in Link.pm right?
 sub add_target
 	{
 	my $target   = shift; #link reference
 	my $alias_id = shift;
-	
+
 	($$target)->aliasid($alias_id);
 	$aliases{$alias_id} = $$target;
 	}
@@ -119,10 +119,10 @@ exists.
 sub target_exists
 	{
 	my $target = shift;
-	
+
 	exists $aliases{$target} ? 1 : 0;
-	}	
-	
+	}
+
 "if you want to believe everything you read, so be it.";
 
 =back

@@ -1,6 +1,6 @@
 package Netscape::Bookmarks::Link;
-# $Revision: 1.1 $
-# $Id: Link.pm,v 1.1 2004/09/16 01:25:08 comdog Exp $
+# $Revision: 1.2 $
+# $Id: Link.pm,v 1.2 2004/09/16 01:26:31 comdog Exp $
 
 =head1 NAME
 
@@ -9,7 +9,7 @@ Netscape::Bookmarks::Link	- manipulate, or create Netscape Bookmarks links
 =head1 SYNOPSIS
 
   use Netscape::Bookmarks::Bookmarks;
-  
+
   my $category = new Netscape::Bookmarks::Category { ... };
   my $link = new Netscape::Bookmarks::Link {
   		TITLE         => 'this is the title',
@@ -20,10 +20,10 @@ Netscape::Bookmarks::Link	- manipulate, or create Netscape Bookmarks links
   		LAST_MODIFIED => 937862073,
   		ALIAS_ID      => 4,
   		}
-  		
+
   $category->add($link);
-  
-  
+
+
   #print a Netscape compatible file
   print $link->as_string;
 
@@ -36,7 +36,7 @@ The Netscape bookmarks file has several basic components:
 	links
 	aliases
 	separators
-	
+
 On disk, Netscape browsers store this information in HTML. In the browser,
 it is displayed under the "Bookmarks" menu.  The data can be manipulated
 through the browser interface.
@@ -53,7 +53,7 @@ file.  A link has these attributes, only some of which may be present:
 	ALIAS_OF
 	ALIAS_ID
 
-These are explained below.	
+These are explained below.
 
 =head1 METHODS
 
@@ -70,7 +70,7 @@ use Exporter;
 
 use URI::URL;
 
-($VERSION)   = q$Revision: 1.1 $ =~ m/(\d+\.\d+)\s*$/;
+($VERSION)   = q$Revision: 1.2 $ =~ m/(\d+\.\d+)\s*$/;
 
 @EXPORT    = qw();
 @EXPORT_OK = qw();
@@ -95,7 +95,7 @@ sub new
 	{
 	my $class  = shift;
 	my $param  = shift;
-	
+
 	my $self = {};
 	bless $self, $class;
 
@@ -103,33 +103,33 @@ sub new
 	unless( ref $url )
 		{
 		$ERROR = "[$$param{HREF}] is not a valid URL";
-		return -1;	
+		return -1;
 		}
 	$self->{HREF} = $url;
-	
+
 	foreach my $k ( qw(ADD_DATE LAST_MODIFIED LAST_VISIT ALIASID ALIASOF) )
 		{
 		if( $param->{$k} =~ /\D/ )
 			{
 			$ERROR = "[$$param{$k}] is not a valid $k";
-			return -2;	
+			return -2;
 			}
 		$self->{$k} = $param->{$k};
 		}
-	
+
 	unless( $param->{'TITLE'} )
 		{
 		$ERROR = "The TITLE cannot be null.";
-		return -3;	
+		return -3;
 		}
 
 	$self->{'TITLE'} = $param->{'TITLE'};
-	
+
 	$self->{'DESCRIPTION'} = $param->{'DESCRIPTION'};
-				
+
 	$self;
 	}
-	
+
 
 =head2 $obj->href
 
@@ -141,7 +141,7 @@ the anchor tag.
 sub href
 	{
 	my $self = shift;
-	
+
 	($self->{'HREF'})->as_string
 	}
 
@@ -154,10 +154,10 @@ Returns the date when the link was added, in Unix epoch time.
 sub add_date
 	{
 	my $self = shift;
-	
+
 	$self->{'ADD_DATE'}
 	}
-	
+
 =head2 $obj->last_modified
 
 Returns the date when the link was last modified, in Unix epoch time.  Returns
@@ -168,10 +168,10 @@ zero if no information is available.
 sub last_modified
 	{
 	my $self = shift;
-	
+
 	$self->{'LAST_MODIFIED'}
 	}
-	
+
 =head2 $obj->last_visit
 
 Returns the date when the link was last vistied, in Unix epoch time. Returns
@@ -182,10 +182,10 @@ zero if no information is available.
 sub last_visit
 	{
 	my $self = shift;
-	
+
 	$self->{'LAST_VISIT'}
 	}
-	
+
 =head2 $obj->title
 
 Returns the link title.
@@ -195,7 +195,7 @@ Returns the link title.
 sub title
 	{
 	my $self = shift;
-	
+
 	$self->{'TITLE'}
 	}
 
@@ -208,10 +208,10 @@ Returns the link description.
 sub description
 	{
 	my $self = shift;
-	
+
 	$self->{'DESCRIPTION'}
 	}
-	
+
 =head2 $obj->alias_id
 
 Returns the alias id of a link. Links with aliases are assigned an ALIAS_ID which
@@ -225,65 +225,65 @@ sub aliasid
 	{
 	my $self = shift;
 	my $data = shift;
-	
+
 	$self->{'ALIASID'} = $data if defined $data;
 
 	$self->{'ALIASID'}
 	}
 
 # =head2 $obj->alias_of
-# 
+#
 # Returns the target id of a link. Links with aliases are assigned an ALIAS_ID which
 # associates them with the alias.  The alias contains the same value in it's ALIAS_OF
 # field.  The Netscape::Bookmarks::Alias module handles aliases as references to
 # Netscape::Bookmarks::Link objects.
-# 
+#
 # =cut
 
 sub aliasof
 	{
 	my $self = shift;
-	
+
 	$self->{'ALIASOF'}
 	}
-	
+
 # =head2 $obj->append_title
-# 
+#
 # Adds to the title - used mostly for the HTML parser, although it can
 # be used to add a title if none exists (which is an error, though).
-# 
+#
 # =cut
 
 sub append_title
 	{
 	my $self = shift;
 	my $text = shift;
-	
+
 	$self->{'TITLE'} .= $text;
 	}
 
 # =head2 $obj->append_description
-# 
+#
 # Adds to the description - used mostly for the HTML parser, although
 # it can be used to add a description if none exists.
-# 
+#
 # =cut
-# 
+#
 sub append_description
 	{
 	my $self = shift;
 	my $text = shift;
-	
+
 	$self->{'DESCRIPTION'} .= $text;
 	}
-	
+
 #  just some me what you thin is in the link.  i use this for
 #  debugging.
-#  
+#
 sub print_dump
 	{
 	my $self = shift;
-	
+
 	print <<"HERE";
 $$self{TITLE}
 @{[($$self{HREF})->as_string]}
@@ -291,11 +291,11 @@ $$self{TITLE}
 	$$self{LAST_MODIFIED}
 	$$self{LAST_VISIT}
 	$$self{ALIASID}
-	
+
 HERE
 
 	}
-	
+
 =head2 $obj->as_string
 
 Returns a Netscape compatible bookmarks file based on the Bookmarks object.
@@ -305,16 +305,16 @@ Returns a Netscape compatible bookmarks file based on the Bookmarks object.
 sub as_string
 	{
 	my $self = shift;
-	
+
 	my $link  = $self->href;
 	my $title = $self->title;
-	
+
 	my $add_date      = $self->add_date;
 	my $last_visit    = $self->last_visit;
 	my $last_modified = $self->last_modified;
 	my $aliasid       = $self->aliasid;
 	my $aliasof       = $self->aliasof;
-	
+
 	$aliasid = defined $aliasid ? qq|ALIASID="$aliasid" | : '';
 	$aliasof = defined $aliasof ? qq|ALIASOF="$aliasof" | : '';
 	$add_date = $add_date ? qq|ADD_DATE="$add_date" | : qq|ADD_DATE="0" |;

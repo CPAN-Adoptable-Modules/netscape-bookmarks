@@ -1,6 +1,6 @@
 package Netscape::Bookmarks::Category;
-# $Revision: 1.1 $
-# $Id: Category.pm,v 1.1 2004/09/16 01:25:08 comdog Exp $
+# $Revision: 1.2 $
+# $Id: Category.pm,v 1.2 2004/09/16 01:26:31 comdog Exp $
 
 =head1 NAME
 
@@ -9,13 +9,13 @@ Netscape::Bookmarks::Category	- manipulate, or create Netscape Bookmarks files
 =head1 SYNOPSIS
 
   use Netscape::Bookmarks;
-  
+
   #parse an existing file
   my $bookmarks = new Netscape::Bookmarks $bookmarks_file;
-  
+
   #print a Netscape compatible file
   print $bookmarks->as_string;
-  
+
 =head1 DESCRIPTION
 
 The Netscape bookmarks file has several basic components:
@@ -25,7 +25,7 @@ The Netscape bookmarks file has several basic components:
 	links
 	aliases
 	separators
-	
+
 On disk, Netscape browsers store this information in HTML. In the browser,
 it is displayed under the "Bookmarks" menu.  The data can be manipulated
 through the browser interface.
@@ -42,7 +42,7 @@ only argument to the constructor:
 	my $bookmarks = new Netscape::Bookmarks $bookmarks_file;
 
 The returned object is a Netscape::Bookmarks::Category object, since the bookmark file is
-simply a collection of categories that contain any of the components listed 
+simply a collection of categories that contain any of the components listed
 above.  The top level (i.e. root) category is treated specially and defines the
 title of the bookmarks file.
 
@@ -66,8 +66,8 @@ use constant START_LIST_ITEM => '<DT>';
 use constant TAB             => '    ';
 use constant FOLDED_TRUE     => 1;
 use constant FOLDED_FALSE    => 0;
-	
-($VERSION) = q$Revision: 1.1 $ =~ m/(\d+\.\d+)\d*$/;
+
+($VERSION) = q$Revision: 1.2 $ =~ m/(\d+\.\d+)\d*$/;
 %IDS     = ();
 $LAST_ID = -1;
 
@@ -92,10 +92,10 @@ sub new
 	{
 	my $class  = shift;
 	my $param  = shift;
-	
+
 	my $self = {};
 	bless $self, $class;
-	
+
 	$param->{'folded'} = FOLDED_TRUE unless $param->{'folded'} == FOLDED_FALSE;
 
 	unless( exists $IDS{$param->{'id'}} or $param->{'id'} =~ /\D/)
@@ -108,17 +108,17 @@ sub new
 		{
 		$param->{'add_date'} = 0;
 		}
-	
+
 	$self->{'title'}       = $param->{'title'};
 	$self->{'folded'}      = $param->{'folded'};
 	$self->{'add_date'}    = $param->{'add_date'};
 	$self->{'id'}          = $param->{'id'};
 	$self->{'description'} = $param->{'description'};
 	$self->{'thingys'}     = [];
-	
+
 	$self;
 	}
-	
+
 =item $category-E<gt>add( $object )
 
 The add() function adds an element to a category.  The element must be a Alias,
@@ -130,17 +130,17 @@ sub add
 	{
 	my $self = shift;
 	my $thingy = shift;
-	
-	return unless 
-		ref $$thingy eq 'Netscape::Bookmarks::Link' or 
+
+	return unless
+		ref $$thingy eq 'Netscape::Bookmarks::Link' or
 		ref $$thingy eq 'Netscape::Bookmarks::Category' or
 		ref $$thingy eq 'Netscape::Bookmarks::Separator' or
 		ref $$thingy eq 'Netscape::Bookmarks::Alias';
-		
+
 	push @{ $self->{'thingys'} }, $$thingy;
 	}
 
-# append_title is used by the parser routines to add to a 
+# append_title is used by the parser routines to add to a
 # title as the HTML stream is parsed.  the title may fall
 # across a chunk boundary so the first part is saved and
 # the second part is added.
@@ -148,11 +148,11 @@ sub append_title
 	{
 	my $self = shift;
 	my $text = shift;
-	
+
 	$self->{'title'} .= $text;
 	}
 
-# append_description is used by the parser routines to add to a 
+# append_description is used by the parser routines to add to a
 # title as the HTML stream is parsed.  the title may fall
 # across a chunk boundary so the first part is saved and
 # the second part is added.
@@ -160,10 +160,10 @@ sub append_description
 	{
 	my $self = shift;
 	my $text = shift;
-	
+
 	$self->{'description'} .= $text;
 	}
-	
+
 =item $category-E<gt>add_desc( $object )
 
 Adds a description to the category.
@@ -174,7 +174,7 @@ sub add_desc
 	{
 	my $self = shift;
 	my $text = shift;
-			
+
 	$self->{'description'} = $text;
 	}
 
@@ -187,7 +187,7 @@ Returns title to the category.
 sub title
 	{
 	my $self = shift;
-	
+
 	$self->{'title'};
 	}
 
@@ -200,7 +200,7 @@ Returns the ID of the category. This is an arbitrary, unique number.
 sub id
 	{
 	my $self = shift;
-	
+
 	$self->{'id'};
 	}
 
@@ -227,7 +227,7 @@ Returns the folded state of the category (TRUE or FALSE).  If the category is
 sub folded
 	{
 	my $self = shift;
-	
+
 	return $self->{'folded'} ? 1 : 0;
 	}
 
@@ -240,10 +240,10 @@ Returns the ADD_DATE attribute of the category.
 sub add_date
 	{
 	my $self = shift;
-	
+
 	return $self->{'add_date'};
 	}
-	
+
 =item $category-E<gt>elements()
 
 Returns an array reference to the elements in the category.
@@ -253,10 +253,10 @@ Returns an array reference to the elements in the category.
 sub elements
 	{
 	my $self = shift;
-	
+
 	return \@{ $self->{'thingys'} };
 	}
-	
+
 =item $category-E<gt>categories()
 
 Returns a list of the Category objects in the category.
@@ -266,9 +266,9 @@ Returns a list of the Category objects in the category.
 sub categories
 	{
 	my $self = shift;
-	
+
 	my @list = grep ref $_ eq 'Netscape::Bookmarks::Category', @{$self->elements};
-	
+
 	return @list;
 	}
 
@@ -281,9 +281,9 @@ Returns a list of the Link objects in the category.
 sub links
 	{
 	my $self = shift;
-	
+
 	my @list = grep ref $_ eq 'Netscape::Bookmarks::Link', @{$self->elements};
-	
+
 	return @list;
 	}
 
@@ -297,25 +297,25 @@ the elements of the category.
 sub as_headline
 	{
 	my $self = shift;
-	
+
 	my $folded = $self->folded ? "FOLDED" : "";
 	my $add_date = $self->add_date;
 	my $title = $self->title;
 	my $desc     = $self->description;
-	
+
 	$desc = "\n<DD>$desc" if $desc ne '';
 
 	$add_date = $add_date ? qq|ADD_DATE="$add_date"| : '';
-	
+
 	my $sp = ($folded and $add_date) ? ' ' : '';
-	
+
 	return qq|<H3 $folded$sp$add_date>$title</H3>$desc|
 	}
 
 =item $category-E<gt>as_string()
 
 Returns an HTML string representation of the category as the
-top level category, along with all of the elements of the 
+top level category, along with all of the elements of the
 category and the Categories that it contains, recursively.
 
 =cut
@@ -323,9 +323,9 @@ category and the Categories that it contains, recursively.
 sub as_string
 	{
 	my $self = shift;
-	
+
 	my $title = $self->title;
-	
+
 	my $str = <<"HTML";
 <!DOCTYPE NETSCAPE-Bookmark-file-1>
 <!-- This is an automatically generated file.
@@ -334,16 +334,16 @@ Do Not Edit! -->
 <TITLE>$title</TITLE>
 <H1>$title</H1>\x0A
 HTML
-	
+
 	$str .= START_LIST . "\n";
-	
+
 	foreach my $ref ( @{$self->elements} )
 		{
 		$str .= $self->_as_string(\$ref, 1);
 		}
 
 	$str .= END_LIST . "\n";
-	
+
 	return $str;
 	}
 
@@ -354,19 +354,19 @@ sub _as_string
 	my $self  = shift;
 	my $obj   = shift;
 	my $level = shift;
-		
-	my $str; 
+
+	my $str;
 	if( ref $$obj eq 'Netscape::Bookmarks::Category' )
 		{
 		++$level;
 		$str .= TAB x ($level - 1) . START_LIST_ITEM . ($$obj)->as_headline . "\n";
 		$str .= TAB x ($level - 1) . START_LIST . "\n";
-		
+
 		foreach my $ref ( @{($$obj)->elements} )
 			{
 			$str .= $self->_as_string(\$ref, $level);
 			}
-		
+
 		$str .= TAB x ($level - 1) . END_LIST . "\n";
 		--$level;
 		}
@@ -388,11 +388,11 @@ sub _as_string
 		{
 		$str .= TAB x ($level) . ($$obj)->as_string . "\n"
 		}
-		
+
 	return $str;
-		
-	}	
-	
+
+	}
+
 "if you want to beleive everything you read, so be it.";
 
 __END__
