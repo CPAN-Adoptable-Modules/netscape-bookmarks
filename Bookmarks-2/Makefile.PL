@@ -1,12 +1,12 @@
 use ExtUtils::MakeMaker;
 # See lib/ExtUtils/MakeMaker.pm for details of how to influence
 # the contents of the Makefile that is written.
-# $Revision: 1.2 $
-# $Id: Makefile.PL,v 1.2 2002/05/27 00:25:22 comdog Exp $
+# $Revision: 1.3 $
+# $Id: Makefile.PL,v 1.3 2002/05/27 00:25:55 comdog Exp $
 
 WriteMakefile(
     'NAME'	  => 'Netscape::Bookmarks',
-    'VERSION' => '1.5', # finds $VERSION
+    'VERSION' => '1.6', # finds $VERSION
     
     'PM'     => {
     	'lib/Bookmarks.pm'     => '$(INST_LIBDIR)/Bookmarks.pm',
