@@ -1,5 +1,5 @@
 package Netscape::Bookmarks::Isa;
-# $Id: Isa.pm,v 1.1 2004/09/02 05:08:33 comdog Exp $
+# $Id: Isa.pm,v 1.2 2004/09/26 16:33:42 comdog Exp $
 
 =head1 NAME
 
@@ -52,7 +52,7 @@ Returns true if the object is a Category.
 
 =head1 AUTHOR
 
-brian d foy E<lt>bdfoy@cpan.orgE<gt>
+brian d foy C<< <bdfoy@cpan.org> >>
 
 =head1 COPYRIGHT
 
@@ -77,7 +77,7 @@ use vars qw( $VERSION );
 
 use Exporter;
 
-$VERSION = sprintf "%d.%02d", q$Revision: 1.1 $ =~ m/(\d+) \. (\d+)/xg;
+$VERSION = sprintf "%d.%02d", q$Revision: 1.2 $ =~ m/(\d+) \. (\d+)/xg;
 
 my $Category  = 'Netscape::Bookmarks::Category';
 my $Link      = 'Netscape::Bookmarks::Link';

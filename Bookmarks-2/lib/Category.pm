@@ -1,5 +1,5 @@
 package Netscape::Bookmarks::Category;
-# $Id: Category.pm,v 1.6 2004/09/02 05:28:00 comdog Exp $
+# $Id: Category.pm,v 1.7 2004/09/26 16:33:42 comdog Exp $
 
 =head1 NAME
 
@@ -67,7 +67,7 @@ use constant FOLDED_TRUE     => 1;
 use constant FOLDED_FALSE    => 0;
 use constant TRUE            => 'true';
 
-$VERSION = sprintf "%d.%02d", q$Revision: 1.6 $ =~ m/(\d+) \. (\d+)/xg;
+$VERSION = sprintf "%d.%02d", q$Revision: 1.7 $ =~ m/(\d+) \. (\d+)/xg;
 %IDS     = ();
 $LAST_ID = -1;
 
@@ -629,7 +629,7 @@ __END__
 
 =head1 AUTHOR
 
-brian d foy E<lt>bdfoy@cpan.orgE<gt>
+brian d foy C<< <bdfoy@cpan.org> >>
 
 =head1 COPYRIGHT
 
