@@ -1,6 +1,6 @@
-# $Id: isa.t,v 1.1 2002/12/02 00:57:28 comdog Exp $
+# $Id: isa.t,v 1.2 2004/09/02 05:19:52 comdog Exp $
 
-use Test::More tests => 5;
+use Test::More tests => 6;
 
 use Netscape::Bookmarks;
 
