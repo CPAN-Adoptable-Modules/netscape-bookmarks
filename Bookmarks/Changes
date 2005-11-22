@@ -1,5 +1,10 @@
-$Id: Changes,v 1.3 2004/09/16 02:11:52 comdog Exp $
+$Id: Changes,v 1.4 2005/11/22 02:15:00 comdog Exp $
 Revision history for Perl extension Netscape::Bookmarks.
+
+1.7 - Mon Nov 21 20:09:03 2005
+	* Netscape::Bookmarks::Category::add() had a de-ref error.
+	* I updated the docs to be more clear
+	* Everyone should upgrade
 
 1.6 - Wed Sep 15 21:08:13 2004
 * Distro cleanups
