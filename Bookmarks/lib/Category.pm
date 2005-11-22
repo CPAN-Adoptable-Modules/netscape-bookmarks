@@ -1,6 +1,6 @@
 package Netscape::Bookmarks::Category;
-# $Revision: 1.4 $
-# $Id: Category.pm,v 1.4 2004/09/16 01:48:30 comdog Exp $
+# $Revision: 1.5 $
+# $Id: Category.pm,v 1.5 2005/11/22 00:38:22 comdog Exp $
 
 =head1 NAME
 
@@ -11,7 +11,7 @@ Netscape::Bookmarks::Category	- manipulate, or create Netscape Bookmarks files
   use Netscape::Bookmarks;
 
   #parse an existing file
-  my $bookmarks = new Netscape::Bookmarks $bookmarks_file;
+  my $bookmarks = Netscape::Bookmarks->new( $bookmarks_file );
 
   #print a Netscape compatible file
   print $bookmarks->as_string;
@@ -67,7 +67,7 @@ use constant TAB             => '    ';
 use constant FOLDED_TRUE     => 1;
 use constant FOLDED_FALSE    => 0;
 
-($VERSION) = q$Revision: 1.4 $ =~ m/(\d+\.\d+)\d*$/;
+($VERSION) = q$Revision: 1.5 $ =~ m/(\d+\.\d+)\d*$/;
 %IDS     = ();
 $LAST_ID = -1;
 
@@ -93,17 +93,17 @@ sub new
 	my $class  = shift;
 	my $param  = shift;
 
-	my $self = {};
-	bless $self, $class;
-
 	$param->{'folded'} = FOLDED_TRUE unless $param->{'folded'} == FOLDED_FALSE;
 
+	{
+	local $^W=0;
 	unless( exists $IDS{$param->{'id'}} or $param->{'id'} =~ /\D/)
 		{
 		$param->{'id'} = ++$LAST_ID;
 		$IDS{$LAST_ID}++;
 		}
-
+	}
+	
 	$param->{'add_date'} ||= 0; # get rid of uninit warnings
 	
 	if( $param->{'add_date'} =~ /\D/ or not $param->{'add_date'} =~ /^\d+$/ )
@@ -111,14 +111,9 @@ sub new
 		$param->{'add_date'} = 0;
 		}
 
-	$self->{'title'}       = $param->{'title'};
-	$self->{'folded'}      = $param->{'folded'};
-	$self->{'add_date'}    = $param->{'add_date'};
-	$self->{'id'}          = $param->{'id'};
-	$self->{'description'} = $param->{'description'};
-	$self->{'thingys'}     = [];
+	$param->{'thingys'}     = [];
 
-	$self;
+	bless $param, $class;
 	}
 
 =item $category-E<gt>add( $object )
@@ -134,12 +129,12 @@ sub add
 	my $thingy = shift;
 
 	return unless
-		ref $$thingy eq 'Netscape::Bookmarks::Link' or
-		ref $$thingy eq 'Netscape::Bookmarks::Category' or
-		ref $$thingy eq 'Netscape::Bookmarks::Separator' or
-		ref $$thingy eq 'Netscape::Bookmarks::Alias';
+		ref $thingy eq 'Netscape::Bookmarks::Link' or
+		ref $thingy eq 'Netscape::Bookmarks::Category' or
+		ref $thingy eq 'Netscape::Bookmarks::Separator' or
+		ref $thingy eq 'Netscape::Bookmarks::Alias';
 
-	push @{ $self->{'thingys'} }, $$thingy;
+	push @{ $self->{'thingys'} }, $thingy;
 	}
 
 # append_title is used by the parser routines to add to a

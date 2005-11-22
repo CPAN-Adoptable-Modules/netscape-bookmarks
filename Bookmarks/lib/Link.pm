@@ -1,6 +1,6 @@
 package Netscape::Bookmarks::Link;
-# $Revision: 1.5 $
-# $Id: Link.pm,v 1.5 2004/09/16 01:48:30 comdog Exp $
+# $Revision: 1.6 $
+# $Id: Link.pm,v 1.6 2005/11/22 00:38:22 comdog Exp $
 
 =head1 NAME
 
@@ -10,8 +10,8 @@ Netscape::Bookmarks::Link	- manipulate, or create Netscape Bookmarks links
 
   use Netscape::Bookmarks::Bookmarks;
 
-  my $category = new Netscape::Bookmarks::Category { ... };
-  my $link = new Netscape::Bookmarks::Link {
+  my $category = Netscape::Bookmarks::Category->new( { ... } );
+  my $link = Netscape::Bookmarks::Link->new( {
   		TITLE         => 'this is the title',
   		DESCRIPTION   => 'this is the description',
   		HREF          => 'http://www.perl.org',
@@ -19,7 +19,7 @@ Netscape::Bookmarks::Link	- manipulate, or create Netscape Bookmarks links
   		LAST_VISIT    => 937862073,
   		LAST_MODIFIED => 937862073,
   		ALIAS_ID      => 4,
-  		}
+  		} );
 
   $category->add($link);
 
@@ -70,7 +70,7 @@ use Exporter;
 
 use URI::URL;
 
-($VERSION)   = q$Revision: 1.5 $ =~ m/(\d+\.\d+)\s*$/;
+($VERSION)   = q$Revision: 1.6 $ =~ m/(\d+\.\d+)\s*$/;
 
 @EXPORT    = qw();
 @EXPORT_OK = qw();

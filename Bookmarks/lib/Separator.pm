@@ -1,6 +1,6 @@
 package Netscape::Bookmarks::Separator;
-# $Revision: 1.3 $
-# $Id: Separator.pm,v 1.3 2004/09/16 01:33:21 comdog Exp $
+# $Revision: 1.4 $
+# $Id: Separator.pm,v 1.4 2005/11/22 00:38:22 comdog Exp $
 
 =head1 NAME
 
@@ -12,9 +12,9 @@ Netscape::Bookmarks::Separator	- manipulate, or create Netscape Bookmarks files
 	use Netscape::Bookmarks::Separator;
 
 	#add a separator to a category listing
-	my $category  = new Netscape::Bookmarks::Category { ... };
-	my $separator = new Netscape::Bookmarks::Separator;
-	my $category->add($separator);
+	my $category  = Netscape::Bookmarks::Category->new( { ... } );
+	my $separator = Netscape::Bookmarks::Separator->new();
+	my $category->add( $separator );
 
 	#print the separator
 	#note that Netscape::Category::as_string does this for you
@@ -39,7 +39,7 @@ use Exporter;
 
 use URI::URL;
 
-($VERSION) = q$Revision: 1.3 $ =~ m/(\d+\.\d+)\s*$/;
+($VERSION) = q$Revision: 1.4 $ =~ m/(\d+\.\d+)\s*$/;
 
 @EXPORT    = qw();
 @EXPORT_OK = qw();
@@ -93,7 +93,7 @@ members of the project can shepherd this module appropriately.
 
 =head1 AUTHOR
 
-brian d foy E<lt>comdog@panix.comE<gt>
+brian d foy C<< <bdfoy@cpan.org> >>
 
 =head1 COPYRIGHT
 

@@ -1,5 +1,5 @@
 package Netscape::Bookmarks;
-# $Id: Bookmarks.pm,v 1.6 2004/09/16 01:53:11 comdog Exp $
+# $Id: Bookmarks.pm,v 1.7 2005/11/22 00:38:22 comdog Exp $
 
 =head1 NAME
 
@@ -22,10 +22,9 @@ Netscape::Bookmarks	- parse, manipulate, or create Netscape Bookmarks files
 
 =head1 DESCRIPTION
 
-[ Note: I wrote this a long time ago.  Although this should still
-work with "Netscape" browsers, Mozilla browsers do the same
-thing.  When the docs say "Netscape", I mean either branch
-of browsers. ]
+[ Note: I wrote this a long time ago.  Although this should still work
+with "Netscape" browsers, Mozilla browsers do the same thing.  When the
+docs say "Netscape", I mean either branch of browsers. ]
 
 The Netscape bookmarks file has several basic components:
 
@@ -39,22 +38,21 @@ On disk, Netscape browsers store this information in HTML. In the
 browser, it is displayed under the "Bookmarks" menu. The data can be
 manipulated through the browser interface.
 
-This module allows one to manipulate the bookmarks file
-programmatically.  One can parse an existing bookmarks file, manipulate
-the information, and write it as a bookmarks file again.  Furthermore,
-one can skip the parsing step to create a new bookmarks file and write
-it in the proper format to be used by a Netscape browser.
+This module allows one to manipulate the bookmarks file programmatically.
+ One can parse an existing bookmarks file, manipulate the information,
+and write it as a bookmarks file again.  Furthermore, one can skip the
+parsing step to create a new bookmarks file and write it in the proper
+format to be used by a Netscape browser.
 
-The Bookmarks module simply parses the bookmarks file passed to it as
-the only argument to the constructor:
+The Bookmarks module simply parses the bookmarks file passed to it as the
+only argument to the constructor:
 
 	my $bookmarks = Netscape::Bookmarks->new( $bookmarks_file );
 
 The returned object is a C<Netscape::Bookmarks::Category> object, since
-the bookmark file is simply a collection of categories that
-contain any of the components listed above.  The top level
-(i.e. root) category is treated specially and defines the
-title of the bookmarks file.
+the bookmark file is simply a collection of categories that contain any
+of the components listed above.  The top level (i.e. root) category is
+treated specially and defines the title of the bookmarks file.
 
 C<HTML::Parser> is used behind the scenes to build the data structure (a
 simple list of lists (of lists ...)). C<Netscape::Bookmarks::Category>,
@@ -98,7 +96,7 @@ use Netscape::Bookmarks::Category;
 use Netscape::Bookmarks::Link;
 use Netscape::Bookmarks::Separator;
 
-($VERSION) = q$Revision: 1.6 $ =~ m/(\d+\.\d+)\s*$/;
+($VERSION) = q$Revision: 1.7 $ =~ m/(\d+\.\d+)\s*$/;
 @ISA=qw(HTML::Parser);
 
 $ID = 0;
@@ -106,16 +104,15 @@ $DEBUG = $ENV{NS_DEBUG} || 0;
 
 =item new( [filename] )
 
-The constructor takes a filename as its single (optional) argument.
-If you do not give C<new> an argument, an empty
-C<Netscape::Bookmarks::Category> object is returned so that
-you can start to build up your new Bookmarks file.  If the file
-that you name does not exist, C<undef> is returned in scalar
-context and an empty list is returned in list context. If the
-file does exist it is parsed with C<HTML::Parser> with the
-internal parser subclass defined in the same package as C<new>.
-If the parsing finishes without error a C<Netscape::Bookmarks::Category>
-object is returned.
+The constructor takes a filename as its single (optional) argument. If
+you do not give C<new> an argument, an empty
+C<Netscape::Bookmarks::Category> object is returned so that you can start
+to build up your new Bookmarks file.  If the file that you name does not
+exist, C<undef> is returned in scalar context and an empty list is
+returned in list context. If the file does exist it is parsed with
+C<HTML::Parser> with the internal parser subclass defined in the same
+package as C<new>. If the parsing finishes without error a
+C<Netscape::Bookmarks::Category> object is returned.
 
 =cut
 
@@ -125,7 +122,7 @@ sub new
 
 	unless( $file )
 		{
-		my $cat = new Netscape::Bookmarks::Category;
+		my $cat = Netscape::Bookmarks::Category->new;
 		return $cat;
 		}
 
@@ -140,11 +137,17 @@ sub new
 	return $netscape;
 	}
 
+=item parse_string
+
+Method for HTML::Parser subclass method
+
+=cut
+
 sub parse_string
 	{
 	my $ref = shift;
 
-	my $self = new HTML::Parser;
+	my $self = HTML::Parser->new;
 	bless $self, "Netscape::Bookmarks";
 
 	my $length = length $$ref;
@@ -163,6 +166,12 @@ sub parse_string
 
 	return $netscape;
 	}
+
+=item start
+
+Method for HTML::Parser subclass method
+
+=cut
 
 sub start
 	{
@@ -189,6 +198,12 @@ sub start
 
     $flag = $tag
 	}
+
+=item text
+
+Method for HTML::Parser subclass method
+
+=cut
 
 sub text
 	{
@@ -307,6 +322,12 @@ sub text
 	$text_flag = 1;
 	}
 
+=item end
+
+Method for HTML::Parser subclass method
+
+=cut
+
 sub end
     {
     my($self, $tag, $attr) = @_;
@@ -320,6 +341,12 @@ sub end
     #$current_link = undef if $tag eq 'a';
     $flag = undef;
     }
+
+=item my_init
+
+Method for HTML::Parser subclass method
+
+=cut
 
 sub my_init {}
 
