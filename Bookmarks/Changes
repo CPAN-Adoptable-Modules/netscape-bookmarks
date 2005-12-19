@@ -1,5 +1,12 @@
-$Id: Changes,v 1.4 2005/11/22 02:15:00 comdog Exp $
+$Id: Changes,v 1.5 2005/12/19 00:22:57 comdog Exp $
 Revision history for Perl extension Netscape::Bookmarks.
+
+1.8 - Sun Dec 18 18:20:33 2005
+	* removed files starting in ._ (Mac artifacts). I can't seem to
+	get MANIFEST.SKIP to get rid of these files. I think TextWrangler
+	is doing something odd.
+
+	* cleaned up Category.pm and Link.pm to quash some warnings
 
 1.7 - Mon Nov 21 20:09:03 2005
 	* Netscape::Bookmarks::Category::add() had a de-ref error.
