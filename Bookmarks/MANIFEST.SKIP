@@ -10,3 +10,5 @@
 .lwpcookies
 CVS/
 Bookmarks_tmp.html
+^._
+test.pl

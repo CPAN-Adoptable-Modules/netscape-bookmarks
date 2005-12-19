@@ -1,6 +1,6 @@
 package Netscape::Bookmarks::Category;
-# $Revision: 1.5 $
-# $Id: Category.pm,v 1.5 2005/11/22 00:38:22 comdog Exp $
+# $Revision: 1.6 $
+# $Id: Category.pm,v 1.6 2005/12/19 00:09:57 comdog Exp $
 
 =head1 NAME
 
@@ -67,7 +67,7 @@ use constant TAB             => '    ';
 use constant FOLDED_TRUE     => 1;
 use constant FOLDED_FALSE    => 0;
 
-($VERSION) = q$Revision: 1.5 $ =~ m/(\d+\.\d+)\d*$/;
+($VERSION) = q$Revision: 1.6 $ =~ m/(\d+\.\d+)\d*$/;
 %IDS     = ();
 $LAST_ID = -1;
 
@@ -93,7 +93,10 @@ sub new
 	my $class  = shift;
 	my $param  = shift;
 
-	$param->{'folded'} = FOLDED_TRUE unless $param->{'folded'} == FOLDED_FALSE;
+	$param->{'folded'} = FOLDED_TRUE unless(
+		defined $param->{'folded'} &&
+		$param->{'folded'} == FOLDED_FALSE
+		);
 
 	{
 	local $^W=0;

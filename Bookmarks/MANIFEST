@@ -8,7 +8,6 @@ lib/Bookmarks.pm
 lib/Category.pm
 lib/Link.pm
 lib/Separator.pm
-Makefile
 Makefile.PL
 MANIFEST
 MANIFEST.SKIP

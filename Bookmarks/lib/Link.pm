@@ -1,6 +1,6 @@
 package Netscape::Bookmarks::Link;
-# $Revision: 1.6 $
-# $Id: Link.pm,v 1.6 2005/11/22 00:38:22 comdog Exp $
+# $Revision: 1.7 $
+# $Id: Link.pm,v 1.7 2005/12/19 00:09:57 comdog Exp $
 
 =head1 NAME
 
@@ -70,7 +70,7 @@ use Exporter;
 
 use URI::URL;
 
-($VERSION)   = q$Revision: 1.6 $ =~ m/(\d+\.\d+)\s*$/;
+($VERSION)   = q$Revision: 1.7 $ =~ m/(\d+\.\d+)\s*$/;
 
 @EXPORT    = qw();
 @EXPORT_OK = qw();
@@ -322,7 +322,7 @@ sub as_string
 	$last_visit    = $last_visit      ? qq|LAST_VISIT="$last_visit" |      : qq|LAST_VISIT="0" |;
 	$last_modified = $last_modified   ? qq|LAST_MODIFIED="$last_modified"| : qq|LAST_MODIFIED="0"|;
 
-	my $desc = "\n\t<DD>" . $self->description if $self->description;
+	my $desc = do { local $^W=0; "\n\t<DD>" . $self->description if $self->description };
 	$desc ||= '';
 	
 	return qq|<A HREF="$link" $aliasof$aliasid$add_date$last_visit$last_modified>$title</A>$desc|;
