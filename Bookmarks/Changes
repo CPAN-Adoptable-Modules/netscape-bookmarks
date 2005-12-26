@@ -1,5 +1,15 @@
-$Id: Changes,v 1.5 2005/12/19 00:22:57 comdog Exp $
+$Id: Changes,v 1.6 2005/12/26 17:42:32 comdog Exp $
 Revision history for Perl extension Netscape::Bookmarks.
+
+1.09 - Mon Dec 26 09:40:17 2005
+	* This distro fixes the ._Makefile.PL problem that 1.7 had. It seems 
+	Mac OS X tar is a bit stupid about such things, so I switched to 
+	fink's gnutar.
+
+	* Squashed a lot of warnings (thanks to Chris Dolan)
+
+	* Bookmarks.pm now sets a default title of "Bookmarks" for an empty
+	object (thanks to Chris Dolan)
 
 1.8 - Sun Dec 18 18:20:33 2005
 	* removed files starting in ._ (Mac artifacts). I can't seem to
