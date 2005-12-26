@@ -1,6 +1,6 @@
 package Netscape::Bookmarks::Category;
-# $Revision: 1.6 $
-# $Id: Category.pm,v 1.6 2005/12/19 00:09:57 comdog Exp $
+# $Revision: 1.7 $
+# $Id: Category.pm,v 1.7 2005/12/26 17:39:09 comdog Exp $
 
 =head1 NAME
 
@@ -67,7 +67,7 @@ use constant TAB             => '    ';
 use constant FOLDED_TRUE     => 1;
 use constant FOLDED_FALSE    => 0;
 
-($VERSION) = q$Revision: 1.6 $ =~ m/(\d+\.\d+)\d*$/;
+($VERSION) = q$Revision: 1.7 $ =~ m/(\d+\.\d+)\d*$/;
 %IDS     = ();
 $LAST_ID = -1;
 
@@ -298,9 +298,9 @@ sub as_headline
 	{
 	my $self = shift;
 
-	my $folded = $self->folded ? "FOLDED" : "";
+	my $folded   = $self->folded ? "FOLDED" : "";
 	my $add_date = $self->add_date;
-	my $title = $self->title;
+	my $title    = $self->title;
 	my $desc     = $self->description;
 
 	$desc = "\n<DD>$desc" if $desc ne '';
@@ -339,7 +339,7 @@ HTML
 
 	foreach my $ref ( @{$self->elements} )
 		{
-		$str .= $self->_as_string(\$ref, 1);
+		$str .= $self->_as_string( $ref, 1 );
 		}
 
 	$str .= END_LIST . "\n";
@@ -356,37 +356,38 @@ sub _as_string
 	my $level = shift;
 
 	my $str;
-	if( ref $$obj eq 'Netscape::Bookmarks::Category' )
+	if( eval { $obj->isa( 'Netscape::Bookmarks::Category' ) } )
 		{
 		++$level;
-		$str .= TAB x ($level - 1) . START_LIST_ITEM . ($$obj)->as_headline . "\n";
+		$str .= TAB x ($level - 1) . START_LIST_ITEM . $obj->as_headline . "\n";
 		$str .= TAB x ($level - 1) . START_LIST . "\n";
 
-		foreach my $ref ( @{($$obj)->elements} )
+		foreach my $ref ( $obj->elements )
 			{
-			$str .= $self->_as_string(\$ref, $level);
+			$str .= $self->_as_string( $ref, $level );
 			}
 
 		$str .= TAB x ($level - 1) . END_LIST . "\n";
 		--$level;
 		}
-	elsif( ref $$obj eq 'Netscape::Bookmarks::Link' )
+	elsif( eval { $obj->isa( 'Netscape::Bookmarks::Link' ) } )
 		{
-		my $title = ($$obj)->title;
-		my $url   = ($$obj)->href;
-		$str .= TAB x ($level) . START_LIST_ITEM . ($$obj)->as_string . "\n"
+		my $title = $obj->title;
+		my $url   = $obj->href;
+		$str .= TAB x ($level) . START_LIST_ITEM . $obj->as_string . "\n"
 		}
-	elsif( ref $$obj eq 'Netscape::Bookmarks::Alias' )
+	elsif( eval { $obj->isa( 'Netscape::Bookmarks::Alias' ) } )
 		{
-		my $title = ($$obj)->target->title;
-		my $url   = ($$obj)->target->href;
-		my $s = ($$obj)->target->as_string;
+		my $title = $obj->target->title;
+		my $url   = $obj->target->href;
+		my $s     = $obj->target->as_string;
+
 		$s =~ s/ALIASID/ALIASOF/;
 		$str .= TAB x ($level) . START_LIST_ITEM . $s . "\n"
 		}
-	elsif( ref $$obj eq 'Netscape::Bookmarks::Separator' )
+	elsif( eval { $obj->isa( 'Netscape::Bookmarks::Separator' ) } )
 		{
-		$str .= TAB x ($level) . ($$obj)->as_string . "\n"
+		$str .= TAB x ($level) . $obj->as_string . "\n"
 		}
 
 	return $str;

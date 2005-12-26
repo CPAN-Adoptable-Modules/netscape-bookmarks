@@ -1,5 +1,5 @@
 package Netscape::Bookmarks;
-# $Id: Bookmarks.pm,v 1.8 2005/12/19 00:09:57 comdog Exp $
+# $Id: Bookmarks.pm,v 1.9 2005/12/26 17:39:09 comdog Exp $
 
 =head1 NAME
 
@@ -96,7 +96,7 @@ use Netscape::Bookmarks::Category;
 use Netscape::Bookmarks::Link;
 use Netscape::Bookmarks::Separator;
 
-($VERSION) = q$Revision: 1.8 $ =~ m/(\d+\.\d+)\s*$/;
+($VERSION) = q$Revision: 1.9 $ =~ m/(\d+\.\d+)\s*$/;
 @ISA = qw(HTML::Parser);
 
 $ID = 0;
@@ -120,15 +120,13 @@ sub new
 	{
 	my($class, $file) = @_;
 
-	unless( $file )
-		{
-		my $cat = Netscape::Bookmarks::Category->new;
-		return $cat;
-		}
+	return Netscape::Bookmarks::Category->new(
+		title => 'Bookmarks',
+		) unless $file;
 
 	return unless (-e $file or ref $file);
 
-	my $self = new HTML::Parser;
+	my $self = HTML::Parser->new;
 
 	bless $self, $class;
 
@@ -363,6 +361,11 @@ latest sources in CVS, as well as all of the previous releases.
 
 If, for some reason, I disappear from the world, one of the other
 members of the project can shepherd this module appropriately.
+
+=head1 CREDITS
+
+Chris Dolan help to quiet some warnings and clean up some rough
+edges.
 
 =head1 AUTHOR
 

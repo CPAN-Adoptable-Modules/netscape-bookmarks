@@ -17,6 +17,7 @@ t/category.t
 t/link.t
 t/load.t
 t/pod.t
+t/pod_coverage.t
 t/prereq.t
 t/separator.t
 t/test_manifest
