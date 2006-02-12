@@ -1,6 +1,6 @@
 package Netscape::Bookmarks::Category;
-# $Revision: 1.8 $
-# $Id: Category.pm,v 1.8 2006/02/12 23:56:44 comdog Exp $
+# $Revision: 1.9 $
+# $Id: Category.pm,v 1.9 2006/02/12 23:58:25 comdog Exp $
 
 =head1 NAME
 
@@ -68,7 +68,7 @@ use constant TAB             => '    ';
 use constant FOLDED_TRUE     => 1;
 use constant FOLDED_FALSE    => 0;
 
-($VERSION) = q$Revision: 1.8 $ =~ m/(\d+\.\d+)\d*$/;
+($VERSION) = q$Revision: 1.9 $ =~ m/(\d+\.\d+)\d*$/;
 %IDS     = ();
 $LAST_ID = -1;
 
@@ -394,7 +394,8 @@ sub _as_string
 	else
 		{
 		carp( "I don't know how to deal with an object of type [" 
-			. ref( $obj ) . "]";
+			. ref( $obj ) . "]"
+			);
 		}
 
 	return $str;
