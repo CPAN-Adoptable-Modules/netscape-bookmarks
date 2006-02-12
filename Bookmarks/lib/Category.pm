@@ -1,6 +1,6 @@
 package Netscape::Bookmarks::Category;
-# $Revision: 1.7 $
-# $Id: Category.pm,v 1.7 2005/12/26 17:39:09 comdog Exp $
+# $Revision: 1.8 $
+# $Id: Category.pm,v 1.8 2006/02/12 23:56:44 comdog Exp $
 
 =head1 NAME
 
@@ -56,6 +56,7 @@ use strict;
 use subs qw();
 use vars qw($VERSION $ERROR @EXPORT @EXPORT_OK @ISA $LAST_ID %IDS);
 
+use Carp qw(carp);
 use Exporter;
 
 use URI::URL;
@@ -67,7 +68,7 @@ use constant TAB             => '    ';
 use constant FOLDED_TRUE     => 1;
 use constant FOLDED_FALSE    => 0;
 
-($VERSION) = q$Revision: 1.7 $ =~ m/(\d+\.\d+)\d*$/;
+($VERSION) = q$Revision: 1.8 $ =~ m/(\d+\.\d+)\d*$/;
 %IDS     = ();
 $LAST_ID = -1;
 
@@ -297,7 +298,7 @@ the elements of the category.
 sub as_headline
 	{
 	my $self = shift;
-
+	
 	my $folded   = $self->folded ? "FOLDED" : "";
 	my $add_date = $self->add_date;
 	my $title    = $self->title;
@@ -356,13 +357,14 @@ sub _as_string
 	my $level = shift;
 
 	my $str;
+	
 	if( eval { $obj->isa( 'Netscape::Bookmarks::Category' ) } )
 		{
 		++$level;
-		$str .= TAB x ($level - 1) . START_LIST_ITEM . $obj->as_headline . "\n";
+		$str .= TAB x ($level - 1) . START_LIST_ITEM . $obj->as_headline() . "\n";
 		$str .= TAB x ($level - 1) . START_LIST . "\n";
 
-		foreach my $ref ( $obj->elements )
+		foreach my $ref ( @{ $obj->elements } )
 			{
 			$str .= $self->_as_string( $ref, $level );
 			}
@@ -389,9 +391,13 @@ sub _as_string
 		{
 		$str .= TAB x ($level) . $obj->as_string . "\n"
 		}
+	else
+		{
+		carp( "I don't know how to deal with an object of type [" 
+			. ref( $obj ) . "]";
+		}
 
 	return $str;
-
 	}
 
 "if you want to beleive everything you read, so be it.";
