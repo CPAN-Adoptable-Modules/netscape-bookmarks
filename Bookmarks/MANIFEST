@@ -23,3 +23,4 @@ t/separator.t
 t/test_manifest
 META.yml                                 Module meta-data (added by MakeMaker)
 README
+LICENSE

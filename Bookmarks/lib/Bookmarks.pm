@@ -1,5 +1,5 @@
 package Netscape::Bookmarks;
-# $Id: Bookmarks.pm,v 1.9 2005/12/26 17:39:09 comdog Exp $
+# $Id: Bookmarks.pm,v 1.10 2006/12/11 08:58:54 comdog Exp $
 
 =head1 NAME
 
@@ -96,7 +96,7 @@ use Netscape::Bookmarks::Category;
 use Netscape::Bookmarks::Link;
 use Netscape::Bookmarks::Separator;
 
-($VERSION) = q$Revision: 1.9 $ =~ m/(\d+\.\d+)\s*$/;
+($VERSION) = q$Revision: 1.10 $ =~ m/(\d+\.\d+)\s*$/;
 @ISA = qw(HTML::Parser);
 
 $ID = 0;
@@ -191,7 +191,7 @@ sub start
     	{
     	my $item = new Netscape::Bookmarks::Separator;
     	print "Found Separator: $item\n" if $DEBUG;
-    	${$category_stack[-1]}->add(\$item);
+    	${$category_stack[-1]}->add($item);
     	}
 
     $flag = $tag
@@ -259,7 +259,7 @@ sub text
 				id       => $ID++,
 				};
 
-			${$category_stack[-1]}->add(\$cat);
+			${$category_stack[-1]}->add($cat);
 			push @category_stack, \$cat;
 			}
 		elsif( $flag eq 'a' and not exists $link_data{'aliasof'} )
@@ -286,7 +286,7 @@ sub text
 
 			print "Link title is ", $item->title, "\n" if $DEBUG;
 
-			${$category_stack[-1]}->add(\$item);
+			${$category_stack[-1]}->add($item);
 			$current_link = \$item;
 			}
 		elsif( $flag eq 'a' and defined $link_data{'aliasof'} )
@@ -299,7 +299,7 @@ sub text
 	    		return;
 	    		}
 
-			${$category_stack[-1]}->add(\$item);
+			${$category_stack[-1]}->add($item);
 			$current_link = \$item;
 			}
 		elsif( $flag eq 'dd' )
@@ -367,6 +367,9 @@ members of the project can shepherd this module appropriately.
 Chris Dolan help to quiet some warnings and clean up some rough
 edges.
 
+Ben Markines fixed up some odd problems I had with references back in
+my early days (it's a bit embarrassing, actually :)
+
 =head1 AUTHOR
 
 brian d foy, C<< <bdfoy@cpan.org> >>
@@ -375,6 +378,10 @@ brian d foy, C<< <bdfoy@cpan.org> >>
 
 This program is free software; you can redistribute it
 and/or modify it under the same terms as Perl itself.
+
+=head1 LICENSE
+
+This software is available under the same terms as Perl itself.
 
 =head1 SEE ALSO
 
