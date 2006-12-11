@@ -1,5 +1,9 @@
-$Id: Changes,v 1.7 2006/02/13 00:01:17 comdog Exp $
+$Id: Changes,v 1.8 2006/12/11 09:41:20 comdog Exp $
 Revision history for Perl extension Netscape::Bookmarks.
+
+1.92 - Mon Dec 11 03:40:55 2006
+	* Fixed some reference passing problems (Thanks to Ben Markines)
+	* Added LICENSE info
 
 1.91 - Sun Feb 12 17:59:48 2006
 	* Ben Markines identified a bug in as_string that kept it recursing
