@@ -8,3 +8,4 @@ META.yml
 blib
 pm_to_blib
 Bookmarks_tmp.html
+lib/.DS_Store
