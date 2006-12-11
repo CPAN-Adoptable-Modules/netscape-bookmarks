@@ -4,7 +4,7 @@ eval "use Test::Manifest 1.14";
 
 WriteMakefile(
 	'NAME'         => 'Netscape::Bookmarks',
-	'VERSION'      => '1.91',
+	'VERSION'      => '1.92',
 
 	'PREREQ_PM'    => { 	
 		'HTML::Parser'   => '0',
