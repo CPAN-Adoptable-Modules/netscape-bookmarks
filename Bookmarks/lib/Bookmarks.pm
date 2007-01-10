@@ -1,5 +1,5 @@
 package Netscape::Bookmarks;
-# $Id: Bookmarks.pm,v 1.10 2006/12/11 08:58:54 comdog Exp $
+# $Id: Bookmarks.pm,v 1.11 2007/01/10 05:42:44 comdog Exp $
 
 =head1 NAME
 
@@ -96,7 +96,7 @@ use Netscape::Bookmarks::Category;
 use Netscape::Bookmarks::Link;
 use Netscape::Bookmarks::Separator;
 
-($VERSION) = q$Revision: 1.10 $ =~ m/(\d+\.\d+)\s*$/;
+($VERSION) = q$Revision: 1.11 $ =~ m/(\d+\.\d+)\s*$/;
 @ISA = qw(HTML::Parser);
 
 $ID = 0;
@@ -374,14 +374,12 @@ my early days (it's a bit embarrassing, actually :)
 
 brian d foy, C<< <bdfoy@cpan.org> >>
 
-=head1 COPYRIGHT
+=head1 COPYRIGHT AND LICENSE
 
-This program is free software; you can redistribute it
-and/or modify it under the same terms as Perl itself.
+Copyright (c) 2002-2007 brian d foy.  All rights reserved.
 
-=head1 LICENSE
-
-This software is available under the same terms as Perl itself.
+This program is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
 =head1 SEE ALSO
 

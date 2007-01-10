@@ -1,6 +1,6 @@
 package Netscape::Bookmarks::Link;
-# $Revision: 1.7 $
-# $Id: Link.pm,v 1.7 2005/12/19 00:09:57 comdog Exp $
+# $Revision: 1.8 $
+# $Id: Link.pm,v 1.8 2007/01/10 05:42:44 comdog Exp $
 
 =head1 NAME
 
@@ -70,7 +70,7 @@ use Exporter;
 
 use URI::URL;
 
-($VERSION)   = q$Revision: 1.7 $ =~ m/(\d+\.\d+)\s*$/;
+($VERSION)   = q$Revision: 1.8 $ =~ m/(\d+\.\d+)\s*$/;
 
 @EXPORT    = qw();
 @EXPORT_OK = qw();
@@ -352,13 +352,12 @@ members of the project can shepherd this module appropriately.
 
 brian d foy, C<< <bdfoy@cpan.org> >>
 
-=head1 COPYRIGHT
+=head1 COPYRIGHT AND LICENSE
 
-This program is free software; you can redistribute it
-and/or modify it under the same terms as Perl itself.
+Copyright (c) 2002-2007 brian d foy.  All rights reserved.
 
-If you send me modifications or new features, I will do
-my best to incorporate them into future versions.
+This program is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
 =head1 SEE ALSO
 

@@ -1,6 +1,6 @@
 package Netscape::Bookmarks::Category;
-# $Revision: 1.9 $
-# $Id: Category.pm,v 1.9 2006/02/12 23:58:25 comdog Exp $
+# $Revision: 1.10 $
+# $Id: Category.pm,v 1.10 2007/01/10 05:42:44 comdog Exp $
 
 =head1 NAME
 
@@ -68,7 +68,7 @@ use constant TAB             => '    ';
 use constant FOLDED_TRUE     => 1;
 use constant FOLDED_FALSE    => 0;
 
-($VERSION) = q$Revision: 1.9 $ =~ m/(\d+\.\d+)\d*$/;
+($VERSION) = q$Revision: 1.10 $ =~ m/(\d+\.\d+)\d*$/;
 %IDS     = ();
 $LAST_ID = -1;
 
@@ -421,15 +421,12 @@ members of the project can shepherd this module appropriately.
 
 brian d foy, C<< <bdfoy@cpan.org> >>
 
-=head1 COPYRIGHT
+=head1 COPYRIGHT AND LICENSE
 
-This program is free software; you can redistribute it
-and/or modify it under the same terms as Perl itself.
+Copyright (c) 2002-2007 brian d foy.  All rights reserved.
 
-If you send me modifications or new features, I will do
-my best to incorporate them into future versions. You can
-interact with the Sourceforge porject for this module at
-http://sourceforge.net/projects/nsbookmarks/.
+This program is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
 =head1 SEE ALSO
 

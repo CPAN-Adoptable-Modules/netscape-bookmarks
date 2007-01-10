@@ -1,6 +1,6 @@
 package Netscape::Bookmarks::Alias;
-# $Revision: 1.3 $
-# $Id: Alias.pm,v 1.3 2004/09/16 01:33:21 comdog Exp $
+# $Revision: 1.4 $
+# $Id: Alias.pm,v 1.4 2007/01/10 05:42:44 comdog Exp $
 
 =head1 NAME
 
@@ -40,7 +40,7 @@ use Exporter;
 
 use Netscape::Bookmarks::Link;
 
-($VERSION) = q$Revision: 1.3 $ =~ m/(\d+\.\d+)\s*$/;
+($VERSION) = q$Revision: 1.4 $ =~ m/(\d+\.\d+)\s*$/;
 
 @EXPORT    = qw();
 @EXPORT_OK = qw();
@@ -143,13 +143,12 @@ members of the project can shepherd this module appropriately.
 
 brian d foy, C<< <bdfoy@cpan.org> >>
 
-=head1 COPYRIGHT
+=head1 COPYRIGHT AND LICENSE
 
-This program is free software; you can redistribute it
-and/or modify it under the same terms as Perl itself.
+Copyright (c) 2002-2007 brian d foy.  All rights reserved.
 
-If you send me modifications or new features, I will do
-my best to incorporate them into future versions.
+This program is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
 =head1 SEE ALSO
 
