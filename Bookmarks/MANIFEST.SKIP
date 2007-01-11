@@ -12,3 +12,6 @@ CVS/
 Bookmarks_tmp.html
 ^._
 test.pl
+blib\b
+Makefile$
+t/\.\#
