@@ -1,12 +1,11 @@
-# $Id: load.t,v 1.1 2002/09/23 20:40:43 comdog Exp $
+# $Id: load.t,v 1.2 2007/10/02 08:04:32 comdog Exp $
 BEGIN {
-	use File::Find::Rule;
 	@classes = map { my $x = $_;
 			$x =~ s|^blib/lib/||;
 			$x =~ s|/|::|g;
 			$x =~ s|\.pm$||;
 			$x;
-			} File::Find::Rule->file()->name( '*.pm' )->in( 'blib/lib' );
+			} glob( 'blib/lib/Netscape/*.pm blib/lib/Netscape/Bookmarks/*.pm' );
 	}
 
 use Test::More tests => scalar @classes;

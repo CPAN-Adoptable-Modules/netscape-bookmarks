@@ -1,5 +1,5 @@
 package Netscape::Bookmarks::Isa;
-# $Id: Isa.pm,v 1.3 2007/10/02 07:30:31 comdog Exp $
+# $Id: Isa.pm,v 1.4 2007/10/02 08:04:29 comdog Exp $
 
 =head1 NAME
 
@@ -8,14 +8,14 @@ Netscape::Bookmarks::Isa - mixin methods for object identity
 =head1 SYNOPSIS
 
 	use base qw( Netscape::Bookmarks::Isa );
-	
+
 	my $bookmarks = Netscape::Bookmarks->new( $bookmarks_file );
-	
+
 	foreach my $element ( $bookmarks->elements )
 		{
 		print "Found category!\n" if $element->is_category;
 		}
-		
+
 =head1 DESCRIPTION
 
 This module is a base class for Netscape::Bookmarks modules. Each
@@ -70,11 +70,12 @@ L<Netscape::Bookmarks::Separator>.
 
 =cut
 
+use strict;
 use vars qw( $VERSION );
 
 use Exporter;
 
-$VERSION = sprintf "%d.%02d", q$Revision: 1.3 $ =~ m/(\d+) \. (\d+)/xg;
+$VERSION = sprintf "%d.%02d", q$Revision: 1.4 $ =~ m/(\d+) \. (\d+)/xg;
 
 my $Category  = 'Netscape::Bookmarks::Category';
 my $Link      = 'Netscape::Bookmarks::Link';

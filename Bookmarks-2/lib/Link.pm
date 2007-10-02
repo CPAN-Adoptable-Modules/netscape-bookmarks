@@ -1,5 +1,5 @@
 package Netscape::Bookmarks::Link;
-# $Id: Link.pm,v 1.9 2007/10/02 07:30:32 comdog Exp $
+# $Id: Link.pm,v 1.10 2007/10/02 08:04:30 comdog Exp $
 
 =head1 NAME
 
@@ -62,7 +62,7 @@ attributes:
 	LAST_CHARSET
 	PING_CONTENT_LEN
 	PING_STATUS
-	
+
 =head1 METHODS
 
 =over 4
@@ -79,7 +79,7 @@ use Exporter;
 
 use URI;
 
-$VERSION = sprintf "%d.%02d", q$Revision: 1.9 $ =~ m/(\d+) \. (\d+)/xg;
+$VERSION = sprintf "%d.%02d", q$Revision: 1.10 $ =~ m/(\d+) \. (\d+)/xg;
 
 =item Netscape::Bookmarks::Link-E<gt>new( \%hash )
 
@@ -93,7 +93,7 @@ link:
 	LAST_VISIT
 	ALIASID
 	ALIASOF
-	
+
 	SHORTCUTURL
 	ICON
 	LAST_CHARSET

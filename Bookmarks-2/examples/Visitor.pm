@@ -25,10 +25,7 @@ link.
 
 You can use this as a starting point for your own Visitor.
 
-=head
-
-
-=head METHODS
+=head2 METHODS
 
 =over 4
 
