@@ -1,5 +1,8 @@
-$Id: Changes,v 1.4 2002/09/24 01:34:09 comdog Exp $
+$Id: Changes,v 1.5 2007/10/02 08:12:47 comdog Exp $
 Revision history for Perl extension Netscape::Bookmarks.
+
+2.02 - Tue Oct  2 03:12:51 2007
+	* Fixed up many distro problems. No need to upgrade.
 
 2.2_01 Mon Sep 23 20:33:04 CDT 2002
 	---> still a beta, but not as much as before <---
