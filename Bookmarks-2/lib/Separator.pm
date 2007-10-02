@@ -1,5 +1,5 @@
 package Netscape::Bookmarks::Separator;
-# $Id: Separator.pm,v 1.7 2004/09/26 16:33:42 comdog Exp $
+# $Id: Separator.pm,v 1.8 2007/10/02 07:30:34 comdog Exp $
 
 =head1 NAME
 
@@ -37,7 +37,7 @@ use vars qw( $VERSION );
 
 use Exporter;
 
-$VERSION = sprintf "%d.%02d", q$Revision: 1.7 $ =~ m/(\d+) \. (\d+)/xg;
+$VERSION = sprintf "%d.%02d", q$Revision: 1.8 $ =~ m/(\d+) \. (\d+)/xg;
 
 my $singleton = undef;
 
@@ -107,15 +107,12 @@ sub remove
 
 brian d foy C<< <bdfoy@cpan.org> >>
 
-=head1 COPYRIGHT
+=head1 COPYRIGHT AND LICENSE
 
-Copyright 2002, brian d foy, All rights reserved.
+Copyright (c) 2002-2007 brian d foy.  All rights reserved.
 
-This program is free software; you can redistribute it
-and/or modify it under the same terms as Perl itself.
-
-If you send me modifications or new features, I will do
-my best to incorporate them into future versions.
+This program is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
 =head1 SEE ALSO
 

@@ -108,15 +108,13 @@ __END__
 
 brian d foy C<< <bdfoy@cpan.org> >>
 
-=head1 COPYRIGHT
+=head1 COPYRIGHT AND LICENSE
 
-This program is free software; you can redistribute it
-and/or modify it under the same terms as Perl itself.
+Copyright (c) 2004-2007 brian d foy.  All rights reserved.
 
-If you send me modifications or new features, I will do
-my best to incorporate them into future versions. You can
-interact with the Sourceforge porject for this module at
-http://sourceforge.net/projects/nsbookmarks/.
+This program is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
 
 =head1 SEE ALSO
 

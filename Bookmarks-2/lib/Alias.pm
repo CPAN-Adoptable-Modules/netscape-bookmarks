@@ -1,5 +1,5 @@
 package Netscape::Bookmarks::Alias;
-# $Id: Alias.pm,v 1.6 2004/09/26 16:33:42 comdog Exp $
+# $Id: Alias.pm,v 1.7 2007/10/02 07:30:25 comdog Exp $
 
 =head1 NAME
 
@@ -36,7 +36,7 @@ use vars qw($VERSION $ERROR %aliases);
 
 use Exporter;
 
-$VERSION = sprintf "%d.%02d", q$Revision: 1.6 $ =~ m/(\d+) \. (\d+)/xg;
+$VERSION = sprintf "%d.%02d", q$Revision: 1.7 $ =~ m/(\d+) \. (\d+)/xg;
 
 =item $obj = Netscape::Bookmarks::Alias->new( ALIASID )
 
@@ -179,13 +179,12 @@ sub remove
 
 brian d foy C<< <bdfoy@cpan.org> >>
 
-=head1 COPYRIGHT
+=head1 COPYRIGHT AND LICENSE
 
-This program is free software; you can redistribute it
-and/or modify it under the same terms as Perl itself.
+Copyright (c) 2002-2007 brian d foy.  All rights reserved.
 
-If you send me modifications or new features, I will do
-my best to incorporate them into future versions.
+This program is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
 =head1 SEE ALSO
 

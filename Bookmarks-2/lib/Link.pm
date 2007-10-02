@@ -1,5 +1,5 @@
 package Netscape::Bookmarks::Link;
-# $Id: Link.pm,v 1.8 2004/09/26 16:33:42 comdog Exp $
+# $Id: Link.pm,v 1.9 2007/10/02 07:30:32 comdog Exp $
 
 =head1 NAME
 
@@ -79,7 +79,7 @@ use Exporter;
 
 use URI;
 
-$VERSION = sprintf "%d.%02d", q$Revision: 1.8 $ =~ m/(\d+) \. (\d+)/xg;
+$VERSION = sprintf "%d.%02d", q$Revision: 1.9 $ =~ m/(\d+) \. (\d+)/xg;
 
 =item Netscape::Bookmarks::Link-E<gt>new( \%hash )
 
@@ -502,15 +502,12 @@ __END__
 
 brian d foy C<< <bdfoy@cpan.org> >>
 
-=head1 COPYRIGHT
+=head1 COPYRIGHT AND LICENSE
 
-Copyright 2002, brian d foy, C<< <bdfoy@cpan.org> >>
+Copyright (c) 2002-2007 brian d foy.  All rights reserved.
 
-This program is free software. You can redistribute it
-and/or modify it under the same terms as Perl itself.
-
-If you send me modifications or new features, I will do
-my best to incorporate them into future versions.
+This program is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
 =head1 SEE ALSO
 

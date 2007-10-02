@@ -1,6 +1,6 @@
 package Netscape::Bookmarks::AcceptVisitor;
-# $Revision: 1.5 $
-# $Id: AcceptVisitor.pm,v 1.5 2004/09/26 16:33:42 comdog Exp $
+# $Revision: 1.6 $
+# $Id: AcceptVisitor.pm,v 1.6 2007/10/02 07:30:21 comdog Exp $
 
 use strict;
 use subs qw();
@@ -8,7 +8,7 @@ use vars qw($VERSION);
 
 use Exporter;
 
-$VERSION = sprintf "%d.%02d", q$Revision: 1.5 $ =~ m/(\d+) \. (\d+)/xg;
+$VERSION = sprintf "%d.%02d", q$Revision: 1.6 $ =~ m/(\d+) \. (\d+)/xg;
 
 sub visitor
 	{
@@ -98,13 +98,13 @@ See examples/Visitor.pm, for instance.
 
 brian d foy C<< <bdfoy@cpan.org> >>
 
-=head1 COPYRIGHT
+=head1 COPYRIGHT AND LICENSE
 
-This program is free software; you can redistribute it
-and/or modify it under the same terms as Perl itself.
+Copyright 2002-2007, brian d foy, All rights reserved
 
-If you send me modifications or new features, I will do
-my best to incorporate them into future versions.
+This program is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
 
 =head1 SEE ALSO
 

@@ -1,4 +1,4 @@
-# $Id: mozilla.t,v 1.1 2002/09/24 01:29:32 comdog Exp $
+# $Id: mozilla.t,v 1.2 2007/10/02 07:30:38 comdog Exp $
 use strict;
 
 use Test::More tests => 3;
@@ -15,7 +15,7 @@ my $netscape = Netscape::Bookmarks->new( $File );
 isa_ok( $netscape, 'Netscape::Bookmarks::Category' );
 
 {
-open my $fh, "> $Tmp" or "bail out! Could not open file: $!";
+open my $fh, "> $Tmp" or print "bail out! Could not open file: $!";
 print $fh $netscape->as_string;
 close $fh;
 }
