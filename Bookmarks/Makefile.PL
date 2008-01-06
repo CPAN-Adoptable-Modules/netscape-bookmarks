@@ -6,9 +6,11 @@ eval "use Test::Manifest 1.14";
 
 WriteMakefile(
 	'NAME'         => 'Netscape::Bookmarks',
-	'VERSION'      => '1.94',
-	'LICENSE'       => 'perl',
-
+	'VERSION'      => '1.95',
+	'LICENSE'      => 'perl',
+	'AUTHOR'       => 'brian d foy <bdfoy@cpan.org>',
+	'ABSTRACT'     => 'Work with Netscape/Mozilla bookmark files',
+	
 	'PREREQ_PM'    => { 	
 		'HTML::Parser'   => '0',
 		'HTML::Entities' => '0',

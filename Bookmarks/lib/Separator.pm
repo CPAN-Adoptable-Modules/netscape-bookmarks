@@ -1,6 +1,6 @@
 package Netscape::Bookmarks::Separator;
-# $Revision: 1.5 $
-# $Id: Separator.pm,v 1.5 2007/01/10 05:42:44 comdog Exp $
+# $Revision: 1.6 $
+# $Id: Separator.pm,v 1.6 2008/01/06 19:51:45 comdog Exp $
 
 =head1 NAME
 
@@ -33,17 +33,11 @@ Store a Netscape bookmark separator object.
 use strict;
 
 use subs qw();
-use vars qw($VERSION $ERROR @EXPORT @EXPORT_OK @ISA);
-
-use Exporter;
+use vars qw($VERSION $ERROR);
 
 use URI::URL;
 
-($VERSION) = q$Revision: 1.5 $ =~ m/(\d+\.\d+)\s*$/;
-
-@EXPORT    = qw();
-@EXPORT_OK = qw();
-@ISA       = qw();
+($VERSION) = q$Revision: 1.6 $ =~ m/(\d+\.\d+)\s*$/;
 
 =item Netscape::Bookmarks::Separator->new
 

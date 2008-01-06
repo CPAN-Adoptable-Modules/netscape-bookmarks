@@ -1,6 +1,6 @@
 package Netscape::Bookmarks::Alias;
-# $Revision: 1.4 $
-# $Id: Alias.pm,v 1.4 2007/01/10 05:42:44 comdog Exp $
+# $Revision: 1.5 $
+# $Id: Alias.pm,v 1.5 2008/01/06 19:51:45 comdog Exp $
 
 =head1 NAME
 
@@ -34,17 +34,11 @@ the target link also changes.
 use strict;
 
 use subs qw();
-use vars qw($VERSION $ERROR @EXPORT @EXPORT_OK @ISA %aliases);
-
-use Exporter;
+use vars qw($VERSION $ERROR %aliases);
 
 use Netscape::Bookmarks::Link;
 
-($VERSION) = q$Revision: 1.4 $ =~ m/(\d+\.\d+)\s*$/;
-
-@EXPORT    = qw();
-@EXPORT_OK = qw();
-@ISA       = qw();
+($VERSION) = q$Revision: 1.5 $ =~ m/(\d+\.\d+)\s*$/;
 
 =item new( ALIASID )
 

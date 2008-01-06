@@ -1,6 +1,6 @@
 package Netscape::Bookmarks::Category;
-# $Revision: 1.11 $
-# $Id: Category.pm,v 1.11 2008/01/06 19:46:35 comdog Exp $
+# $Revision: 1.12 $
+# $Id: Category.pm,v 1.12 2008/01/06 19:51:45 comdog Exp $
 
 =head1 NAME
 
@@ -53,8 +53,8 @@ title of the bookmarks file.
 =cut
 
 use strict;
-use subs qw();
-use vars qw($VERSION $ERROR @EXPORT @EXPORT_OK @ISA $LAST_ID %IDS);
+
+use vars qw($VERSION $ERROR $LAST_ID %IDS);
 
 use Carp qw(carp croak);
 
@@ -67,7 +67,7 @@ use constant TAB             => '    ';
 use constant FOLDED_TRUE     => 1;
 use constant FOLDED_FALSE    => 0;
 
-($VERSION) = q$Revision: 1.11 $ =~ m/(\d+\.\d+)\d*$/;
+($VERSION) = q$Revision: 1.12 $ =~ m/(\d+\.\d+)\d*$/;
 %IDS     = ();
 $LAST_ID = -1;
 

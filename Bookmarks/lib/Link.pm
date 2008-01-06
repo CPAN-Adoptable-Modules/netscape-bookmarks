@@ -1,6 +1,6 @@
 package Netscape::Bookmarks::Link;
-# $Revision: 1.8 $
-# $Id: Link.pm,v 1.8 2007/01/10 05:42:44 comdog Exp $
+# $Revision: 1.9 $
+# $Id: Link.pm,v 1.9 2008/01/06 19:51:45 comdog Exp $
 
 =head1 NAME
 
@@ -64,17 +64,11 @@ These are explained below.
 use strict;
 
 use subs qw();
-use vars qw($DEBUG $VERSION $ERROR @EXPORT @EXPORT_OK @ISA);
-
-use Exporter;
+use vars qw($DEBUG $VERSION $ERROR);
 
 use URI::URL;
 
-($VERSION)   = q$Revision: 1.8 $ =~ m/(\d+\.\d+)\s*$/;
-
-@EXPORT    = qw();
-@EXPORT_OK = qw();
-@ISA       = qw();
+($VERSION)   = q$Revision: 1.9 $ =~ m/(\d+\.\d+)\s*$/;
 
 =item Netscape::Bookmarks::Link-E<gt>new( \%hash )
 
