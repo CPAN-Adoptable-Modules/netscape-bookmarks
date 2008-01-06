@@ -1,6 +1,6 @@
 package Netscape::Bookmarks::Category;
-# $Revision: 1.10 $
-# $Id: Category.pm,v 1.10 2007/01/10 05:42:44 comdog Exp $
+# $Revision: 1.11 $
+# $Id: Category.pm,v 1.11 2008/01/06 19:46:35 comdog Exp $
 
 =head1 NAME
 
@@ -56,8 +56,7 @@ use strict;
 use subs qw();
 use vars qw($VERSION $ERROR @EXPORT @EXPORT_OK @ISA $LAST_ID %IDS);
 
-use Carp qw(carp);
-use Exporter;
+use Carp qw(carp croak);
 
 use URI::URL;
 
@@ -68,13 +67,9 @@ use constant TAB             => '    ';
 use constant FOLDED_TRUE     => 1;
 use constant FOLDED_FALSE    => 0;
 
-($VERSION) = q$Revision: 1.10 $ =~ m/(\d+\.\d+)\d*$/;
+($VERSION) = q$Revision: 1.11 $ =~ m/(\d+\.\d+)\d*$/;
 %IDS     = ();
 $LAST_ID = -1;
-
-@EXPORT    = qw();
-@EXPORT_OK = qw();
-@ISA       = qw();
 
 =item Netscape::Bookmarks::Category-E<gt>new( \%hash )
 
@@ -92,8 +87,11 @@ in that hash are
 sub new
 	{
 	my $class  = shift;
-	my $param  = shift;
+	my $param  = shift || {};
 
+	croak( "Argument to Netscape::Bookmarks::Category::new() must be a hash reference" )
+		unless ref $param eq ref {};
+		
 	$param->{'folded'} = FOLDED_TRUE unless(
 		defined $param->{'folded'} &&
 		$param->{'folded'} == FOLDED_FALSE

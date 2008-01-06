@@ -1,33 +1,68 @@
-# Before `make install' is performed this script should be runnable with
-# `make test'. After `make install' it should work as `perl test.pl'
+#!/usr/bin/perl
 
-######################### We start with some black magic to print on failure.
+use warnings;
+use strict;
 
-# Change 1..1 below to 1..last_test_to_print .
-# (It may become useful if the test is moved to ./t subdirectory.)
+use Test::More 'no_plan';
 
-BEGIN { $| = 1; print "1..2\n"; }
-END {print "not ok 1\n" unless $loaded;}
-use Netscape::Bookmarks;
-$loaded = 1;
-print "ok 1\n";
+use File::Spec;
 
-######################### End of black magic.
+my $class = 'Netscape::Bookmarks';
 
-# Insert your test code below (better if it prints "ok 13"
-# (correspondingly "not ok 13") depending on the success of chunk 13
-# of the test code):
+use_ok( $class );
 
-eval {
-my $netscape = Netscape::Bookmarks->new( "bookmark_files/Bookmarks.html" );
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# open a file that should be there
+{
+my $file = File::Spec->catfile( qw(bookmark_files Bookmarks.html) );
 
-open FILE, "> bookmark_files/Bookmarks_tmp.html" or die "Could not open tmp file: $!";
-print FILE $netscape->as_string;
-close FILE;
-};
+ok( -e $file, "Test file [$file] is there" );
 
-print STDERR $@ if $@;
+my $result = eval {
+	my $netscape = $class->new( $file );
+	isa_ok( $netscape, $class->top_class );
+	
+	open FILE, "> bookmark_files/Bookmarks_tmp.html" 
+		or die "Could not open tmp file: $!";
+	print FILE $netscape->as_string;
+	close FILE;
+	1;
+	};
 
-print $@ ? 'not ' : '', 'ok 2', "\n";
+my $at = $@;
 
-# END { unlink "bookmark_files/Bookmarks_tmp.html" }
+ok( $result );
+diag($at) unless $result;
+}
+
+END { unlink "bookmark_files/Bookmarks_tmp.html" }
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# open a file that shouldn't be there
+{
+my $file = File::Spec->catfile( qw(bookmark_files foobarbaz.html) );
+
+ok( ! -e $file, "Test file [$file] is not there (good)" );
+
+my $result = eval {
+	my $netscape = $class->new( $file );
+	};
+
+ok( ! defined $result );
+}
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# open no file (so, start with fresh in memory object)
+{
+my $result = eval {
+	my $netscape = $class->new( );
+	isa_ok( $netscape, $class->top_class );
+	};
+
+ok( $result );
+my $at = $@;
+
+ok( $result );
+diag($at) unless $result;
+}
+

@@ -1,5 +1,5 @@
 package Netscape::Bookmarks;
-# $Id: Bookmarks.pm,v 1.11 2007/01/10 05:42:44 comdog Exp $
+# $Id: Bookmarks.pm,v 1.12 2008/01/06 19:46:35 comdog Exp $
 
 =head1 NAME
 
@@ -96,7 +96,7 @@ use Netscape::Bookmarks::Category;
 use Netscape::Bookmarks::Link;
 use Netscape::Bookmarks::Separator;
 
-($VERSION) = q$Revision: 1.11 $ =~ m/(\d+\.\d+)\s*$/;
+($VERSION) = q$Revision: 1.12 $ =~ m/(\d+\.\d+)\s*$/;
 @ISA = qw(HTML::Parser);
 
 $ID = 0;
@@ -118,10 +118,12 @@ C<Netscape::Bookmarks::Category> object is returned.
 
 sub new
 	{
-	my($class, $file) = @_;
+	my( $class, $file ) = @_;
 
-	return Netscape::Bookmarks::Category->new(
-		title => 'Bookmarks',
+	my $top_class = $class->top_class;
+	
+	return $top_class->new(
+		{ title => 'Bookmarks' },
 		) unless $file;
 
 	return unless (-e $file or ref $file);
@@ -134,6 +136,18 @@ sub new
 
 	return $netscape;
 	}
+
+=item top_class()
+
+Returns the string representing the top-level class to use in the
+Bookmarks tree. This is the class of the object that C<new()> returns,
+and is C<Netscape::Bookmarks::Category> by default. If you override
+this, you have to follow the C<Netscape::Bookmarks::Category>
+interface since that's what everything else is expecting.
+
+=cut
+
+sub top_class { "Netscape::Bookmarks::Category" }
 
 =item parse_string
 
