@@ -97,8 +97,7 @@ use Netscape::Bookmarks::Link;
 use Netscape::Bookmarks::Separator;
 use Netscape::Bookmarks::Isa;
 
-#$VERSION = sprintf "%d.%02d", q$Revision: 1.9 $ =~ m/(\d+) \. (\d+)/xg;
-$VERSION = "2.2_02"; #this is a beta release
+$VERSION = "2.3"; #this is a beta release
 
 $ID = 0;
 $DEBUG = $ENV{NS_DEBUG} || 0;
