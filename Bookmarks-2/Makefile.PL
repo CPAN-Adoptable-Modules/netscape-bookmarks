@@ -17,7 +17,7 @@ WriteMakefile(
 		'URI'                     => '0',
 		 },
 
-	'TESTING_REQUIRES' => {
+	'TEST_REQUIRES' => {
 		'Test::File'              => '0',
 		'Test::More'              => '0',
 		},
