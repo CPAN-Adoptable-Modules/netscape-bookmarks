@@ -1,5 +1,6 @@
 package Netscape::Bookmarks::Isa;
-# $Id: Isa.pm,v 1.4 2007/10/02 08:04:29 comdog Exp $
+
+=encoding utf8
 
 =head1 NAME
 

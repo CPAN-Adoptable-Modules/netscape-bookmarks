@@ -1,5 +1,6 @@
 package Netscape::Bookmarks;
-# $Id: Bookmarks.pm,v 1.9 2007/10/02 08:04:29 comdog Exp $
+
+=encoding utf8
 
 =head1 NAME
 
@@ -363,7 +364,7 @@ brian d foy C<< <bdfoy@cpan.org> >>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (c) 2002-2007 brian d foy.  All rights reserved.
+Copyright 2002-2014, brian d foy, All rights reserved
 
 This program is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

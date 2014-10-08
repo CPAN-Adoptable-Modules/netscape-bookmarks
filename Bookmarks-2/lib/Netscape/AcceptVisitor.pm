@@ -1,6 +1,4 @@
 package Netscape::Bookmarks::AcceptVisitor;
-# $Revision: 1.6 $
-# $Id: AcceptVisitor.pm,v 1.6 2007/10/02 07:30:21 comdog Exp $
 
 use strict;
 use subs qw();
@@ -25,6 +23,8 @@ sub visitor
 1;
 
 __END__
+
+=encoding utf8
 
 =head1 NAME
 
@@ -100,7 +100,7 @@ brian d foy C<< <bdfoy@cpan.org> >>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2002-2007, brian d foy, All rights reserved
+Copyright 2002-2014, brian d foy, All rights reserved
 
 This program is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
