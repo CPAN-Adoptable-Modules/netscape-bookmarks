@@ -31,7 +31,6 @@ t/load.t
 t/mozilla.t
 t/pod.t
 t/pod_coverage.t
-t/prereq.t
 t/separator.t
 t/test_manifest
 t/visitor.t
