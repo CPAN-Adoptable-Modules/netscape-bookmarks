@@ -1,4 +1,3 @@
-# $Id: visitor.t,v 1.3 2004/09/02 05:20:53 comdog Exp $
 use strict;
 
 use Test::More tests => 2;

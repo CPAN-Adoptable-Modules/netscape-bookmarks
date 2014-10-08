@@ -1,4 +1,3 @@
-# $Id: separator.t,v 1.4 2004/09/02 05:22:59 comdog Exp $
 use strict;
 
 use Test::More tests => 3;

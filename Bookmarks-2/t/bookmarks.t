@@ -1,4 +1,3 @@
-# $Id: bookmarks.t,v 1.5 2004/09/02 05:23:25 comdog Exp $
 use strict;
 
 use Test::More tests => 3;

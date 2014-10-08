@@ -1,4 +1,3 @@
-# $Id: load.t,v 1.2 2007/10/02 08:04:32 comdog Exp $
 BEGIN {
 	@classes = map { my $x = $_;
 			$x =~ s|^blib/lib/||;
