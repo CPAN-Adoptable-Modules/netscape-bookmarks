@@ -3,16 +3,31 @@ use warnings;
 
 eval "use Test::Manifest 1.21";
 	
-my $github    = 'https://github.com/briandfoy/';
-my $main_file = 'lib/Netscape/Bookmarks.pm';
+use File::Spec::Functions qw(catfile);
+
+my $module    = 'Netscape::Bookmarks';
+my $github    = 'https://github.com/briandfoy/netscape-bookmarks';
+my $main_file = catfile( 'lib', split /::/, "$module.pm" );
 
 my %WriteMakefile = (
-	'NAME'          => 'Netscape::Bookmarks',
+	'NAME'          => $module,
 	'ABSTRACT_FROM' => $main_file,
 	'VERSION_FROM'  => $main_file,
 	'LICENSE'       => 'perl',
 	'AUTHOR'        => 'brian d foy <bdfoy@cpan.org>',
-		
+
+	'CONFIGURE_REQUIRES' => {
+		'ExtUtils::MakeMaker' => '6.64',
+		},
+
+	'BUILD_REQUIRES' => {
+		},
+
+	'TEST_REQUIRES' => {
+		'Test::File'              => '0',
+		'Test::More'              => '0.95',
+		},
+
 	'PREREQ_PM'    => {
 		'HTML::Entities'          => '0',
 		'HTML::Parser'            => '3.26',
@@ -21,19 +36,18 @@ my %WriteMakefile = (
 		'URI'                     => '0',
 		 },
 
-	'TEST_REQUIRES' => {
-		'Test::File'              => '0',
-		'Test::More'              => '0',
-		},
-
 	'META_MERGE' => {
 		'meta-spec' => { version => 2 },
-			resources => {
-				repository => {
-					type => 'git',
-					url  => 'https://github.com/briandfoy/netscape-bookmarks.git',
-					web  => 'https://github.com/briandfoy/netscape-bookmarks',
+		resources => {
+			repository => {
+				type => 'git',
+				url  => "$github.git",
+				web  => $github,
 				},
+			bugtraker => {
+				web    => "$github/issues",
+				},
+			homepage => $github,
 			},
 		},
 		
