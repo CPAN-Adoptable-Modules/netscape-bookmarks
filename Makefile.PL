@@ -55,7 +55,7 @@ my %WriteMakefile = (
 			},
 		},
 		
-	clean => { FILES => 'Netscape-Bookmarks-*' },
+	clean => { FILES => "$dist-*" },
 	);
 
 sub arguments { \%WriteMakefile }
