@@ -7,6 +7,8 @@ eval "use Test::Manifest 1.21";
 use File::Spec::Functions qw(catfile);
 
 my $module    = 'Netscape::Bookmarks';
+( my $dist = $module ) =~ s/::/-/g;
+
 my $github    = 'https://github.com/briandfoy/netscape-bookmarks';
 my $main_file = catfile( 'lib', split /::/, "$module.pm" );
 
