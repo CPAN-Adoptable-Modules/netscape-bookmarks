@@ -12,6 +12,7 @@ examples/remove_aliases.pl
 examples/sort_ascending.pl
 examples/sort_descending.pl
 examples/Visitor.pm
+INSTALL.SKIP
 lib/Netscape/Bookmarks.pm
 lib/Netscape/Bookmarks/AcceptVisitor.pm
 lib/Netscape/Bookmarks/Alias.pm
