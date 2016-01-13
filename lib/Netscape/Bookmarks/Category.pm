@@ -58,8 +58,6 @@ use base qw( Netscape::Bookmarks::AcceptVisitor Netscape::Bookmarks::Isa );
 use subs qw();
 use vars qw( $VERSION $ERROR $LAST_ID %IDS );
 
-use Exporter;
-
 use constant START_LIST      => '<DL><p>';
 use constant END_LIST        => '</DL><p>';
 use constant START_LIST_ITEM => '<DT>';

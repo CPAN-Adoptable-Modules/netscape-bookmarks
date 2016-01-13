@@ -35,7 +35,6 @@ use base qw( Netscape::Bookmarks::AcceptVisitor Netscape::Bookmarks::Isa );
 use subs qw();
 use vars qw($VERSION $ERROR %aliases);
 
-use Exporter;
 
 $VERSION = sprintf "%d.%02d", q$Revision: 1.7 $ =~ m/(\d+) \. (\d+)/xg;
 

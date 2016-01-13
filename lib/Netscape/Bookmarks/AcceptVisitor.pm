@@ -4,7 +4,6 @@ use strict;
 use subs qw();
 use vars qw($VERSION);
 
-use Exporter;
 
 $VERSION = sprintf "%d.%02d", q$Revision: 1.6 $ =~ m/(\d+) \. (\d+)/xg;
 

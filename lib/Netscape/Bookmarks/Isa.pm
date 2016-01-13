@@ -74,7 +74,6 @@ L<Netscape::Bookmarks::Separator>.
 use strict;
 use vars qw( $VERSION );
 
-use Exporter;
 
 $VERSION = sprintf "%d.%02d", q$Revision: 1.4 $ =~ m/(\d+) \. (\d+)/xg;
 
