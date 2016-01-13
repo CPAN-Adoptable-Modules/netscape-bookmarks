@@ -1,5 +1,8 @@
 Revision history for Perl module Netscape::Bookmarks
 
+2.301 2016-01-13T19:01:07Z
+	* Freshen up the module
+
 2.02 - 2007-10-02
 	* Fixed up many distro problems. No need to upgrade.
 
