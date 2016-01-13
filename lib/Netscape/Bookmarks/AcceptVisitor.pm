@@ -4,8 +4,8 @@ use strict;
 use subs qw();
 use vars qw($VERSION);
 
+$VERSION = "2.301";
 
-$VERSION = sprintf "%d.%02d", q$Revision: 1.6 $ =~ m/(\d+) \. (\d+)/xg;
 
 sub visitor
 	{

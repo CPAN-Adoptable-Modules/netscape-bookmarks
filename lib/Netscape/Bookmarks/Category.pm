@@ -66,7 +66,8 @@ use constant FOLDED_TRUE     => 1;
 use constant FOLDED_FALSE    => 0;
 use constant TRUE            => 'true';
 
-$VERSION = sprintf "%d.%02d", q$Revision: 1.8 $ =~ m/(\d+) \. (\d+)/xg;
+$VERSION = "2.301";
+
 %IDS     = ();
 $LAST_ID = -1;
 

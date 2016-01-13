@@ -97,7 +97,7 @@ use Netscape::Bookmarks::Link;
 use Netscape::Bookmarks::Separator;
 use Netscape::Bookmarks::Isa;
 
-$VERSION = "2.3"; #this is a beta release
+$VERSION = "2.301";
 
 $ID = 0;
 $DEBUG = $ENV{NS_DEBUG} || 0;

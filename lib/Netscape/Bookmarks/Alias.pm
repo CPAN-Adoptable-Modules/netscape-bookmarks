@@ -35,8 +35,7 @@ use base qw( Netscape::Bookmarks::AcceptVisitor Netscape::Bookmarks::Isa );
 use subs qw();
 use vars qw($VERSION $ERROR %aliases);
 
-
-$VERSION = sprintf "%d.%02d", q$Revision: 1.7 $ =~ m/(\d+) \. (\d+)/xg;
+$VERSION = "2.301";
 
 =item $obj = Netscape::Bookmarks::Alias->new( ALIASID )
 

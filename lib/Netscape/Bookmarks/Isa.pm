@@ -74,8 +74,7 @@ L<Netscape::Bookmarks::Separator>.
 use strict;
 use vars qw( $VERSION );
 
-
-$VERSION = sprintf "%d.%02d", q$Revision: 1.4 $ =~ m/(\d+) \. (\d+)/xg;
+$VERSION = "2.301";
 
 my $Category  = 'Netscape::Bookmarks::Category';
 my $Link      = 'Netscape::Bookmarks::Link';
