@@ -47,8 +47,7 @@ should).
 
 =cut
 
-sub new
-	{
+sub new {
 	my $class  = shift;
 	my $param  = shift;
 
@@ -67,8 +66,7 @@ Returns the alias key for this C<Netscape::Bookmarks::Alias> object.
 
 =cut
 
-sub alias_of
-	{
+sub alias_of {
 	my $self = shift;
 
 	return $self->{'alias_of'};
@@ -84,8 +82,7 @@ target exists, use C<target_exists>.
 
 =cut
 
-sub target
-	{
+sub target {
 	my $self     = shift;
 
 	return $aliases{$self->{'alias_of'}};
@@ -99,8 +96,7 @@ links before the Alias is created.
 =cut
 
 # this should really be in Link.pm right?
-sub add_target
-	{
+sub add_target {
 	my $target   = shift; #link reference
 	my $alias_id = shift;
 
@@ -115,8 +111,7 @@ exists.
 
 =cut
 
-sub target_exists
-	{
+sub target_exists {
 	my $target = shift;
 
 	exists $aliases{$target} ? 1 : 0;
@@ -131,8 +126,7 @@ to the ALIASOF attribute.
 
 =cut
 
-sub as_string
-	{
+sub as_string {
 	my $self = shift;
 
 	my $string = $self->target->as_string;
@@ -148,8 +142,7 @@ Returns the tile of the Alias.
 
 =cut
 
-sub title
-	{
+sub title {
 	my $self = shift;
 
 	return "Alias: " . $self->target->title;
@@ -163,8 +156,7 @@ which is its target, it probably should.
 
 =cut
 
-sub remove
-	{
+sub remove {
 	my $self = shift;
 
 	return 1;

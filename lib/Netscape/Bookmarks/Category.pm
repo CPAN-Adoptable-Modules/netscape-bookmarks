@@ -94,7 +94,7 @@ sub new
 
 	$self->{'folded'} = FOLDED_TRUE unless $param->{'folded'} == FOLDED_FALSE;
 	$self->{'personal_toolbar_folder'} = TRUE if $param->{'personal_toolbar_folder'};
-	
+
 	unless( exists $IDS{$param->{'id'}} or $param->{'id'} =~ /\D/)
 		{
 		$param->{'id'} = ++$LAST_ID;
@@ -121,9 +121,9 @@ sub mozilla
 	{
 	my $self  = shift;
 	my $value = shift;
-	
+
 	$self->{'mozilla'} = $value if defined $value;
-	
+
 	$self->{'mozilla'};
 	}
 
@@ -360,19 +360,19 @@ sub as_headline
 	my $last_modified = $self->last_modified;
 	my $id            = $self->id;
 	my $personal_toolbar_folder = $self->personal_toolbar_folder;
-	
+
 	$desc = defined $desc && $desc ne '' ? "\n<DD>$desc" : "\n";
 
 	$folded   = $folded ? qq|FOLDED| : '';
 	$add_date = $add_date ? qq|ADD_DATE="$add_date"| : '';
 	$last_modified = $last_modified ? qq|LAST_MODIFIED="$last_modified"| : '';
-	$personal_toolbar_folder = $personal_toolbar_folder 
+	$personal_toolbar_folder = $personal_toolbar_folder
 		? qq|PERSONAL_TOOLBAR_FOLDER="true"| : '';
 	$id = $id =~ m/\D/ ? qq|ID="$id"| : '';
-		
-	my $attr = join " ", grep $_, ($folded, $add_date, $last_modified, 
-		$personal_toolbar_folder, $id ); 
-	
+
+	my $attr = join " ", grep $_, ($folded, $add_date, $last_modified,
+		$personal_toolbar_folder, $id );
+
 	$attr = " " . $attr if $attr;
 	$attr =~ s/\s+$//; # XXX: ugh
 
@@ -536,7 +536,7 @@ sub as_string
 	my $meta = $self->mozilla ?
 		qq|\n<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">| :
 		'';
-		
+
 	my $str = <<"HTML";
 <!DOCTYPE NETSCAPE-Bookmark-file-1>
 <!-- This is an automatically generated file.
@@ -582,7 +582,7 @@ sub _as_string
 			{
 			$str .= TAB x ($level) . START_LIST . "\n";
 			}
-			
+
 		++$level;
 		foreach my $ref ( $obj->elements )
 			{
@@ -617,10 +617,10 @@ sub write_file
 	{
 	my $self     = shift;
 	my $filename = shift;
-	
+
 	return;
 	}
-	
+
 "if you want to beleive everything you read, so be it.";
 
 __END__

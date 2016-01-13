@@ -6,13 +6,10 @@ use vars qw($VERSION);
 
 $VERSION = "2.301";
 
-
-sub visitor
-	{
+sub visitor {
 	my( $self, $visitor ) = @_;
 
-	unless( ref $visitor and $visitor->can('visit') )
-		{
+	unless( ref $visitor and $visitor->can('visit') ) {
 		return;
 		}
 

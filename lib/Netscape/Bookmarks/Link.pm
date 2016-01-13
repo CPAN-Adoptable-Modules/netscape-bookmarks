@@ -99,8 +99,7 @@ link:
 
 =cut
 
-sub new
-	{
+sub new {
 	my $class  = shift;
 	my $param  = shift;
 
@@ -108,31 +107,26 @@ sub new
 	bless $self, $class;
 
 	my $url = URI->new( $param->{HREF} );
-	unless( ref $url )
-		{
+	unless( ref $url ) {
 		$ERROR = "[$$param{HREF}] is not a valid URL";
 		return -1;
 		}
 	$self->{HREF} = $url;
 
-	foreach my $k ( qw(SHORTCUTURL ICON LAST_CHARSET SCHEDULE PING_STATUS) )
-		{
+	foreach my $k ( qw(SHORTCUTURL ICON LAST_CHARSET SCHEDULE PING_STATUS) ) {
 		$self->{$k} = $param->{$k};
 		}
-		
+
 	foreach my $k ( qw(ADD_DATE LAST_MODIFIED LAST_VISIT ALIASID ALIASOF
-		LAST_PING PING_CONTENT_LEN) )
-		{
-		if( defined $param->{$k} and $param->{$k} =~ /\D/ )
-			{
+		LAST_PING PING_CONTENT_LEN) ) {
+		if( defined $param->{$k} and $param->{$k} =~ /\D/ ) {
 			$ERROR = "[$$param{$k}] is not a valid $k";
 			return -2;
 			}
 		$self->{$k} = $param->{$k};
 		}
 
-	unless( $param->{'TITLE'} )
-		{
+	unless( $param->{'TITLE'} ) {
 		$ERROR = "The TITLE cannot be null.";
 		return -3;
 		}
@@ -152,8 +146,7 @@ the anchor tag.
 
 =cut
 
-sub href
-	{
+sub href {
 	my $self = shift;
 
 	$self->{'HREF'}->as_string
@@ -165,8 +158,7 @@ Returns the date when the link was added, in Unix epoch time.
 
 =cut
 
-sub add_date
-	{
+sub add_date {
 	my $self = shift;
 
 	$self->{'ADD_DATE'}
@@ -179,8 +171,7 @@ zero if no information is available.
 
 =cut
 
-sub last_modified
-	{
+sub last_modified {
 	my $self = shift;
 
 	$self->{'LAST_MODIFIED'}
@@ -193,8 +184,7 @@ zero if no information is available.
 
 =cut
 
-sub last_visit
-	{
+sub last_visit {
 	my $self = shift;
 
 	$self->{'LAST_VISIT'}
@@ -208,8 +198,7 @@ link title.
 
 =cut
 
-sub title
-	{
+sub title {
 	my( $self, $title ) = @_;
 
 	$self->{'TITLE'} = $title if defined $title;
@@ -225,8 +214,7 @@ returns the current link description.
 
 =cut
 
-sub description
-	{
+sub description {
 	my( $self, $description ) = @_;
 
 	$self->{'DESCRIPTION'} = $description if defined $description;
@@ -243,8 +231,7 @@ Netscape::Bookmarks::Link objects.
 
 =cut
 
-sub aliasid
-	{
+sub aliasid {
 	my $self = shift;
 	my $data = shift;
 
@@ -257,23 +244,21 @@ sub aliasid
 
 =cut
 
-sub shortcuturl
-	{
+sub shortcuturl {
 	my( $self, $shortcuturl ) = @_;
 
 	$self->{'SHORTCUTURL'} = $shortcuturl if defined $shortcuturl;
 
 	$self->{'SHORTCUTURL'}
 	}
-	
+
 =item $obj->icon
 
 =cut
 
-sub icon
-	{
+sub icon {
 	my( $self, $icon ) = @_;
-	
+
 	$self->{'ICON'} = $icon if defined $icon;
 
 	$self->{'ICON'}
@@ -283,8 +268,7 @@ sub icon
 
 =cut
 
-sub schedule
-	{
+sub schedule {
 	my( $self, $schedule ) = @_;
 
 	$self->{'SCHEDULE'} = $schedule if defined $schedule;
@@ -296,21 +280,19 @@ sub schedule
 
 =cut
 
-sub last_ping
-	{
+sub last_ping {
 	my( $self, $last_ping ) = @_;
 
 	$self->{'LAST_PING'} = $last_ping if defined $last_ping;
 
 	$self->{'LAST_PING'}
 	}
-	
+
 =item $obj->ping_content_len
 
 =cut
 
-sub ping_content_len
-	{
+sub ping_content_len {
 	my( $self, $ping_content_len ) = @_;
 
 	$self->{'PING_CONTENT_LEN'} = $ping_content_len if defined $ping_content_len;
@@ -330,20 +312,19 @@ sub ping_status
 
 	$self->{'PING_STATUS'}
 	}
-	
+
 =item $obj->last_charset
 
 =cut
 
-sub last_charset
-	{
+sub last_charset {
 	my( $self, $charset ) = @_;
 
 	$self->{'LAST_CHARSET'} = $charset if defined $charset;
 
 	$self->{'LAST_CHARSET'}
 	}
-	
+
 # =item $obj->alias_of
 #
 # Returns the target id of a link. Links with aliases are assigned an ALIAS_ID which
@@ -353,8 +334,7 @@ sub last_charset
 #
 # =cut
 
-sub aliasof
-	{
+sub aliasof {
 	my $self = shift;
 
 	$self->{'ALIASOF'}
@@ -367,8 +347,7 @@ sub aliasof
 #
 # =cut
 
-sub append_title
-	{
+sub append_title {
 	my $self = shift;
 	my $text = shift;
 
@@ -382,8 +361,7 @@ sub append_title
 #
 # =cut
 #
-sub append_description
-	{
+sub append_description {
 	my $self = shift;
 	my $text = shift;
 
@@ -393,8 +371,7 @@ sub append_description
 #  just show me what you think is in the link.  i use this for
 #  debugging.
 #
-sub print_dump
-	{
+sub print_dump {
 	my $self = shift;
 
 	print <<"HERE";
@@ -415,8 +392,7 @@ Returns a Netscape compatible bookmarks file based on the Bookmarks object.
 
 =cut
 
-sub as_string
-	{
+sub as_string {
 	my $self = shift;
 
 	my $link              = $self->href;
@@ -433,7 +409,7 @@ sub as_string
 	my $last_ping         = $self->last_ping;
 	my $ping_content_len  = $self->ping_content_len;
 	my $ping_status       = $self->ping_status;
-	
+
 	$aliasid       = defined $aliasid ? qq|ALIASID="$aliasid"|        : '';
 	$aliasof       = defined $aliasof ? qq|ALIASOF="$aliasof"|        : '';
 	$add_date      = $add_date        ? qq|ADD_DATE="$add_date"|      : '';
@@ -451,10 +427,10 @@ sub as_string
 
 	my $attr = join " ", grep( $_ ne '', ($aliasid, $aliasof, $add_date, $last_visit,
 		$last_modified, $icon, $schedule, $last_ping, $shortcuturl, $last_charset,
-		$ping_content_len, $ping_status,   ) ); 
-	
+		$ping_content_len, $ping_status,   ) );
+
 	$attr = " " . $attr if $attr;
-	
+
 	my $desc = '';
 	$desc  = "\n\t<DD>" . $self->description if $self->description;
 
@@ -480,8 +456,7 @@ which point to the Link, it probably should.
 
 =cut
 
-sub remove
-	{
+sub remove {
 	my $self = shift;
 
 	return 1;

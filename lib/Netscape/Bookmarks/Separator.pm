@@ -48,8 +48,7 @@ makes on instance which everybody else shares.
 
 =cut
 
-sub new
-	{
+sub new {
 	return $singleton if defined $singleton;
 
 	my $class  = shift;
@@ -81,10 +80,7 @@ string does not have a trailing newline.
 
 =cut
 
-sub title
-	{
-	return "-" x 50;
-	}
+sub title { "-" x 50 }
 
 =item $obj->remove
 
@@ -93,10 +89,7 @@ Bookmarks tree.
 
 =cut
 
-sub remove
-	{
-	return 1;
-	}
+sub remove { 1; }
 
 "if you want to believe everything you read, so be it.";
 

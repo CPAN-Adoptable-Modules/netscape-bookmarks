@@ -119,12 +119,10 @@ object is returned.
 
 =cut
 
-sub new
-	{
+sub new {
 	my($class, $file) = @_;
 
-	unless( $file )
-		{
+	unless( $file ) {
 		my $cat = Netscape::Bookmarks::Category->new();
 		return $cat;
 		}
@@ -141,18 +139,16 @@ sub new
 	return $netscape;
 	}
 
-sub mozilla
-	{
+sub mozilla {
 	my $self = shift;
 	my $value = shift;
-	
+
 	$self->{'mozilla'} = $value if defined $value;
-	
+
 	$self->{'mozilla'};
 	}
-	
-sub parse_string
-	{
+
+sub parse_string {
 	my $data_ref = shift;
 
 	my $self = HTML::Parser->new();
@@ -161,8 +157,7 @@ sub parse_string
 	my $length = length $$data_ref;
 	my $pos    = 0;
 
-	while( $pos < $length )
-		{
+	while( $pos < $length ) {
 		#512 bytes seems to be the magic number
 		#to make this work efficiently. don't know
 		#why really - its an HTML::Parser thing
@@ -175,80 +170,64 @@ sub parse_string
 	return $netscape; # a global variable
 	}
 
-sub start
-	{
+sub start {
     my($self, $tag, $attr) = @_;
 
     $text_flag = 0;
 
-    if( $tag eq 'a' )
-    	{
+    if( $tag eq 'a' ) {
 		$state = 'anchor';
     	%link_data = %$attr;
      	}
-    elsif( $tag eq 'h3' or $tag eq 'h1' )
-    	{
+    elsif( $tag eq 'h3' or $tag eq 'h1' ) {
     	$state = 'category';
     	%category_data = %$attr;
     	}
-    elsif( $tag eq 'hr' )
-    	{
+    elsif( $tag eq 'hr' ) {
     	my $item = Netscape::Bookmarks::Separator->new();
     	$category_stack[-1]->add( $item );
     	}
-	elsif( $tag eq 'meta' )
-		{
+	elsif( $tag eq 'meta' ) {
 		$self->mozilla(1);
 		}
-		
+
     $flag = $tag
 	}
 
-sub text
-	{
+sub text {
 	my($self, $text) = @_;
 
-	if($text_flag)
-		{
-		if( not defined $flag )
-			{
+	if($text_flag) {
+		if( not defined $flag ) {
 			# sometimes $flag is not set (haven't figured out when that
 			# is), so without this no-op, you get a perl5.6.1 warning
 			# about "uninitialized value in string eq"
 			1;
 			}
-		elsif( $flag eq 'h1' or $flag eq 'h3' )
-			{
+		elsif( $flag eq 'h1' or $flag eq 'h3' ) {
 			$category_stack[-1]->title( $text );
 			}
-		elsif( $flag eq 'a' and not exists $link_data{'aliasof'} )
-			{
+		elsif( $flag eq 'a' and not exists $link_data{'aliasof'} ) {
 			$current_link->title( $text );
 			}
-		elsif( $flag eq 'dd' )
-			{
-            if( $state eq 'category' )
-                {
+		elsif( $flag eq 'dd' ) {
+            if( $state eq 'category' ) {
                 $category_stack[-1]->description( $text );
                 }
-            elsif( $state eq 'anchor' )
-                {
+            elsif( $state eq 'anchor' ) {
                 $current_link->description( $text );
                 }
 			}
 
 		}
-	else
-		{
-		if( not defined $flag )
-			{
+	else {
+		if( not defined $flag ) {
 			# sometimes $flag is not set (haven't figured out when that
 			# is), so without this no-op, you get a perl5.6.1 warning
 			# about "uninitialized value in string eq"
 			1;
 			}
-		elsif( $flag eq 'h1' )
-			{
+		elsif( $flag eq 'h1' ) {
 			$netscape = Netscape::Bookmarks::Category->new(
 				{
 				title    => $text,
@@ -261,8 +240,7 @@ sub text
 
 			push @category_stack, $netscape;
 			}
-		elsif( $flag eq 'h3' )
-			{
+		elsif( $flag eq 'h3' ) {
 			#print STDERR "Personal Toolbar is [$category_data{'personal_toolbar_folder'}] for [$text]\n";
 			my $cat = Netscape::Bookmarks::Category->new(
 				{
@@ -277,8 +255,7 @@ sub text
 			$category_stack[-1]->add( $cat );
 			push @category_stack, $cat;
 			}
-		elsif( $flag eq 'a' and not exists $link_data{'aliasof'} )
-			{
+		elsif( $flag eq 'a' and not exists $link_data{'aliasof'} ) {
 			my $item = Netscape::Bookmarks::Link->new( {
 	    		HREF			 => $link_data{'href'},
 	    		ADD_DATE 		 => $link_data{'add_date'},
@@ -295,14 +272,12 @@ sub text
 	    		TITLE            => $text,
 	    		});
 
-	    	unless( ref $item )
-	    		{
+	    	unless( ref $item ) {
 	    		print "ERROR: $Netscape::Bookmarks::Link::ERROR\n" if $DEBUG;
 	    		return;
 	    		}
 
-			if( defined $link_data{'aliasid'} )
-				{
+			if( defined $link_data{'aliasid'} ) {
 				&Netscape::Bookmarks::Alias::add_target(
 					$item, $link_data{'aliasid'} )
 				}
@@ -310,25 +285,20 @@ sub text
 			$category_stack[-1]->add( $item );
 			$current_link = $item;
 			}
-		elsif( $flag eq 'a' and defined $link_data{'aliasof'} )
-			{
+		elsif( $flag eq 'a' and defined $link_data{'aliasof'} ) {
 			my $item = Netscape::Bookmarks::Alias->new( $link_data{'aliasof'} );
-	    	unless( ref $item )
-	    		{
+	    	unless( ref $item ) {
 	    		return;
 	    		}
 
 			$category_stack[-1]->add( $item );
 			$current_link = $item;
 			}
-		elsif( $flag eq 'dd' )
-			{
-			if( $state eq 'category' )
-				{
+		elsif( $flag eq 'dd' ) {
+			if( $state eq 'category' ) {
 				$category_stack[-1]->description( $text );
 				}
-			elsif( $state eq 'anchor' )
-				{
+			elsif( $state eq 'anchor' ) {
 	     		$current_link->description( $text );
 				}
 			}
@@ -337,8 +307,7 @@ sub text
 	$text_flag = 1;
 	}
 
-sub end
-    {
+sub end {
     my($self, $tag, $attr) = @_;
 
     $text_flag = 0;

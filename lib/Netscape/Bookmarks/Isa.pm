@@ -81,41 +81,34 @@ my $Link      = 'Netscape::Bookmarks::Link';
 my $Alias     = 'Netscape::Bookmarks::Alias';
 my $Separator = 'Netscape::Bookmarks::Separator';
 
-sub is_category
-	{
-	$_[0]->is_something( $Category );
-	}
-	
-sub is_link
-	{
-	$_[0]->is_something( $Link, $Alias );
-	}
-	
-sub is_alias
-	{
-	$_[0]->is_something( $Alias );
-	}
-	
-sub is_separator
-	{
-	$_[0]->is_something( $Separator );
-	}
-	
-sub is_collection
-	{
+sub is_category {
 	$_[0]->is_something( $Category );
 	}
 
-sub is_something
-	{
+sub is_link {
+	$_[0]->is_something( $Link, $Alias );
+	}
+
+sub is_alias {
+	$_[0]->is_something( $Alias );
+	}
+
+sub is_separator {
+	$_[0]->is_something( $Separator );
+	}
+
+sub is_collection {
+	$_[0]->is_something( $Category );
+	}
+
+sub is_something {
 	my $self = shift;
-	
-	foreach my $something ( @_ )
-		{
+
+	foreach my $something ( @_ ) {
 		return 1 if UNIVERSAL::isa( $self, $something );
 		}
-		
+
 	return 0;
 	}
-	
+
 1;
