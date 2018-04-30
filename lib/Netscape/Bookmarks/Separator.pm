@@ -36,7 +36,7 @@ use base qw( Netscape::Bookmarks::AcceptVisitor Netscape::Bookmarks::Isa );
 use subs qw();
 use vars qw( $VERSION );
 
-$VERSION = "2.302";
+$VERSION = "2.303";
 
 my $singleton = undef;
 

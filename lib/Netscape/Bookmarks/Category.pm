@@ -66,7 +66,7 @@ use constant FOLDED_TRUE     => 1;
 use constant FOLDED_FALSE    => 0;
 use constant TRUE            => 'true';
 
-$VERSION = "2.302";
+$VERSION = "2.303";
 
 %IDS     = ();
 $LAST_ID = -1;

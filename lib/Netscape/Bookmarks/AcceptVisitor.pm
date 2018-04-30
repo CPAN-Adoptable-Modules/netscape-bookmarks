@@ -4,7 +4,7 @@ use strict;
 use subs qw();
 use vars qw($VERSION);
 
-$VERSION = "2.302";
+$VERSION = "2.303";
 
 sub visitor {
 	my( $self, $visitor ) = @_;
