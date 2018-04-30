@@ -1,4 +1,5 @@
 package Netscape::Bookmarks;
+use v5.10;
 
 =encoding utf8
 
