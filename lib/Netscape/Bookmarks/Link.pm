@@ -78,7 +78,7 @@ use vars qw( $DEBUG $VERSION $ERROR );
 
 use URI;
 
-$VERSION = "2.301";
+$VERSION = "2.302";
 
 =item Netscape::Bookmarks::Link-E<gt>new( \%hash )
 
