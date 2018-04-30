@@ -58,8 +58,7 @@ Beyond that, look at the code.
 
 =cut
 
-sub visit
-	{
+sub visit {
 	my( $self, $object ) = @_;
 
 	my $class = ref $object;
@@ -68,29 +67,25 @@ sub visit
 	$self->$class($object);
 	}
 
-sub Category
-	{
+sub Category {
 	my( $self, $object ) = @_;
 
 	print STDERR "\tFound category!\n";
 	}
 
-sub Alias
-	{
+sub Alias {
 	my( $self, $object ) = @_;
 
 	print STDERR "\tFound Alias!\n";
 	}
 
-sub Separator
-	{
+sub Separator {
 	my( $self, $object ) = @_;
 
 	print STDERR "\tFound Separator!\n";
 	}
 
-sub Link
-	{
+sub Link {
 	my( $self, $object ) = @_;
 	print STDERR "\tFound Link!\n";
 	return unless require HTTP::SimpleLinkChecker;
@@ -101,7 +96,9 @@ sub Link
 	}
 
 1;
+
 __END__
+
 =back
 
 =head1 AUTHOR
