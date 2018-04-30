@@ -2,6 +2,16 @@
 
 =encoding utf8
 
+=for HTML <a href="https://travis-ci.org/briandfoy/netscape-bookmarks"><img src="https://travis-ci.org/briandfoy/netscape-bookmarks.svg?branch=master" /></a>
+
+=for HTML <a href='https://ci.appveyor.com/project/briandfoy/netscape-bookmarks'><img src='https://ci.appveyor.com/api/projects/status/9cfugk2k3ttjvi7g' /></a>
+
+=for HTML <a href='https://coveralls.io/github/briandfoy/netscape-bookmarks?branch=master'><img src='https://coveralls.io/repos/github/briandfoy/netscape-bookmarks/badge.svg?branch=master' alt='Coverage Status' /></a>
+
+=for HTML <a href="https://github.com/briandfoy/netscape-bookmarks/blob/master/LICENSE"><img src="https://img.shields.io/cpan/l/Netscape-Bookmarks.svg" /></a>
+
+=for HTML <a href="http://www.metacpan.org/module/Netscape::Bookmarks"><img src="https://img.shields.io/cpan/v/Netscape-Bookmarks.svg" /></A>
+
 =head1 The Netscape::Bookmarks module
 
 This is the I<README> for the L<Netscape::Bookmarks> Perl module. You're probably 
