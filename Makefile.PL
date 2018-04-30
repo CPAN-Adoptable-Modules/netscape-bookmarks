@@ -86,6 +86,10 @@ my %WriteMakefile = (
 				},
 			homepage => $github,
 			},
+		no_index => {
+			file      => [ 'examples/Visitor.pm' ],
+			directory => [ 'examples', 't' ],
+			},
 		},
 
 	clean => { FILES => "$dist-*" },
