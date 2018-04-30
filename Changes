@@ -1,5 +1,9 @@
 Revision history for Perl module Netscape::Bookmarks
 
+2.302 2018-04-30T14:56:44Z
+	* Clarify that it's the Artistic License 2.0.
+	* Some fixes to hide extra things from PAUSE.
+
 2.301 2016-01-13T19:01:07Z
 	* Freshen up the module
 
