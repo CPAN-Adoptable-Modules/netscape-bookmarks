@@ -38,7 +38,7 @@ Perl.
 print <<"HERE";
 
 ====================================================================
-Test::HTTPStatus is an abandoned module. You can still use it but
+Netscape::Bookmarks is an abandoned module. You can still use it but
 there is no support and it might not stay on CPAN. If you want to
 use it, take over the module or fork it.
 ====================================================================
